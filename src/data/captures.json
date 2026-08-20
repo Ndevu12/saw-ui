@@ -1,0 +1,771 @@
+{
+  "tool": "stayawakebot",
+  "version": "0.6.2",
+  "columns": 100,
+  "scenarios": [
+    {
+      "id": "welcome",
+      "isVerdict": false,
+      "label": "Meet it",
+      "blurb": "What you get for typing four letters.",
+      "command": "saw",
+      "exitCode": 0,
+      "duration": 0.65,
+      "tokens": [
+        {
+          "t": "\n",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": " █████    ███    ██   ██",
+          "fg": "#7ee7b0",
+          "bold": true,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "   ",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "the sentinel saw the worm",
+          "fg": "#7a8594",
+          "bold": false,
+          "italic": true,
+          "dim": false
+        },
+        {
+          "t": "\n",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "██       █████   ██   ██",
+          "fg": "#7ee7b0",
+          "bold": true,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "\n",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": " ████   ██   ██  ██ █ ██",
+          "fg": "#7ee7b0",
+          "bold": true,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "   ",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "supply-chain worm hunter",
+          "fg": "#4cd07d",
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "\n",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "    ██  ███████  ███████",
+          "fg": "#7ee7b0",
+          "bold": true,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "   ",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "offline · persists nothing",
+          "fg": "#7a8594",
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "\n",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "█████   ██   ██   ██ ██ ",
+          "fg": "#7ee7b0",
+          "bold": true,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "\n\n",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "Get started",
+          "fg": "#f0f6fc",
+          "bold": true,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "\n  ",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "saw scan .",
+          "fg": "#5fd3dd",
+          "bold": true,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "         ",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "hunt this repo for supply-chain worms (read-only)",
+          "fg": "#7a8594",
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "\n  ",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "saw audit",
+          "fg": "#5fd3dd",
+          "bold": true,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "          ",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "credential · editor · CI hygiene",
+          "fg": "#7a8594",
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "\n  ",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "saw intro",
+          "fg": "#5fd3dd",
+          "bold": true,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "          ",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "a 60-second tour",
+          "fg": "#7a8594",
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "\n  ",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "saw <command> -h",
+          "fg": "#5fd3dd",
+          "bold": true,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "   ",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "help for any command",
+          "fg": "#7a8594",
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "\n\n",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "saw v0.6.2 ",
+          "fg": "#7a8594",
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "· ",
+          "fg": "#58606e",
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "zero code runs at install",
+          "fg": "#4cd07d",
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": " · ",
+          "fg": "#58606e",
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "github.com/Ndevu12/stayAwakeBot",
+          "fg": "#5fd3dd",
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "\n\n",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        }
+      ],
+      "plain": "\n █████    ███    ██   ██   the sentinel saw the worm\n██       █████   ██   ██\n ████   ██   ██  ██ █ ██   supply-chain worm hunter\n    ██  ███████  ███████   offline · persists nothing\n█████   ██   ██   ██ ██ \n\nGet started\n  saw scan .         hunt this repo for supply-chain worms (read-only)\n  saw audit          credential · editor · CI hygiene\n  saw intro          a 60-second tour\n  saw <command> -h   help for any command\n\nsaw v0.6.2 · zero code runs at install · github.com/Ndevu12/stayAwakeBot\n\n"
+    },
+    {
+      "id": "clean",
+      "isVerdict": true,
+      "label": "A clean repository",
+      "blurb": "Nothing found, and it says so without overclaiming.",
+      "command": "saw scan .",
+      "exitCode": 0,
+      "duration": 1.582,
+      "tokens": [
+        {
+          "t": "Security scan — 2026-08-20T14:47:41.068589+02:00\n\n1 targets · 0 infected · 0 suspicious · 0 findings (0 critical, 0 high)\n\nSTATUS  FINDINGS  SEVERITY  TARGET        \n──────  ────────  ────────  ──────────────\n",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "clean ",
+          "fg": "ansi2",
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "  0         —         ~/dev/acme-web\n\nHost note: a clean repo scan is NOT a host all-clear — it does not check host persistence. Before rotating any credential, run `saw audit` (rotating while a persistence daemon is live can arm a home-directory wiper).\n",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        }
+      ],
+      "plain": "Security scan — 2026-08-20T14:47:41.068589+02:00\n\n1 targets · 0 infected · 0 suspicious · 0 findings (0 critical, 0 high)\n\nSTATUS  FINDINGS  SEVERITY  TARGET        \n──────  ────────  ────────  ──────────────\nclean   0         —         ~/dev/acme-web\n\nHost note: a clean repo scan is NOT a host all-clear — it does not check host persistence. Before rotating any credential, run `saw audit` (rotating while a persistence daemon is live can arm a home-directory wiper).\n"
+    },
+    {
+      "id": "intro",
+      "isVerdict": false,
+      "label": "The tour",
+      "blurb": "The whole tool, in a screen.",
+      "command": "saw intro",
+      "exitCode": 0,
+      "duration": 0.447,
+      "tokens": [
+        {
+          "t": "\n",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": " █████    ███    ██   ██",
+          "fg": "#7ee7b0",
+          "bold": true,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "   ",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "stayAwakeBot",
+          "fg": "#f0f6fc",
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "\n",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "██       █████   ██   ██",
+          "fg": "#7ee7b0",
+          "bold": true,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "   ",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "the sentinel saw the worm",
+          "fg": "#7a8594",
+          "bold": false,
+          "italic": true,
+          "dim": false
+        },
+        {
+          "t": "\n",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": " ████   ██   ██  ██ █ ██",
+          "fg": "#7ee7b0",
+          "bold": true,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "\n",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "    ██  ███████  ███████",
+          "fg": "#7ee7b0",
+          "bold": true,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "   ",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "detect · report · auto-fix",
+          "fg": "#4cd07d",
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "\n",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "█████   ██   ██   ██ ██ ",
+          "fg": "#7ee7b0",
+          "bold": true,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "\n\n",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "What it is",
+          "fg": "#f0f6fc",
+          "bold": true,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "\n",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "  A local supply-chain worm hunter — it detects, reports, and auto-fixes",
+          "fg": "#7a8594",
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "\n",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "  self-propagating malware: obfuscated loaders, fake fonts, VS Code",
+          "fg": "#7a8594",
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "\n",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "  auto-run tasks, and stealth \"evil merges\".",
+          "fg": "#7a8594",
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "\n\n",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "Three verbs",
+          "fg": "#f0f6fc",
+          "bold": true,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "\n  ",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "saw scan ",
+          "fg": "#5fd3dd",
+          "bold": true,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "  hunt worms (read-only) — ",
+          "fg": "#7a8594",
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "the exit code IS the verdict",
+          "fg": "#c9d3de",
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "\n  ",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "saw fix  ",
+          "fg": "#5fd3dd",
+          "bold": true,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "  recover from git onto a clean branch; ",
+          "fg": "#7a8594",
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "--pr",
+          "fg": "#7ee7b0",
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": " opens a PR",
+          "fg": "#7a8594",
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "\n  ",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "saw audit",
+          "fg": "#5fd3dd",
+          "bold": true,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "  credential · editor · CI hygiene",
+          "fg": "#7a8594",
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "\n\n",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "Why it's safe",
+          "fg": "#f0f6fc",
+          "bold": true,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "\n  ",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "· runs ",
+          "fg": "#7a8594",
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "zero code at install",
+          "fg": "#4cd07d",
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": " (that's the very vector it hunts)",
+          "fg": "#7a8594",
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "\n  ",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "· fully accurate ",
+          "fg": "#7a8594",
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "offline",
+          "fg": "#4cd07d",
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "; only sandbox-escaping -x is opt-in",
+          "fg": "#7a8594",
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "\n",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "  · persists nothing by default",
+          "fg": "#7a8594",
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "\n\n",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "Gate CI  ",
+          "fg": "#f0f6fc",
+          "bold": true,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "saw scan",
+          "fg": "#5fd3dd",
+          "bold": true,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "  →  exit 1 on infection fails the build",
+          "fg": "#7a8594",
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "\n",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "Docs     ",
+          "fg": "#f0f6fc",
+          "bold": true,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "github.com/Ndevu12/stayAwakeBot",
+          "fg": "#5fd3dd",
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "\n",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "saw v0.6.2",
+          "fg": "#58606e",
+          "bold": false,
+          "italic": false,
+          "dim": false
+        },
+        {
+          "t": "\n\n",
+          "fg": null,
+          "bold": false,
+          "italic": false,
+          "dim": false
+        }
+      ],
+      "plain": "\n █████    ███    ██   ██   stayAwakeBot\n██       █████   ██   ██   the sentinel saw the worm\n ████   ██   ██  ██ █ ██\n    ██  ███████  ███████   detect · report · auto-fix\n█████   ██   ██   ██ ██ \n\nWhat it is\n  A local supply-chain worm hunter — it detects, reports, and auto-fixes\n  self-propagating malware: obfuscated loaders, fake fonts, VS Code\n  auto-run tasks, and stealth \"evil merges\".\n\nThree verbs\n  saw scan   hunt worms (read-only) — the exit code IS the verdict\n  saw fix    recover from git onto a clean branch; --pr opens a PR\n  saw audit  credential · editor · CI hygiene\n\nWhy it's safe\n  · runs zero code at install (that's the very vector it hunts)\n  · fully accurate offline; only sandbox-escaping -x is opt-in\n  · persists nothing by default\n\nGate CI  saw scan  →  exit 1 on infection fails the build\nDocs     github.com/Ndevu12/stayAwakeBot\nsaw v0.6.2\n\n"
+    }
+  ]
+}

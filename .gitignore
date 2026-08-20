@@ -34,3 +34,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# capture pipeline
+/.capture-venv
+/.capture-work
+
+# operator-supplied detection fixtures — never commit one (see tools/capture.py)
+/fixtures-local
