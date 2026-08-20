@@ -18,7 +18,7 @@ $HOME/dev/acme-web renders as `~/dev/acme-web` with no post-editing. The transcr
 stays byte-real; we choose the path rather than rewriting the output. It also keeps the
 run away from the operator's real git and saw configuration.
 
-DISCLOSURE: every frame this produces ships on a public marketing page. Scenarios are
+DISCLOSURE: every frame this produces ships on the public website. Scenarios are
 summary-level on purpose — per-finding detail names what a detector keys on, and that is
 never published. Read `docs/CAPTURES.md` before adding a scenario.
 """
@@ -169,7 +169,7 @@ CLEAN_FILES = {
 # This repo is public. A sample known to trip saw's confirmed tier, published here,
 # is a detection ORACLE: mutate a line, re-run saw, and you have binary-searched the
 # boundary. That is the evasion aid the trust model exists to withhold, and shipping
-# one would leak more than any marketing frame is worth.
+# one would leak more than any site frame is worth.
 #
 # So the infected scenario is opt-in, from a fixture the operator keeps locally and
 # never commits, and it is written only after a human has read the transcript:
