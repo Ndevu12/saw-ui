@@ -95,15 +95,35 @@ function layout(sc: Scenario) {
 }
 
 /** One clip = a session plus its pre-computed layout and timeline. */
+// The braille spinner saw actually paints while it walks the tree, and the line it
+// prints when discovery finishes — both observed by running the streaming scanner
+// against a one-repo fixture (`saw scan .`). The --no-stream capture skips this phase,
+// so the demo replays it here to match what a real run shows before any result.
+const SPINNER = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
+
 const CLIPS = ORDER.map((id) => BY_ID[id])
   .filter(Boolean)
   .map((sc) => {
     const { lines, total } = layout(sc);
+    const discovers = sc.command.startsWith('saw scan');
     const typeMs = Math.max(650, sc.command.length * 60);
-    const gapMs = 480; // the beat after Enter
-    const revealMs = Math.min(Math.max(1200, lines.length * 90), 2800);
-    const holdMs = 2800; // sit on the result
-    return { sc, lines, total, typeMs, gapMs, revealMs, holdMs, dur: typeMs + gapMs + revealMs + holdMs };
+    const gapMs = 360; // the beat after Enter
+    const discoverMs = discovers ? 1300 : 0; // ~matches the real spinner's dwell
+    const revealMs = Math.min(Math.max(1100, lines.length * 85), 2600);
+    const holdMs = 2900; // sit on the result
+    return {
+      sc,
+      lines,
+      total,
+      discovers,
+      discoveryLine: 'Found 1 repository to scan.',
+      typeMs,
+      gapMs,
+      discoverMs,
+      revealMs,
+      holdMs,
+      dur: typeMs + gapMs + discoverMs + revealMs + holdMs,
+    };
   });
 
 const VERDICT_WORD: Record<number, string> = {
@@ -117,6 +137,8 @@ export function ReplayDeck() {
   const [idx, setIdx] = useState(0);
   const [typed, setTyped] = useState(0); // command chars shown
   const [revealed, setRevealed] = useState(0); // output chars shown
+  const [phase, setPhase] = useState<'type' | 'discover' | 'output'>('type');
+  const [spin, setSpin] = useState(0); // braille spinner frame
   const [motionOK, setMotionOK] = useState(false);
   const [inView, setInView] = useState(false);
   const [overflows, setOverflows] = useState(false);
@@ -152,35 +174,51 @@ export function ReplayDeck() {
     if (!motionOK) {
       setTyped(cmd);
       setRevealed(clip.total);
+      setPhase('output');
       return;
     }
     if (!inView) return;
 
     setTyped(0);
     setRevealed(0);
+    setPhase('type');
+    setSpin(0);
+
+    const tType = clip.typeMs;
+    const tGap = tType + clip.gapMs;
+    const tDisc = tGap + clip.discoverMs;
+    const tReveal = tDisc + clip.revealMs;
     const start = performance.now();
     let raf = 0;
     const tick = (now: number) => {
       const t = now - start;
-      if (t < clip.typeMs) {
-        setTyped(Math.floor(cmd * (t / clip.typeMs)));
-        setRevealed(0);
-      } else if (t < clip.typeMs + clip.gapMs) {
+      if (t < tType) {
+        setPhase('type');
+        setTyped(Math.floor(cmd * (t / tType)));
+      } else if (t < tGap) {
         setTyped(cmd);
-        setRevealed(0);
-      } else if (t < clip.typeMs + clip.gapMs + clip.revealMs) {
-        const p = (t - clip.typeMs - clip.gapMs) / clip.revealMs;
+      } else if (t < tDisc) {
+        // Discovering repositories — the animated spinner, redrawing in place.
         setTyped(cmd);
+        setPhase('discover');
+        setSpin(Math.floor((t - tGap) / 90) % SPINNER.length);
+      } else if (t < tReveal) {
+        setPhase('output');
+        setTyped(cmd);
+        const p = (t - tDisc) / clip.revealMs;
         setRevealed(Math.floor(clip.total * (1 - Math.pow(1 - p, 1.8))));
       }
-      if (t < clip.typeMs + clip.gapMs + clip.revealMs) raf = requestAnimationFrame(tick);
+      if (t < tReveal) raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
 
+    // Fail toward visible: once the reveal window is over, show the whole transcript
+    // for the hold even if rAF never delivered a frame.
     const showAll = setTimeout(() => {
       setTyped(cmd);
+      setPhase('output');
       setRevealed(clip.total);
-    }, clip.typeMs + clip.gapMs + clip.revealMs);
+    }, tReveal);
     const advance = setTimeout(() => setIdx((i) => (i + 1) % CLIPS.length), clip.dur + 300);
 
     return () => {
@@ -201,9 +239,8 @@ export function ReplayDeck() {
   }, [idx, revealed]);
 
   const cmd = clip.sc.command;
-  const outStarted = typed >= cmd.length;
-  const done = revealed >= clip.total;
-  const cursorAfterCommand = !outStarted || revealed === 0;
+  const done = phase === 'output' && revealed >= clip.total;
+  const cursorAfterCommand = phase === 'type' || (phase === 'discover' ? false : typed < cmd.length);
   const tone = clip.sc.exitCode === 0 ? 'ok' : clip.sc.exitCode === 1 ? 'bad' : 'warn';
 
   const rendered = useMemo(() => {
@@ -255,7 +292,23 @@ export function ReplayDeck() {
             ) : null}
             {'\n'}
           </span>
-          {outStarted ? rendered : null}
+
+          {/* Discovery — the spinner while it walks the tree, then the line saw prints
+              when it is done. Only scan sessions discover. */}
+          {clip.discovers && phase === 'discover' ? (
+            <span className="tline text-[#8b97a6]">
+              <span className="text-[#7ee7b0]">{SPINNER[spin]}</span> Discovering repositories…
+              {'\n'}
+            </span>
+          ) : null}
+          {clip.discovers && phase === 'output' ? (
+            <span className="tline text-[#8b97a6]">
+              {clip.discoveryLine}
+              {'\n\n'}
+            </span>
+          ) : null}
+
+          {phase === 'output' ? rendered : null}
         </pre>
       </div>
 
