@@ -1,4 +1,6 @@
-/* ── site components ────────────────────────────────────────────────────────────── */
+/* ── site components ──────────────────────────────────────────────────────────────
+   Density is the enemy here. Every block below is sized so a reader skimming once
+   never meets a wall of text or a grid of small print. */
 
 /* ── masthead ─────────────────────────────────────────────────────────────────── */
 .masthead {
@@ -6,64 +8,59 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 16px 24px;
-  padding: 28px 0 0;
+  gap: 18px 32px;
+  padding: 34px 0 0;
 }
-.masthead nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px 22px;
-  font-size: 0.92rem;
-  justify-content: flex-end;
-}
-.masthead nav a {
-  color: var(--ink-dim);
-  text-decoration: none;
-}
+.masthead nav { display: flex; flex-wrap: wrap; gap: 16px 28px; font-size: 1rem; }
+.masthead nav a { color: var(--ink-dim); text-decoration: none; }
 .masthead nav a:hover { color: var(--ink-strong); }
 
 .wordmark { color: var(--mint); display: block; }
 
-/* One orchestrated moment: the mark paints row by row, as if drawn by a terminal.
-   Once, on load, never again. Killed outright by the reduced-motion rule in globals. */
-.wordmark-paint rect {
-  opacity: 0;
-  animation: mark-in 340ms steps(2, end) forwards;
-}
-@keyframes mark-in {
-  to { opacity: 1; }
-}
+/* One orchestrated moment: the mark paints row by row, as a terminal would draw it.
+   Once, on load, never again. Killed outright by the reduced-motion rule. */
+.wordmark-paint rect { opacity: 0; animation: mark-in 320ms steps(2, end) forwards; }
+@keyframes mark-in { to { opacity: 1; } }
 
-/* ── hero ─────────────────────────────────────────────────────────────────────── */
-.hero { padding: clamp(44px, 7vw, 76px) 0 clamp(40px, 6vw, 64px); max-width: 1180px; }
-.hero-grid { display: grid; gap: clamp(36px, 5vw, 56px); }
-/* Grid and flex items default to min-width:auto, which lets a non-wrapping <pre>
-   push the whole page wider than the viewport. Wide content scrolls inside its own
-   container; the page body never scrolls sideways. */
-.hero-grid > * { min-width: 0; max-width: 100%; }
-@media (min-width: 940px) {
-  /* The terminal takes the larger share: it is the argument, the prose beside it is
-     the caption. Sized so ~78 columns of structural output fit without scrolling. */
-  .hero-grid { grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.32fr); align-items: start; }
+/* ── hero ─────────────────────────────────────────────────────────────────────────
+   One idea, one line, one thing to do. The demonstration is the NEXT beat, given a
+   full-width stage of its own rather than squeezed alongside the headline. */
+.hero { padding: clamp(76px, 11vw, 148px) 0 clamp(56px, 8vw, 96px); }
+
+/* The headline is the composition. Let it occupy the measure rather than sitting in
+   a narrow left column with the page trailing off to the right — at 20ch it breaks
+   into two full lines instead of one long and one stub. */
+.hero h1 { margin: 30px 0 34px; max-width: 20ch; }
+.hero .lede { margin-bottom: 48px; max-width: 52ch; font-size: clamp(1.3rem, 2.1vw, 1.6rem); }
+
+.hero-cta { display: flex; flex-direction: column; gap: 18px; align-items: flex-start; }
+
+.creed {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 18px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.95rem;
+  color: var(--ink-faint);
 }
-.hero h1 { margin-bottom: 20px; }
-.hero .lede { margin-bottom: 28px; }
+.creed b { color: var(--mint); font-weight: 500; }
+.creed .dot { color: var(--rule); }
 
 /* ── install line ─────────────────────────────────────────────────────────────── */
 .install {
   display: flex;
   align-items: stretch;
-  gap: 0;
   border: 1px solid var(--rule);
-  border-radius: 8px;
+  border-radius: 10px;
   background: var(--surface);
   overflow: hidden;
   max-width: 100%;
   box-shadow: var(--shadow);
 }
 .install code {
-  padding: 13px 16px;
-  font-size: 0.9rem;
+  padding: 17px 22px;
+  font-size: 1.06rem;
   color: var(--ink-strong);
   white-space: nowrap;
   overflow-x: auto;
@@ -76,44 +73,35 @@
   background: var(--surface-2);
   color: var(--ink-dim);
   font: inherit;
-  font-size: 0.8rem;
-  padding: 0 16px;
-  cursor: pointer;
   font-family: 'IBM Plex Mono', monospace;
-  letter-spacing: 0.06em;
+  font-size: 0.84rem;
+  padding: 0 22px;
+  cursor: pointer;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 .install-copy:hover { color: var(--mint); background: var(--chip); }
 
-.hero-note {
-  font-size: 0.9rem;
-  color: var(--ink-faint);
-  margin-top: 14px;
-  max-width: 46ch;
-}
-.hero-note strong { color: var(--ink-dim); font-weight: 500; }
+/* ── the demonstration ────────────────────────────────────────────────────────── */
+.stage { padding: 0 0 clamp(88px, 13vw, 160px); }
+.stage-head { display: flex; flex-direction: column; gap: 14px; margin-bottom: 30px; }
 
-/* ── replay deck ──────────────────────────────────────────────────────────────── */
-.deck { display: flex; flex-direction: column; gap: 12px; min-width: 0; max-width: 100%; }
+.deck { display: flex; flex-direction: column; gap: 16px; min-width: 0; max-width: 100%; }
 
-.deck-tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+.deck-tabs { display: flex; flex-wrap: wrap; gap: 8px; }
 .deck-tab {
   font: inherit;
-  font-size: 0.82rem;
   font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.92rem;
   color: var(--ink-faint);
   background: transparent;
   border: 1px solid var(--rule);
   border-radius: 999px;
-  padding: 5px 13px;
+  padding: 8px 18px;
   cursor: pointer;
 }
 .deck-tab:hover { color: var(--ink); border-color: var(--ink-faint); }
-.deck-tab.is-on {
-  color: var(--mint);
-  border-color: var(--mint);
-  background: var(--chip);
-}
+.deck-tab.is-on { color: var(--mint); border-color: var(--mint); background: var(--chip); }
 
 .term {
   --t-mint: #7ee7b0;
@@ -127,56 +115,53 @@
   background: var(--term-bg);
   color: var(--term-fg);
   border: 1px solid var(--term-rule);
-  border-radius: 10px;
+  border-radius: 14px;
   overflow: hidden;
   min-width: 0;
-  box-shadow: 0 20px 48px -28px var(--glow);
+  box-shadow: 0 34px 80px -40px var(--glow);
 }
 
 .term-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding: 11px 16px;
+  gap: 20px;
+  padding: 15px 22px;
   border-bottom: 1px solid var(--term-rule);
   background: rgba(255, 255, 255, 0.02);
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.78rem;
+  font-size: 0.9rem;
 }
 .term-cmd { color: #f0f6fc; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.term-prompt { color: #7ee7b0; margin-right: 6px; }
-.term-meta { color: #58606e; white-space: nowrap; letter-spacing: 0.04em; }
+.term-prompt { color: #7ee7b0; margin-right: 8px; }
+.term-meta { color: #58606e; white-space: nowrap; letter-spacing: 0.05em; font-size: 0.82rem; }
 
-/* The transcript. Structural lines (tables, rules) must never wrap, so the block
-   scrolls horizontally; prose lines soft-wrap, which is exactly what a real terminal
-   does with a long line. `saw` does not reflow to width — measured identical at 100,
-   64 and 44 columns — so wrapping here is the honest rendering, not a shortcut. */
 .term-wrap { position: relative; max-width: 100%; overflow: hidden; }
 .term-wrap.is-clipped::after {
   content: '';
   position: absolute;
   inset: 0 0 0 auto;
-  width: 44px;
+  width: 52px;
   pointer-events: none;
-  background: linear-gradient(to right, rgba(9, 14, 20, 0), rgba(9, 14, 20, 0.92));
+  background: linear-gradient(to right, rgba(9, 14, 20, 0), rgba(9, 14, 20, 0.94));
 }
 
 .term-body {
   margin: 0;
-  padding: 18px 16px;
-  font-size: 0.735rem;
-  line-height: 1.62;
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
+  padding: 26px 22px;
+  font-size: 0.8rem;
+  line-height: 1.7;
   overflow-x: auto;
-  min-height: 15.5em;
-  max-height: 60vh;
+  min-height: 17em;
   tab-size: 4;
 }
-@media (min-width: 720px) {
-  .term-body { font-size: 0.79rem; }
-}
+@media (min-width: 700px) { .term-body { font-size: 0.9rem; } }
+@media (min-width: 1000px) { .term-body { font-size: 0.98rem; } }
+
+/* Structural lines never wrap — their meaning is horizontal. Prose lines do, which
+   is what a real terminal does with a long line at a narrow width. */
+.tline { display: block; white-space: pre-wrap; overflow-wrap: anywhere; }
+.tline-fixed { white-space: pre; overflow-wrap: normal; }
 
 .term-caret {
   display: inline-block;
@@ -191,18 +176,19 @@
 .term-foot {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 11px 16px;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 15px 22px;
   border-top: 1px solid var(--term-rule);
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.76rem;
+  font-size: 0.88rem;
 }
-.verdict { display: inline-flex; align-items: baseline; gap: 8px; }
+.verdict { display: inline-flex; align-items: baseline; gap: 11px; }
 .verdict-num {
-  font-size: 0.98rem;
+  font-size: 1.15rem;
   font-weight: 600;
-  padding: 1px 8px;
-  border-radius: 4px;
+  padding: 2px 12px;
+  border-radius: 5px;
   font-variant-numeric: tabular-nums;
 }
 .verdict-ok .verdict-num { color: #090e14; background: #7ee7b0; }
@@ -213,101 +199,84 @@
 .term-btn {
   font: inherit;
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.74rem;
+  font-size: 0.82rem;
   background: transparent;
   border: 1px solid #1e2a36;
   color: #7a8594;
-  border-radius: 5px;
-  padding: 3px 11px;
+  border-radius: 6px;
+  padding: 5px 14px;
   cursor: pointer;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 .term-btn:hover { color: #7ee7b0; border-color: #7ee7b0; }
 
-.deck-blurb { font-size: 0.88rem; color: var(--ink-faint); }
+.deck-blurb { font-size: 1rem; color: var(--ink-faint); }
 
-/* ── exit-code row ────────────────────────────────────────────────────────────── */
-.codes { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); width: 100%; }
-.code {
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
-  padding: 14px 16px;
-  border: 1px solid var(--rule);
-  border-left-width: 3px;
-  border-radius: 7px;
-  background: var(--surface);
+/* ── verbs ────────────────────────────────────────────────────────────────────── */
+.verbs { display: grid; gap: clamp(34px, 5vw, 56px); }
+@media (min-width: 800px) { .verbs { grid-template-columns: 1fr 1fr; } }
+.verb { display: flex; flex-direction: column; gap: 11px; }
+.verb-cmd {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 1.14rem;
+  color: var(--mint);
+  font-weight: 500;
 }
+.verb p { font-size: 1.04rem; color: var(--ink-dim); max-width: 40ch; }
+
+/* ── the verdict, explained ───────────────────────────────────────────────────── */
+.codes { display: flex; flex-direction: column; gap: 0; width: 100%; }
+.code {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 24px;
+  align-items: baseline;
+  padding: 26px 0;
+  border-top: 1px solid var(--rule-soft);
+}
+.code:last-child { border-bottom: 1px solid var(--rule-soft); }
 .code b {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 1.25rem;
+  font-size: 2rem;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
   line-height: 1;
 }
-.code span { font-size: 0.92rem; color: var(--ink-dim); }
-.code-0 { border-left-color: var(--mint); }
+.code span { font-size: 1.1rem; color: var(--ink-dim); }
 .code-0 b { color: var(--mint); }
-.code-1 { border-left-color: var(--coral); }
 .code-1 b { color: var(--coral); }
-.code-2 { border-left-color: var(--amber); }
 .code-2 b { color: var(--amber); }
-.code-3 { border-left-color: var(--coral); }
 .code-3 b { color: var(--coral); }
 
-/* ── verbs ────────────────────────────────────────────────────────────────────── */
-.verbs { display: grid; gap: 1px; background: var(--rule-soft); border: 1px solid var(--rule); border-radius: 9px; overflow: hidden; }
-@media (min-width: 760px) { .verbs { grid-template-columns: 1fr 1fr; } }
-.verb { background: var(--surface); padding: 22px 24px; display: flex; flex-direction: column; gap: 8px; }
-.verb-cmd { font-family: 'IBM Plex Mono', monospace; font-size: 0.95rem; color: var(--mint); font-weight: 500; }
-.verb p { font-size: 0.94rem; color: var(--ink-dim); }
-.verb-tag {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.68rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-}
-
 /* ── promises ─────────────────────────────────────────────────────────────────── */
-.promises { display: grid; gap: 22px; }
-@media (min-width: 760px) { .promises { grid-template-columns: 1fr 1fr; gap: 28px 40px; } }
-.promise { display: flex; flex-direction: column; gap: 7px; }
-.promise h3 { color: var(--ink-strong); }
-.promise p { font-size: 0.95rem; color: var(--ink-dim); }
+.promises { display: grid; gap: clamp(32px, 4.5vw, 52px); }
+@media (min-width: 820px) { .promises { grid-template-columns: 1fr 1fr; } }
+.promise { display: flex; flex-direction: column; gap: 10px; }
+.promise p { font-size: 1.04rem; color: var(--ink-dim); max-width: 40ch; }
 
-/* ── runbook: the only numbered list on the site, because it is the one place
-      where order genuinely carries the information ─────────────────────────────── */
-.runbook { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; background: var(--rule-soft); border: 1px solid var(--rule); border-radius: 9px; overflow: hidden; }
-.runbook li { background: var(--surface); display: grid; grid-template-columns: 40px 1fr; gap: 16px; padding: 18px 22px; align-items: baseline; }
-.runbook .step {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.8rem;
-  color: var(--mint);
-  font-variant-numeric: tabular-nums;
+/* ── runbook: the one numbered list, because order IS the information ─────────── */
+.runbook { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.runbook li {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: 24px;
+  padding: 26px 0;
+  align-items: baseline;
+  border-top: 1px solid var(--rule-soft);
 }
-.runbook b { color: var(--ink-strong); font-weight: 600; }
-.runbook p { font-size: 0.93rem; color: var(--ink-dim); margin-top: 3px; }
-.runbook li:last-child { background: var(--surface-2); }
+.runbook li:last-child { border-bottom: 1px solid var(--rule-soft); }
+.runbook .step { font-family: 'IBM Plex Mono', monospace; font-size: 0.95rem; color: var(--mint); }
+.runbook b { color: var(--ink-strong); font-weight: 600; font-size: 1.16rem; }
+.runbook p { font-size: 1.02rem; color: var(--ink-dim); margin-top: 7px; max-width: 46ch; }
 
-/* ── report path ──────────────────────────────────────────────────────────────── */
-.report {
-  border: 1px solid var(--rule);
-  border-radius: 10px;
-  background: var(--surface);
-  padding: clamp(24px, 4vw, 36px);
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  align-items: flex-start;
-}
-.report-links { display: flex; flex-wrap: wrap; gap: 10px; }
+/* ── buttons ──────────────────────────────────────────────────────────────────── */
+.btn-row { display: flex; flex-wrap: wrap; gap: 14px; }
 .btn {
   display: inline-block;
-  font-size: 0.9rem;
-  padding: 9px 16px;
-  border-radius: 6px;
+  font-size: 1rem;
+  padding: 13px 24px;
+  border-radius: 8px;
   text-decoration: none;
   border: 1px solid var(--rule);
   color: var(--ink);
@@ -317,26 +286,21 @@
 .btn-primary:hover { background: var(--mint-quiet); border-color: var(--mint-quiet); color: var(--ground); }
 
 /* ── requirements ─────────────────────────────────────────────────────────────── */
-.reqs { display: flex; flex-wrap: wrap; gap: 8px; }
+.reqs { display: flex; flex-wrap: wrap; gap: 10px; }
 .req {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.78rem;
+  font-size: 0.9rem;
   color: var(--ink-dim);
   border: 1px solid var(--rule);
   border-radius: 999px;
-  padding: 5px 12px;
+  padding: 7px 16px;
 }
 
 /* ── footer ───────────────────────────────────────────────────────────────────── */
-.foot { border-top: 1px solid var(--rule); padding: clamp(40px, 6vw, 64px) 0 56px; }
-.foot-grid { display: flex; flex-wrap: wrap; gap: 32px; justify-content: space-between; align-items: flex-start; }
-.foot-links { display: flex; flex-wrap: wrap; gap: 20px; font-size: 0.9rem; }
+.foot { border-top: 1px solid var(--rule); padding: clamp(64px, 9vw, 104px) 0 80px; }
+.foot-grid { display: flex; flex-wrap: wrap; gap: 40px; justify-content: space-between; align-items: flex-start; }
+.foot-links { display: flex; flex-wrap: wrap; gap: 16px 28px; font-size: 1rem; }
 .foot-links a { color: var(--ink-dim); text-decoration: none; }
 .foot-links a:hover { color: var(--ink-strong); }
-.foot-note { font-size: 0.85rem; color: var(--ink-faint); max-width: 56ch; margin-top: 28px; }
+.foot-note { font-size: 1rem; color: var(--ink-faint); max-width: 52ch; }
 .foot-note strong { color: var(--ink-dim); font-weight: 500; }
-
-/* Terminal lines: structural never wraps (its meaning is horizontal), prose does —
-   which is what a real terminal does with a long line at a narrow width. */
-.tline { display: block; white-space: pre-wrap; overflow-wrap: anywhere; }
-.tline-fixed { white-space: pre; overflow-wrap: normal; }
