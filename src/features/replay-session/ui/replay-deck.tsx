@@ -94,6 +94,19 @@ function layout(sc: Scenario) {
   return { lines, total: n };
 }
 
+/** Stop a transcript at saw's "Host note:" line. That note is real output, but it
+ *  names host-persistence threat detail we do not amplify on a public page — and a
+ *  marketing demo reads better ending on the verdict. Trailing blank lines are dropped
+ *  and the character total is recomputed so the reveal does not pause on nothing. */
+function stopAtHostNote(lines: Line[]): { lines: Line[]; total: number } {
+  const cut = lines.findIndex((l) => l.pieces.some((p) => p.tok.t.startsWith('Host note')));
+  let kept = cut === -1 ? lines : lines.slice(0, cut);
+  while (kept.length && kept[kept.length - 1].pieces.length === 0) kept = kept.slice(0, -1);
+  const last = kept[kept.length - 1];
+  const total = last ? Math.max(...last.pieces.map((p) => p.end)) : 0;
+  return { lines: kept, total };
+}
+
 /** One clip = a session plus its pre-computed layout and timeline. */
 // The braille spinner saw actually paints while it walks the tree, and the line it
 // prints when discovery finishes — both observed by running the streaming scanner
@@ -104,7 +117,7 @@ const SPINNER = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', 
 const CLIPS = ORDER.map((id) => BY_ID[id])
   .filter(Boolean)
   .map((sc) => {
-    const { lines, total } = layout(sc);
+    const { lines, total } = stopAtHostNote(layout(sc).lines);
     const discovers = sc.command.startsWith('saw scan');
     const typeMs = Math.max(650, sc.command.length * 60);
     const gapMs = 360; // the beat after Enter
@@ -125,13 +138,6 @@ const CLIPS = ORDER.map((id) => BY_ID[id])
       dur: typeMs + gapMs + discoverMs + revealMs + holdMs,
     };
   });
-
-const VERDICT_WORD: Record<number, string> = {
-  0: 'clean',
-  1: 'infected',
-  2: 'could not be scanned',
-  3: 'rotation unsafe',
-};
 
 export function ReplayDeck() {
   const [idx, setIdx] = useState(0);
@@ -241,9 +247,7 @@ export function ReplayDeck() {
   }, [idx, revealed]);
 
   const cmd = clip.sc.command;
-  const done = phase === 'output' && revealed >= clip.total;
   const cursorAfterCommand = phase === 'type' || (phase === 'discover' ? false : typed < cmd.length);
-  const tone = clip.sc.exitCode === 0 ? 'ok' : clip.sc.exitCode === 1 ? 'bad' : 'warn';
 
   const rendered = useMemo(() => {
     return clip.lines.map((line, li) => {
@@ -314,39 +318,20 @@ export function ReplayDeck() {
         </pre>
       </div>
 
-      {/* Result + which session is playing (indicator, not a control). */}
-      <div className="flex flex-wrap items-center gap-4 border-t border-[#1e2a36] px-6 py-4 font-mono text-sm">
-        {done && clip.sc.isVerdict ? (
-          <span className="inline-flex items-baseline gap-3">
+      {/* Session-position indicator only. The real `saw scan` prints no summary bar —
+          its verdict is already in the output table above — so nothing here echoes a
+          verdict, an exit line or a duration that the command does not actually print. */}
+      <div className="flex items-center justify-end border-t border-[#1e2a36] px-6 py-4">
+        <span className="flex items-center gap-1.5" aria-hidden="true">
+          {CLIPS.map((_, i) => (
             <span
+              key={i}
               className={cn(
-                'rounded-md px-3 py-0.5 text-xl font-semibold tabular-nums text-[#090e14]',
-                tone === 'ok' && 'bg-[#7ee7b0]',
-                tone === 'bad' && 'bg-[#f2736b]',
-                tone === 'warn' && 'bg-[#e3b44f]',
+                'h-1.5 rounded-full transition-all duration-500',
+                i === idx ? 'w-6 bg-[#7ee7b0]' : 'w-1.5 bg-[#3a4753]',
               )}
-            >
-              {clip.sc.exitCode}
-            </span>
-            <span className="text-[#7a8594]">exit — {VERDICT_WORD[clip.sc.exitCode] ?? 'unknown'}</span>
-          </span>
-        ) : (
-          <span className="text-[#58606e]">{clip.sc.command}</span>
-        )}
-
-        <span className="ml-auto flex items-center gap-4">
-          {done ? <span className="tabular-nums text-[#58606e]">{clip.sc.duration.toFixed(2)}s</span> : null}
-          <span className="flex items-center gap-1.5" aria-hidden="true">
-            {CLIPS.map((_, i) => (
-              <span
-                key={i}
-                className={cn(
-                  'h-1.5 rounded-full transition-all duration-500',
-                  i === idx ? 'w-6 bg-[#7ee7b0]' : 'w-1.5 bg-[#3a4753]',
-                )}
-              />
-            ))}
-          </span>
+            />
+          ))}
         </span>
       </div>
     </div>
