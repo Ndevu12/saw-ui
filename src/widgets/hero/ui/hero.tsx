@@ -85,16 +85,6 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Below the fold-line: the fuller description, secondary to the headline. */}
-      <p
-        className="reveal mt-12 max-w-[82ch] text-base leading-relaxed text-ink-dim md:text-lg"
-        style={{ '--reveal-delay': '400ms' } as React.CSSProperties}
-      >
-        <span className="text-ink-strong">saw</span> searches your repositories, lockfiles,
-        installed packages and your machine&apos;s own start-up surface — then opens the fix
-        as a pull request and gates CI, so an infected change cannot merge.{' '}
-        <span className="text-ink">The hunt happens offline, on your machine alone.</span>
-      </p>
     </section>
   );
 }

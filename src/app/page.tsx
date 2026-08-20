@@ -1,5 +1,6 @@
 import { SiteHeader } from '@/widgets/site-header/ui/site-header';
 import { Hero } from '@/widgets/hero/ui/hero';
+import { Threat } from '@/widgets/threat/ui/threat';
 import { Wordmark } from '@/shared/ui/wordmark';
 import { InstallLine } from '@/features/copy-command/ui/install-line';
 import { publishedVersion } from '@/shared/lib/version';
@@ -26,18 +27,7 @@ export default async function Home() {
         {/* ── The demonstration. Sections below the hero are converted but NOT yet
              individually designed — they are being taken one at a time. ────────── */}
 
-        <section className={`${SHELL} max-w-[1100px] py-28 lg:py-40`}>
-          <div className="flex flex-col gap-7">
-            <p className="font-mono text-xs tracking-[0.24em] text-mint uppercase sm:text-sm">What it hunts</p>
-            <h2 className="font-display text-3xl leading-tight md:text-4xl 2xl:text-5xl font-bold tracking-tight text-ink-strong">
-              Malware that spreads by being installed.
-            </h2>
-            <p className="max-w-[50ch] text-lg leading-relaxed text-ink-dim md:text-xl">
-              It arrives inside a package you chose, runs before review, and uses whatever
-              credentials it finds to publish itself into the next one.
-            </p>
-          </div>
-        </section>
+        <Threat />
 
         <section className={`${SHELL} py-28 lg:py-40`}>
           <div className="mb-16 flex flex-col gap-5">
