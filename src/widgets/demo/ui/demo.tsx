@@ -18,11 +18,11 @@ export function Demo() {
         <div className="grid gap-y-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.6fr)] lg:gap-x-20">
           {/* Left: pinned while the session plays. */}
           <div className="flex flex-col gap-6 lg:sticky lg:top-16 lg:self-start">
-            <p className="font-mono text-sm tracking-[0.24em] text-mint uppercase">See it run</p>
-            <h2 className="font-display text-[clamp(2.5rem,4.5vw,3.75rem)] leading-[1.02] font-bold tracking-tight text-balance text-ink-strong">
+            <p className="font-mono text-xs tracking-[0.24em] text-mint uppercase sm:text-sm">See it run</p>
+            <h2 className="font-display text-3xl leading-tight md:text-4xl 2xl:text-5xl font-bold tracking-tight text-balance text-ink-strong">
               Watch it in action.
             </h2>
-            <p className="max-w-[40ch] text-xl leading-[1.5] text-ink-dim">
+            <p className="max-w-[42ch] text-base leading-relaxed text-ink-dim md:text-lg">
               Real commands, real output, captured from the published release. It plays on its own.
             </p>
           </div>

@@ -289,7 +289,7 @@ export function ReplayDeck() {
 
       {/* The transcript: typed command, then its output. */}
       <div className={cn('relative max-w-full overflow-hidden', overflows && 'after:pointer-events-none after:absolute after:inset-y-0 after:right-0 after:w-14 after:bg-gradient-to-r after:from-transparent after:to-[#090e14]/95')}>
-        <pre ref={bodyEl} className="m-0 min-h-[22em] overflow-x-auto px-6 py-7 font-mono text-[0.9rem] leading-[1.7] sm:text-[0.95rem] lg:text-base">
+        <pre ref={bodyEl} className="m-0 min-h-[22em] overflow-x-auto px-6 py-7 font-mono text-sm leading-relaxed lg:text-base">
           <span className="tline">
             <span className="text-[#7ee7b0]">$ </span>
             <span className="text-[#f0f6fc]">{cmd.slice(0, typed)}</span>
