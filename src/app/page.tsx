@@ -1,6 +1,6 @@
 import { SiteHeader } from '@/widgets/site-header/ui/site-header';
 import { Hero } from '@/widgets/hero/ui/hero';
-import { ReplayDeck } from '@/features/replay-session/ui/replay-deck';
+import { Demo } from '@/widgets/demo/ui/demo';
 import { Wordmark } from '@/shared/ui/wordmark';
 import { InstallLine } from '@/features/copy-command/ui/install-line';
 import { publishedVersion } from '@/shared/lib/version';
@@ -25,15 +25,7 @@ export default async function Home() {
       <main id="main">
         {/* ── The demonstration. Sections below the hero are converted but NOT yet
              individually designed — they are being taken one at a time. ────────── */}
-        <section id="watch" className={`${SHELL} py-28 lg:py-40`}>
-          <div className="mb-12 flex flex-col gap-4">
-            <h2 className="font-display text-[clamp(2.25rem,4vw,3.5rem)] leading-[1.05] font-bold tracking-tight text-ink-strong">
-              Watch it happen.
-            </h2>
-            <p className="text-xl text-ink-dim">Real recorded sessions, not a mock-up. Pick one.</p>
-          </div>
-          <ReplayDeck />
-        </section>
+        <Demo />
 
         <section className={`${SHELL} max-w-[1100px] py-28 lg:py-40`}>
           <div className="flex flex-col gap-7">

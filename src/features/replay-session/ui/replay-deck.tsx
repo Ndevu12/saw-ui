@@ -45,14 +45,20 @@ const SCENARIOS = captures.scenarios as Scenario[];
    mint and near-white; the rest map to a muted terminal set. Mapping rather than using
    the raw hex keeps the terminal legible against our ground and lets the mint stay the
    one saturated thing on screen. */
+/* The recorded truecolor hexes, mapped to themselves. These ARE terminal-appropriate
+   (they came out of the CLI) and the terminal keeps its dark ground in both themes, so
+   there is nothing to remap. An earlier version pointed these at --t-* CSS variables
+   that were declared in the pre-Tailwind stylesheet; deleting that stylesheet left them
+   undefined, and every coloured token — including the mint wordmark — fell back to the
+   default grey. Literal values cannot come undone that way. */
 const PALETTE: Record<string, string> = {
-  '#7ee7b0': 'var(--t-mint)',
-  '#4cd07d': 'var(--t-green)',
-  '#5fd3dd': 'var(--t-cyan)',
-  '#7a8594': 'var(--t-dim)',
-  '#58606e': 'var(--t-faint)',
-  '#f0f6fc': 'var(--t-white)',
-  '#c9d3de': 'var(--t-fg)',
+  '#7ee7b0': '#7ee7b0', // mint — the wordmark and prompt
+  '#4cd07d': '#4cd07d', // green
+  '#5fd3dd': '#5fd3dd', // cyan
+  '#7a8594': '#8b97a6', // dim — nudged lighter for contrast on #090e14
+  '#58606e': '#6b7686', // faint — same
+  '#f0f6fc': '#f0f6fc', // near-white
+  '#c9d3de': '#c9d3de', // body
 };
 
 function colorFor(tok: Token): string | undefined {
