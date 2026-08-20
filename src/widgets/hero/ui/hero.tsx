@@ -8,13 +8,18 @@ import { shell, site } from '@/shared/config/site';
 /**
  * The first screen.
  *
- * Occupies the full viewport, and the headline spans the ENTIRE measure — no
- * ch-based clamp pinching it into a column while the viewport sits empty either
- * side. At desktop widths it lands on one line around 100px.
+ * COPY RULE, learned the hard way: say what the tool does, in words a stranger
+ * already knows. An earlier headline read "It ran before you read it." — evocative,
+ * but "it" referred to nothing the reader had been told about yet, and the sentence
+ * was about the THREAT rather than the product. A hero has to answer two questions
+ * before anything else: what does this do, and why this one.
  *
- * The exit codes are deliberately NOT here. Four bare integers mean nothing to a
- * first-time reader, and they are the payoff of watching a scan run, not its
- * opening line — they appear further down, once the reader has the context.
+ * So: headline states the job. Subhead states the mechanism and the wedge. Then the
+ * command, then the objection answered before it is raised. No jargon, no worm
+ * metaphor, no cleverness standing between the reader and the product.
+ *
+ * The exit codes are deliberately NOT here — four bare integers mean nothing to a
+ * first-time reader, and they are the payoff of watching a scan, not the opening.
  */
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -47,33 +52,34 @@ export function Hero() {
           variants={v}
           className="font-mono text-sm tracking-[0.24em] text-mint uppercase sm:text-base"
         >
-          The sentinel saw the worm
+          Open-source supply-chain scanner
         </motion.p>
 
         <motion.h1
           variants={v}
           className="mt-8 font-display text-[clamp(3rem,7.2vw,7rem)] leading-[0.95] font-bold tracking-[-0.03em] text-balance text-ink-strong"
         >
-          It ran before you read it.
+          Find malware in your dependencies.
         </motion.h1>
 
         <motion.p
           variants={v}
-          className="mt-10 max-w-[46ch] text-2xl leading-[1.45] text-ink-dim sm:text-3xl"
+          className="mt-10 max-w-[52ch] text-2xl leading-[1.45] text-ink-dim sm:text-[1.75rem]"
         >
-          A package you asked for can execute the moment it installs — take your
-          credentials, and publish itself onward as you.{' '}
-          <span className="text-ink">saw hunts what already landed.</span>
+          <span className="text-ink-strong">saw</span> scans your repositories, lockfiles
+          and installed packages, opens the fix as a pull request, and stops the infected
+          change from merging.{' '}
+          <span className="text-ink">It runs entirely on your machine.</span>
         </motion.p>
 
         <motion.div variants={v} className="mt-14 flex flex-col gap-7">
           <InstallLine command={site.install} />
           <p className="flex flex-wrap items-center gap-x-6 gap-y-3 font-mono text-base text-mint sm:text-lg">
-            <span>zero code runs at install</span>
+            <span>no network</span>
             <span className="text-rule" aria-hidden="true">·</span>
-            <span>offline</span>
+            <span>no account</span>
             <span className="text-rule" aria-hidden="true">·</span>
-            <span>persists nothing</span>
+            <span>a scan never changes a file</span>
           </p>
         </motion.div>
 
