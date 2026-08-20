@@ -1,6 +1,5 @@
 import { SiteHeader } from '@/widgets/site-header/ui/site-header';
 import { Hero } from '@/widgets/hero/ui/hero';
-import { Demo } from '@/widgets/demo/ui/demo';
 import { Wordmark } from '@/shared/ui/wordmark';
 import { InstallLine } from '@/features/copy-command/ui/install-line';
 import { publishedVersion } from '@/shared/lib/version';
@@ -25,7 +24,6 @@ export default async function Home() {
       <main id="main">
         {/* ── The demonstration. Sections below the hero are converted but NOT yet
              individually designed — they are being taken one at a time. ────────── */}
-        <Demo />
 
         <section className={`${SHELL} max-w-[1100px] py-28 lg:py-40`}>
           <div className="flex flex-col gap-7">

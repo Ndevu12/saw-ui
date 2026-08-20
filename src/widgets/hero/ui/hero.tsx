@@ -1,5 +1,6 @@
-import { ArrowDown } from 'lucide-react';
+import { Check } from 'lucide-react';
 import { InstallLine } from '@/features/copy-command/ui/install-line';
+import { ReplayDeck } from '@/features/replay-session/ui/replay-deck';
 import { shell, site } from '@/shared/config/site';
 
 /**
@@ -37,54 +38,63 @@ import { shell, site } from '@/shared/config/site';
 export function Hero() {
   return (
     <section className={`${shell} flex flex-1 flex-col justify-center py-16 lg:py-20`}>
-      <div className="flex flex-col">
-        <p
-          className="reveal font-mono text-xs tracking-[0.24em] text-mint uppercase sm:text-sm"
-          style={{ '--reveal-delay': '40ms' } as React.CSSProperties}
-        >
-          Detect · Remediate · Prevent
-        </p>
-
-        <h1
-          className="reveal mt-8 font-display text-4xl leading-tight sm:text-5xl lg:text-6xl 2xl:text-7xl font-bold tracking-tight text-balance text-ink-strong"
-          style={{ '--reveal-delay': '130ms' } as React.CSSProperties}
-        >
-          Hunt supply-chain malware where it lands.
-        </h1>
-
-        <p
-          className="reveal mt-10 max-w-[54ch] text-lg leading-relaxed text-ink-dim md:text-xl"
-          style={{ '--reveal-delay': '220ms' } as React.CSSProperties}
-        >
-          <span className="text-ink-strong">saw</span> searches your repositories,
-          lockfiles, installed packages and your machine&apos;s own start-up surface — then
-          opens the fix as a pull request and gates CI, so an infected change cannot merge.{' '}
-          <span className="text-ink">The hunt happens offline, on your machine alone.</span>
-        </p>
-
-        <div
-          className="reveal mt-14 flex flex-col gap-7"
-          style={{ '--reveal-delay': '310ms' } as React.CSSProperties}
-        >
-          <InstallLine command={site.install} />
-          <p className="flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-sm text-mint md:text-base">
-            <span>zero code runs at install</span>
-            <span className="text-rule" aria-hidden="true">·</span>
-            <span>a scan needs no network, no account</span>
-            <span className="text-rule" aria-hidden="true">·</span>
-            <span>a scan never changes a file</span>
+      <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-12">
+        {/* Left: the pitch — headline and the one action, kept tight. */}
+        <div className="flex flex-col">
+          <p
+            className="reveal font-mono text-xs tracking-[0.24em] text-mint uppercase sm:text-sm"
+            style={{ '--reveal-delay': '40ms' } as React.CSSProperties}
+          >
+            Detect · Remediate · Prevent
           </p>
+
+          <h1
+            className="reveal mt-6 font-display text-4xl leading-tight lg:text-5xl font-bold tracking-tight text-ink-strong"
+            style={{ '--reveal-delay': '130ms' } as React.CSSProperties}
+          >
+            Hunt supply-chain malware{' '}
+            <span className="block">where it lands.</span>
+          </h1>
+
+          <div
+            className="reveal mt-9 flex flex-col gap-4"
+            style={{ '--reveal-delay': '220ms' } as React.CSSProperties}
+          >
+            <InstallLine command={site.install} />
+            <ul className="flex flex-col gap-2 font-mono text-xs text-mint sm:text-sm">
+              {[
+                'zero code runs at install',
+                'a scan needs no network, no account',
+                'a scan never changes a file',
+              ].map((line) => (
+                <li key={line} className="flex items-center gap-2.5">
+                  <Check className="size-3.5 shrink-0" aria-hidden="true" />
+                  <span>{line}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
-        <a
-          href="#watch"
-          className="reveal mt-16 inline-flex w-fit items-center gap-2.5 text-base text-ink-faint transition-colors hover:text-mint"
-          style={{ '--reveal-delay': '400ms' } as React.CSSProperties}
+        {/* Right: the tool running — the live terminal, played automatically. */}
+        <div
+          className="reveal min-w-0"
+          style={{ '--reveal-delay': '320ms' } as React.CSSProperties}
         >
-          Watch it work
-          <ArrowDown className="size-5" aria-hidden="true" />
-        </a>
+          <ReplayDeck />
+        </div>
       </div>
+
+      {/* Below the fold-line: the fuller description, secondary to the headline. */}
+      <p
+        className="reveal mt-12 max-w-[82ch] text-base leading-relaxed text-ink-dim md:text-lg"
+        style={{ '--reveal-delay': '400ms' } as React.CSSProperties}
+      >
+        <span className="text-ink-strong">saw</span> searches your repositories, lockfiles,
+        installed packages and your machine&apos;s own start-up surface — then opens the fix
+        as a pull request and gates CI, so an infected change cannot merge.{' '}
+        <span className="text-ink">The hunt happens offline, on your machine alone.</span>
+      </p>
     </section>
   );
 }
