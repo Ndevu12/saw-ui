@@ -139,8 +139,8 @@ export function ReplayDeck() {
   const [revealed, setRevealed] = useState(0); // output chars shown
   const [phase, setPhase] = useState<'type' | 'discover' | 'output'>('type');
   const [spin, setSpin] = useState(0); // braille spinner frame
-  const [motionOK, setMotionOK] = useState(false);
-  const [inView, setInView] = useState(false);
+  const [motionOK, setMotionOK] = useState<boolean | null>(null);
+  const [inView, setInView] = useState(true);
   const [overflows, setOverflows] = useState(false);
   const root = useRef<HTMLDivElement | null>(null);
   const bodyEl = useRef<HTMLPreElement | null>(null);
@@ -171,13 +171,14 @@ export function ReplayDeck() {
   // the frame loop is throttled to nothing.
   useEffect(() => {
     const cmd = clip.sc.command.length;
+    if (motionOK === null) return; // preference not resolved yet — SSR/first paint
     if (!motionOK) {
       setTyped(cmd);
       setRevealed(clip.total);
       setPhase('output');
       return;
     }
-    if (!inView) return;
+    if (!inView) return; // paused off-screen; inView starts true so it never STARTS stuck
 
     setTyped(0);
     setRevealed(0);
