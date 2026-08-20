@@ -140,9 +140,7 @@ export function ReplayDeck() {
   const [phase, setPhase] = useState<'type' | 'discover' | 'output'>('type');
   const [spin, setSpin] = useState(0); // braille spinner frame
   const [motionOK, setMotionOK] = useState<boolean | null>(null);
-  const [inView, setInView] = useState(true);
   const [overflows, setOverflows] = useState(false);
-  const root = useRef<HTMLDivElement | null>(null);
   const bodyEl = useRef<HTMLPreElement | null>(null);
 
   const clip = CLIPS[idx];
@@ -155,79 +153,82 @@ export function ReplayDeck() {
     return () => mq.removeEventListener('change', u);
   }, []);
 
+  // ── The driver ────────────────────────────────────────────────────────────────
+  // ONE rAF loop, mounted once, never torn down. It owns the whole playlist: it walks
+  // each clip through type → discover → reveal → hold, then advances and loops. Because
+  // it does not depend on any changing value, it cannot be re-created or cancelled by a
+  // dependency change mid-play — which is exactly how the previous per-clip effect could
+  // freeze at the bare prompt. Motion preference is read live from a ref, so toggling it
+  // never restarts the loop.
+  const reduced = useRef(false);
+  reduced.current = motionOK === false;
+
   useEffect(() => {
-    const el = root.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      (e) => setInView(e[0]?.isIntersecting ?? false),
-      { threshold: 0.3 },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
-  // The driver. rAF paints the typing and the reveal; a pair of timeouts guarantee the
-  // clip is fully shown for its hold and then hands off — so the story advances even if
-  // the frame loop is throttled to nothing.
-  useEffect(() => {
-    const cmd = clip.sc.command.length;
-    if (motionOK === null) return; // preference not resolved yet — SSR/first paint
-    if (!motionOK) {
-      setTyped(cmd);
-      setRevealed(clip.total);
-      setPhase('output');
-      return;
-    }
-    if (!inView) return; // paused off-screen; inView starts true so it never STARTS stuck
-
-    setTyped(0);
-    setRevealed(0);
-    setPhase('type');
-    setSpin(0);
-
-    const tType = clip.typeMs;
-    const tGap = tType + clip.gapMs;
-    const tDisc = tGap + clip.discoverMs;
-    const tReveal = tDisc + clip.revealMs;
-    const start = performance.now();
+    // Nothing runs until we know the motion preference (avoids a first-paint flash).
+    if (motionOK === null) return;
     let raf = 0;
-    const tick = (now: number) => {
-      const t = now - start;
+    let clipIdx = 0;
+    let clipStart = performance.now();
+    const loop = (now: number) => {
+      const c = CLIPS[clipIdx];
+      const cmd = c.sc.command.length;
+
+      if (reduced.current) {
+        // Reduced motion: hold each clip fully shown, still cycling slowly so it is not
+        // dead, but with no typing or reveal animation.
+        setIdx(clipIdx);
+        setTyped(cmd);
+        setRevealed(c.total);
+        setPhase('output');
+        if (now - clipStart > 4000) {
+          clipIdx = (clipIdx + 1) % CLIPS.length;
+          clipStart = now;
+        }
+        raf = requestAnimationFrame(loop);
+        return;
+      }
+
+      const t = now - clipStart;
+      const tType = c.typeMs;
+      const tGap = tType + c.gapMs;
+      const tDisc = tGap + c.discoverMs;
+      const tReveal = tDisc + c.revealMs;
+      const tEnd = tReveal + c.holdMs;
+
+      setIdx(clipIdx);
       if (t < tType) {
         setPhase('type');
         setTyped(Math.floor(cmd * (t / tType)));
+        setRevealed(0);
       } else if (t < tGap) {
+        setPhase('type');
         setTyped(cmd);
+        setRevealed(0);
       } else if (t < tDisc) {
-        // Discovering repositories — the animated spinner, redrawing in place.
-        setTyped(cmd);
         setPhase('discover');
+        setTyped(cmd);
         setSpin(Math.floor((t - tGap) / 90) % SPINNER.length);
       } else if (t < tReveal) {
         setPhase('output');
         setTyped(cmd);
-        const p = (t - tDisc) / clip.revealMs;
-        setRevealed(Math.floor(clip.total * (1 - Math.pow(1 - p, 1.8))));
+        const p = (t - tDisc) / c.revealMs;
+        setRevealed(Math.floor(c.total * (1 - Math.pow(1 - p, 1.8))));
+      } else if (t < tEnd) {
+        setPhase('output');
+        setTyped(cmd);
+        setRevealed(c.total);
+      } else {
+        clipIdx = (clipIdx + 1) % CLIPS.length;
+        clipStart = now;
       }
-      if (t < tReveal) raf = requestAnimationFrame(tick);
+      raf = requestAnimationFrame(loop);
     };
-    raf = requestAnimationFrame(tick);
-
-    // Fail toward visible: once the reveal window is over, show the whole transcript
-    // for the hold even if rAF never delivered a frame.
-    const showAll = setTimeout(() => {
-      setTyped(cmd);
-      setPhase('output');
-      setRevealed(clip.total);
-    }, tReveal);
-    const advance = setTimeout(() => setIdx((i) => (i + 1) % CLIPS.length), clip.dur + 300);
-
-    return () => {
-      cancelAnimationFrame(raf);
-      clearTimeout(showAll);
-      clearTimeout(advance);
-    };
-  }, [idx, inView, motionOK, clip]);
+    raf = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(raf);
+    // Only motionOK's null→resolved transition starts the loop; the loop reads the live
+    // value from `reduced` thereafter.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [motionOK !== null]);
 
   useEffect(() => {
     const el = bodyEl.current;
@@ -271,7 +272,7 @@ export function ReplayDeck() {
   }, [clip.lines, revealed]);
 
   return (
-    <div ref={root} className="term-surface min-w-0 overflow-hidden rounded-2xl border border-[#1e2a36] shadow-[0_40px_90px_-45px_rgba(128,225,171,0.22)]">
+    <div className="term-surface min-w-0 overflow-hidden rounded-2xl border border-[#1e2a36] shadow-[0_40px_90px_-45px_rgba(128,225,171,0.22)]">
       {/* Window chrome */}
       <div className="flex items-center justify-between gap-5 border-b border-[#1e2a36] bg-white/[0.02] px-6 py-4 font-mono text-sm">
         <span className="flex items-center gap-2" aria-hidden="true">
