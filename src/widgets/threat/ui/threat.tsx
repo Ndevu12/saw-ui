@@ -25,7 +25,7 @@ export function Threat() {
     <section className={`${shell} py-24 lg:py-36`}>
       <div className="flex max-w-[52ch] flex-col gap-6">
         <h2 className="font-display text-3xl leading-tight md:text-4xl 2xl:text-5xl font-bold tracking-tight text-balance text-ink-strong">
-          It runs as you. Then it spreads as you.
+          A modern supply-chain attack runs as you. Then it spreads as you.
         </h2>
         <p className="text-lg leading-relaxed text-ink-dim md:text-xl">
           A supply-chain worm doesn&apos;t break in. It arrives inside code you asked for, runs
@@ -63,7 +63,7 @@ export function Threat() {
         every package it poisons becomes the launchpad for the next
       </p>
 
-      <p className="mt-14 max-w-[62ch] border-t border-rule-soft pt-8 text-base leading-relaxed text-ink-dim md:text-lg">
+      <p className="mt-14 max-w-[68ch] border-t border-rule-soft pt-8 text-xl leading-relaxed text-ink md:text-2xl">
         <span className="text-ink-strong">saw</span> hunts it across every surface it can land
         on — your repositories, lockfiles, installed packages, and your machine&apos;s own
         start-up surface.
