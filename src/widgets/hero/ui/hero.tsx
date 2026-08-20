@@ -37,7 +37,8 @@ import { shell, site } from '@/shared/config/site';
 export function Hero() {
   return (
     <section className={`${shell} flex flex-1 flex-col justify-center py-16 lg:py-20`}>
-      <div className="flex flex-col">
+      <div className="grid items-center gap-14 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-16">
+        <div className="flex flex-col">
         <p
           className="reveal font-mono text-xs tracking-[0.24em] text-mint uppercase sm:text-sm"
           style={{ '--reveal-delay': '40ms' } as React.CSSProperties}
@@ -46,10 +47,11 @@ export function Hero() {
         </p>
 
         <h1
-          className="reveal mt-8 font-display text-4xl leading-tight sm:text-5xl lg:text-6xl 2xl:text-7xl font-bold tracking-tight text-balance text-ink-strong"
+          className="reveal mt-8 font-display text-4xl leading-tight sm:text-5xl lg:text-6xl 2xl:text-7xl font-bold tracking-tight text-ink-strong"
           style={{ '--reveal-delay': '130ms' } as React.CSSProperties}
         >
-          Hunt supply-chain malware where it lands.
+          Hunt supply-chain malware{' '}
+          <span className="block">where it lands.</span>
         </h1>
 
         <p
@@ -84,6 +86,29 @@ export function Hero() {
           Watch it work
           <ArrowDown className="size-5" aria-hidden="true" />
         </a>
+        </div>
+
+        {/* The sentinel: three eyes scanning right, left, and straight ahead — "the
+            sentinel saw the worm", made visual. In its own raised, glowing panel. */}
+        <div
+          className="reveal hidden lg:flex lg:justify-center"
+          style={{ '--reveal-delay': '260ms' } as React.CSSProperties}
+          aria-hidden="true"
+        >
+          <div className="w-full rounded-3xl border border-rule bg-[#0b1119] p-10 shadow-[0_40px_100px_-30px_rgba(128,225,171,0.28)]">
+            <svg viewBox="0 0 240 100" className="w-full text-mint" fill="none">
+              {/* looking right */}
+              <rect x="6" y="12" width="60" height="76" rx="16" stroke="currentColor" strokeWidth="7" />
+              <rect x="42" y="39" width="16" height="22" rx="5" fill="currentColor" />
+              {/* looking left */}
+              <rect x="90" y="12" width="60" height="76" rx="16" stroke="currentColor" strokeWidth="7" />
+              <rect x="98" y="39" width="16" height="22" rx="5" fill="currentColor" />
+              {/* looking ahead */}
+              <rect x="174" y="12" width="60" height="76" rx="16" stroke="currentColor" strokeWidth="7" />
+              <rect x="196" y="39" width="16" height="22" rx="5" fill="currentColor" />
+            </svg>
+          </div>
+        </div>
       </div>
     </section>
   );
