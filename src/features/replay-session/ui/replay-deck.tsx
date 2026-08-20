@@ -236,6 +236,13 @@ export function ReplayDeck() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [motionOK !== null]);
 
+  // Keep the latest output in view inside the FIXED-height body, so a taller clip
+  // scrolls within the terminal instead of resizing it and nudging the layout.
+  useEffect(() => {
+    const el = bodyEl.current;
+    if (el) el.scrollTop = el.scrollHeight;
+  }, [revealed, phase, idx]);
+
   useEffect(() => {
     const el = bodyEl.current;
     if (!el) return;
@@ -289,7 +296,7 @@ export function ReplayDeck() {
 
       {/* The transcript: typed command, then its output. */}
       <div className={cn('relative max-w-full overflow-hidden', overflows && 'after:pointer-events-none after:absolute after:inset-y-0 after:right-0 after:w-14 after:bg-gradient-to-r after:from-transparent after:to-[#090e14]/95')}>
-        <pre ref={bodyEl} className="m-0 min-h-[22em] overflow-x-auto px-6 py-7 font-mono text-sm leading-relaxed lg:text-base">
+        <pre ref={bodyEl} className="m-0 h-[20em] overflow-auto px-6 py-6 font-mono text-sm leading-relaxed sm:h-[22em] lg:h-[24em] lg:text-base">
           <span className="tline">
             <span className="text-[#7ee7b0]">$ </span>
             <span className="text-[#f0f6fc]">{cmd.slice(0, typed)}</span>

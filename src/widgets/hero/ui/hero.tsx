@@ -1,3 +1,4 @@
+import { Check } from 'lucide-react';
 import { InstallLine } from '@/features/copy-command/ui/install-line';
 import { ReplayDeck } from '@/features/replay-session/ui/replay-deck';
 import { shell, site } from '@/shared/config/site';
@@ -37,7 +38,7 @@ import { shell, site } from '@/shared/config/site';
 export function Hero() {
   return (
     <section className={`${shell} flex flex-1 flex-col justify-center py-16 lg:py-20`}>
-      <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-12">
+      <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-12">
         {/* Left: the pitch — headline and the one action, kept tight. */}
         <div className="flex flex-col">
           <p
@@ -60,13 +61,18 @@ export function Hero() {
             style={{ '--reveal-delay': '220ms' } as React.CSSProperties}
           >
             <InstallLine command={site.install} />
-            <p className="flex flex-wrap items-center gap-x-4 gap-y-1.5 font-mono text-xs text-mint sm:text-sm">
-              <span>zero code runs at install</span>
-              <span className="text-rule" aria-hidden="true">·</span>
-              <span>a scan needs no network, no account</span>
-              <span className="text-rule" aria-hidden="true">·</span>
-              <span>a scan never changes a file</span>
-            </p>
+            <ul className="flex flex-col gap-2 font-mono text-xs text-mint sm:text-sm">
+              {[
+                'zero code runs at install',
+                'a scan needs no network, no account',
+                'a scan never changes a file',
+              ].map((line) => (
+                <li key={line} className="flex items-center gap-2.5">
+                  <Check className="size-3.5 shrink-0" aria-hidden="true" />
+                  <span>{line}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
