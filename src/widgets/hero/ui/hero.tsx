@@ -5,13 +5,19 @@ import { shell, site } from '@/shared/config/site';
 /**
  * The first screen.
  *
- * COPY RULE: say what the tool does, in words a stranger already knows. An earlier
- * headline read "It ran before you read it." — evocative, but "it" referred to
- * nothing the reader had been told about yet, and the sentence was about the THREAT
- * rather than the product. A hero answers two questions before anything else: what
- * does this do, and why this one. Headline states the job; subhead states the
- * mechanism and the wedge; then the command; then the objection answered before it
- * is raised.
+ * COPY RULES, both learned by getting them wrong.
+ *
+ * 1. NEVER NARROW THE TOOL. A previous headline read "Find malware in your
+ *    dependencies." saw does not scan dependencies — it hunts across repositories,
+ *    lockfiles, installed packages AND the machine's own start-up surface, then
+ *    remediates through a pull request and gates CI. Describing a third of the
+ *    product as if it were the whole of it undersells it and misleads the reader.
+ *
+ * 2. Clear is not the same as generic. An earlier headline ("It ran before you read
+ *    it.") was clever but referred to nothing the reader knew yet; the correction to
+ *    it then stripped out the product's own voice as well. The tool's own words —
+ *    hunt, supply-chain, the three verbs — are precise, and precision is the point.
+ *    Jargon is only a problem when it stands between the reader and the meaning.
  *
  * The exit codes are deliberately NOT here — four bare integers mean nothing to a
  * first-time reader, and they are the payoff of watching a scan, not the opening.
@@ -29,24 +35,24 @@ export function Hero() {
           className="reveal font-mono text-sm tracking-[0.24em] text-mint uppercase sm:text-base"
           style={{ '--reveal-delay': '40ms' } as React.CSSProperties}
         >
-          Open-source supply-chain scanner
+          Detect · Remediate · Prevent
         </p>
 
         <h1
-          className="reveal mt-8 font-display text-[clamp(3rem,7.2vw,7rem)] leading-[0.95] font-bold tracking-[-0.03em] text-balance text-ink-strong"
+          className="reveal mt-8 font-display text-[clamp(2.85rem,6.6vw,6.4rem)] leading-[0.96] font-bold tracking-[-0.03em] text-balance text-ink-strong"
           style={{ '--reveal-delay': '130ms' } as React.CSSProperties}
         >
-          Find malware in your dependencies.
+          Hunt supply-chain malware where it lands.
         </h1>
 
         <p
-          className="reveal mt-10 max-w-[52ch] text-2xl leading-[1.45] text-ink-dim sm:text-[1.75rem]"
+          className="reveal mt-10 max-w-[54ch] text-2xl leading-[1.45] text-ink-dim sm:text-[1.75rem]"
           style={{ '--reveal-delay': '220ms' } as React.CSSProperties}
         >
-          <span className="text-ink-strong">saw</span> scans your repositories, lockfiles
-          and installed packages, opens the fix as a pull request, and stops the infected
-          change from merging.{' '}
-          <span className="text-ink">It runs entirely on your machine.</span>
+          <span className="text-ink-strong">saw</span> searches your repositories,
+          lockfiles, installed packages and your machine&apos;s own start-up surface — then
+          opens the fix as a pull request and gates CI, so an infected change cannot merge.{' '}
+          <span className="text-ink">It runs entirely offline.</span>
         </p>
 
         <div
@@ -55,9 +61,9 @@ export function Hero() {
         >
           <InstallLine command={site.install} />
           <p className="flex flex-wrap items-center gap-x-6 gap-y-3 font-mono text-base text-mint sm:text-lg">
-            <span>no network</span>
+            <span>zero code runs at install</span>
             <span className="text-rule" aria-hidden="true">·</span>
-            <span>no account</span>
+            <span>no network, no account</span>
             <span className="text-rule" aria-hidden="true">·</span>
             <span>a scan never changes a file</span>
           </p>
