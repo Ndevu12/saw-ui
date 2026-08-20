@@ -39,21 +39,21 @@ export function Hero() {
     <section className={`${shell} flex flex-1 flex-col justify-center py-16 lg:py-20`}>
       <div className="flex flex-col">
         <p
-          className="reveal font-mono text-sm tracking-[0.24em] text-mint uppercase sm:text-base"
+          className="reveal font-mono text-xs tracking-[0.24em] text-mint uppercase sm:text-sm"
           style={{ '--reveal-delay': '40ms' } as React.CSSProperties}
         >
           Detect · Remediate · Prevent
         </p>
 
         <h1
-          className="reveal mt-8 font-display text-[clamp(2.85rem,6.6vw,6.4rem)] leading-[0.96] font-bold tracking-[-0.03em] text-balance text-ink-strong"
+          className="reveal mt-8 font-display text-4xl leading-tight sm:text-5xl lg:text-6xl 2xl:text-7xl font-bold tracking-tight text-balance text-ink-strong"
           style={{ '--reveal-delay': '130ms' } as React.CSSProperties}
         >
           Hunt supply-chain malware where it lands.
         </h1>
 
         <p
-          className="reveal mt-10 max-w-[54ch] text-2xl leading-[1.45] text-ink-dim sm:text-[1.75rem]"
+          className="reveal mt-10 max-w-[54ch] text-lg leading-relaxed text-ink-dim md:text-xl"
           style={{ '--reveal-delay': '220ms' } as React.CSSProperties}
         >
           <span className="text-ink-strong">saw</span> searches your repositories,
@@ -67,7 +67,7 @@ export function Hero() {
           style={{ '--reveal-delay': '310ms' } as React.CSSProperties}
         >
           <InstallLine command={site.install} />
-          <p className="flex flex-wrap items-center gap-x-6 gap-y-3 font-mono text-base text-mint sm:text-lg">
+          <p className="flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-sm text-mint md:text-base">
             <span>zero code runs at install</span>
             <span className="text-rule" aria-hidden="true">·</span>
             <span>a scan needs no network, no account</span>
@@ -78,7 +78,7 @@ export function Hero() {
 
         <a
           href="#watch"
-          className="reveal mt-20 inline-flex w-fit items-center gap-2.5 text-lg text-ink-faint transition-colors hover:text-mint"
+          className="reveal mt-16 inline-flex w-fit items-center gap-2.5 text-base text-ink-faint transition-colors hover:text-mint"
           style={{ '--reveal-delay': '400ms' } as React.CSSProperties}
         >
           Watch it work

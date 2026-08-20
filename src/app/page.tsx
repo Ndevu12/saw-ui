@@ -29,11 +29,11 @@ export default async function Home() {
 
         <section className={`${SHELL} max-w-[1100px] py-28 lg:py-40`}>
           <div className="flex flex-col gap-7">
-            <p className="font-mono text-sm tracking-[0.24em] text-mint uppercase">What it hunts</p>
-            <h2 className="font-display text-[clamp(2.25rem,4vw,3.5rem)] leading-[1.05] font-bold tracking-tight text-ink-strong">
+            <p className="font-mono text-xs tracking-[0.24em] text-mint uppercase sm:text-sm">What it hunts</p>
+            <h2 className="font-display text-3xl leading-tight md:text-4xl 2xl:text-5xl font-bold tracking-tight text-ink-strong">
               Malware that spreads by being installed.
             </h2>
-            <p className="max-w-[48ch] text-2xl leading-[1.45] text-ink-dim">
+            <p className="max-w-[50ch] text-lg leading-relaxed text-ink-dim md:text-xl">
               It arrives inside a package you chose, runs before review, and uses whatever
               credentials it finds to publish itself into the next one.
             </p>
@@ -42,8 +42,8 @@ export default async function Home() {
 
         <section className={`${SHELL} py-28 lg:py-40`}>
           <div className="mb-16 flex flex-col gap-5">
-            <p className="font-mono text-sm tracking-[0.24em] text-mint uppercase">Four verbs</p>
-            <h2 className="font-display text-[clamp(2.25rem,4vw,3.5rem)] leading-[1.05] font-bold tracking-tight text-ink-strong">
+            <p className="font-mono text-xs tracking-[0.24em] text-mint uppercase sm:text-sm">Four verbs</p>
+            <h2 className="font-display text-3xl leading-tight md:text-4xl 2xl:text-5xl font-bold tracking-tight text-ink-strong">
               Each one stands alone.
             </h2>
           </div>
@@ -55,8 +55,8 @@ export default async function Home() {
               ['saw audit', 'Checks the machine itself: credentials, editors, what runs at start-up.'],
             ].map(([cmd, copy]) => (
               <div key={cmd} className="flex flex-col gap-3">
-                <span className="font-mono text-xl text-mint">{cmd}</span>
-                <p className="max-w-[42ch] text-xl leading-[1.5] text-ink-dim">{copy}</p>
+                <span className="font-mono text-lg text-mint">{cmd}</span>
+                <p className="max-w-[42ch] text-base leading-relaxed text-ink-dim md:text-lg">{copy}</p>
               </div>
             ))}
           </div>
@@ -64,11 +64,11 @@ export default async function Home() {
 
         <section className={`${SHELL} max-w-[1100px] py-28 lg:py-40`}>
           <div className="mb-14 flex flex-col gap-5">
-            <p className="font-mono text-sm tracking-[0.24em] text-mint uppercase">The verdict</p>
-            <h2 className="font-display text-[clamp(2.25rem,4vw,3.5rem)] leading-[1.05] font-bold tracking-tight text-ink-strong">
+            <p className="font-mono text-xs tracking-[0.24em] text-mint uppercase sm:text-sm">The verdict</p>
+            <h2 className="font-display text-3xl leading-tight md:text-4xl 2xl:text-5xl font-bold tracking-tight text-ink-strong">
               One number is the whole answer.
             </h2>
-            <p className="max-w-[48ch] text-2xl leading-[1.45] text-ink-dim">
+            <p className="max-w-[50ch] text-lg leading-relaxed text-ink-dim md:text-xl">
               Every scan ends in a single exit code — so gating CI is one line, with nothing
               to configure and no way to configure it away.
             </p>
@@ -86,8 +86,8 @@ export default async function Home() {
                   i === all.length - 1 ? 'border-b' : ''
                 }`}
               >
-                <dt className={`font-mono text-4xl font-semibold tabular-nums ${tone}`}>{code}</dt>
-                <dd className="text-xl text-ink-dim">{meaning}</dd>
+                <dt className={`font-mono text-3xl font-semibold tabular-nums md:text-4xl ${tone}`}>{code}</dt>
+                <dd className="text-base text-ink-dim md:text-lg">{meaning}</dd>
               </div>
             ))}
           </dl>
@@ -95,7 +95,7 @@ export default async function Home() {
 
         <section className={`${SHELL} max-w-[1100px] py-28 lg:py-40`}>
           <div className="flex flex-col items-start gap-8">
-            <h2 className="font-display text-[clamp(2.25rem,4vw,3.5rem)] leading-[1.05] font-bold tracking-tight text-ink-strong">
+            <h2 className="font-display text-3xl leading-tight md:text-4xl 2xl:text-5xl font-bold tracking-tight text-ink-strong">
               Start with one command.
             </h2>
             <InstallLine command="pip install stayawakebot" />
@@ -103,7 +103,7 @@ export default async function Home() {
               {['macOS', 'Linux', 'Python 3.11+', 'Docker', `v${version}`].map((r) => (
                 <span
                   key={r}
-                  className="rounded-full border border-rule px-4 py-2 font-mono text-base text-ink-dim"
+                  className="rounded-full border border-rule px-4 py-1.5 font-mono text-sm text-ink-dim"
                 >
                   {r}
                 </span>
@@ -121,7 +121,7 @@ export default async function Home() {
               the sentinel saw the worm
             </p>
           </div>
-          <div className="flex flex-wrap gap-x-8 gap-y-4 text-lg">
+          <div className="flex flex-wrap gap-x-8 gap-y-4 text-base">
             {[
               ['Documentation', DOCS],
               ['Trust model', `${REPO}/blob/main/docs/explanation/trust-model.md`],

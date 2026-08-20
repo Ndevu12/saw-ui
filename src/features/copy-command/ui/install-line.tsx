@@ -37,7 +37,7 @@ export function InstallLine({ command, className }: { command: string; className
         className,
       )}
     >
-      <code className="flex-1 overflow-x-auto whitespace-nowrap px-6 py-5 font-mono text-lg text-ink-strong sm:text-xl">
+      <code className="flex-1 overflow-x-auto whitespace-nowrap px-5 py-4 font-mono text-sm text-ink-strong sm:px-6 sm:py-5 sm:text-base md:text-lg">
         <span className="select-none text-ink-faint">$ </span>
         {command}
       </code>
