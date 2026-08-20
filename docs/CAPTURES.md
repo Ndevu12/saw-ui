@@ -24,7 +24,7 @@ operator's real git and `saw` configuration.
 
 ## Rules for every frame
 
-Every frame lands on a public marketing page. Before a scenario is added or re-recorded, read the
+Every frame lands on a public website. Before a scenario is added or re-recorded, read the
 transcript against these:
 
 1. **No detection mechanism.** No signal names, no thresholds, no corroboration logic, and no
@@ -43,7 +43,7 @@ This repository is public.
 
 A sample known to trip `saw`'s confirmed tier, published here, is a **detection oracle**: mutate a
 line, re-run `saw`, and you have binary-searched the boundary. That is precisely the evasion aid the
-tool's trust model exists to withhold, and no marketing frame is worth it.
+tool's trust model exists to withhold, and no site frame is worth it.
 
 So the infected scenario is opt-in, from a fixture kept locally and never committed, and it is
 written only after a human has read the transcript:

@@ -3,7 +3,7 @@ import captures from '@/entities/capture/model/captures.json';
 /**
  * The published version, resolved at BUILD time — never typed by hand.
  *
- * A hand-written version number on a marketing page goes stale silently at the next
+ * A hand-written version number on the site goes stale silently at the next
  * release, and the page then lies about the thing it is selling. The package itself
  * derives its version from the git tag for the same reason, so the site derives its
  * from the registry.

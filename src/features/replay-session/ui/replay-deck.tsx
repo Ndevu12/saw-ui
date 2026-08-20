@@ -7,7 +7,7 @@ import { cn } from '@/shared/lib/utils';
 /**
  * The demonstration terminal.
  *
- * It plays itself. There are no tabs and no buttons — a marketing demo that asks the
+ * It plays itself. There are no tabs and no buttons — a demo that asks the
  * reader to click is a demo they will not watch. It types a command the way a person
  * would, renders that command's real recorded output the way the terminal actually
  * prints it, holds on the result, and hands over to the next session; at the end of
@@ -96,7 +96,7 @@ function layout(sc: Scenario) {
 
 /** Stop a transcript at saw's "Host note:" line. That note is real output, but it
  *  names host-persistence threat detail we do not amplify on a public page — and a
- *  marketing demo reads better ending on the verdict. Trailing blank lines are dropped
+ *  demo reads better ending on the verdict. Trailing blank lines are dropped
  *  and the character total is recomputed so the reveal does not pause on nothing. */
 function stopAtHostNote(lines: Line[]): { lines: Line[]; total: number } {
   const cut = lines.findIndex((l) => l.pieces.some((p) => p.tok.t.startsWith('Host note')));

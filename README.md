@@ -1,6 +1,6 @@
 # saw-ui
 
-Marketing site for **[saw](https://github.com/Ndevu12/stayAwakeBot)** — an offline-first
+The official website of **[stayAwakeBot / saw](https://github.com/Ndevu12/stayAwakeBot)** — an offline-first
 supply-chain worm scanner and sentinel. Live at **[saw.ndevuspace.com](https://saw.ndevuspace.com)**.
 
 Built with Next.js (static export), Tailwind CSS v4 and shadcn/ui; deployed on Vercel.
