@@ -14,7 +14,6 @@ import '@fontsource/ibm-plex-mono/500.css';
 import '@fontsource/ibm-plex-mono/600.css';
 
 import './globals.css';
-import './site.css';
 
 const SITE = 'https://saw.ndevuspace.com';
 
@@ -51,7 +50,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
-        <a className="skip" href="#main">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-50 focus:rounded-br-md focus:bg-mint focus:px-5 focus:py-3 focus:font-semibold focus:text-ground"
+        >
           Skip to content
         </a>
         {children}
