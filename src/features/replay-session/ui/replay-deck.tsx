@@ -1,7 +1,10 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import captures from '@/data/captures.json';
+import { Tabs, TabsList, TabsTrigger } from '@/shared/ui/tabs';
+import { Button } from '@/shared/ui/button';
+import captures from '@/entities/capture/model/captures.json';
+import { cn } from '@/shared/lib/utils';
 
 /**
  * The replay deck: real recorded `saw` sessions, played back.
@@ -215,79 +218,103 @@ export function ReplayDeck() {
   };
 
   return (
-    <div className="deck">
-      <div className="deck-tabs" role="tablist" aria-label="Recorded sessions">
-        {SCENARIOS.map((sc, i) => (
-          <button
+    <Tabs
+      value={scenario.id}
+      onValueChange={(id) => setActive(SCENARIOS.findIndex((s) => s.id === id))}
+      className="flex w-full min-w-0 flex-col gap-5"
+    >
+      <TabsList className="h-auto flex-wrap justify-start gap-2 bg-transparent p-0">
+        {SCENARIOS.map((sc) => (
+          <TabsTrigger
             key={sc.id}
-            role="tab"
-            type="button"
-            aria-selected={i === active}
-            aria-controls="deck-panel"
-            className={i === active ? 'deck-tab is-on' : 'deck-tab'}
-            onClick={() => setActive(i)}
+            value={sc.id}
+            className={cn(
+              'rounded-full border border-rule bg-transparent px-5 py-2.5',
+              'font-mono text-sm text-ink-faint sm:text-base',
+              'hover:border-ink-faint hover:text-ink',
+              'data-[state=active]:border-mint data-[state=active]:bg-mint/10',
+              'data-[state=active]:text-mint data-[state=active]:shadow-none',
+            )}
           >
             {sc.label}
-          </button>
+          </TabsTrigger>
         ))}
-      </div>
+      </TabsList>
 
-      <div className="term" id="deck-panel" role="tabpanel" aria-live="off">
-        <div className="term-bar">
-          <span className="term-cmd">
-            <span className="term-prompt">$</span> {scenario.command}
+      <div className="term-surface min-w-0 overflow-hidden rounded-2xl border border-[#1e2a36] shadow-[0_40px_90px_-45px_rgba(128,225,171,0.22)]">
+        <div className="flex items-center justify-between gap-5 border-b border-[#1e2a36] bg-white/[0.02] px-6 py-4 font-mono text-sm">
+          <span className="truncate text-[#f0f6fc]">
+            <span className="mr-2 text-[#7ee7b0]">$</span>
+            {scenario.command}
           </span>
-          <span className="term-meta">
-            recorded · v{captures.version}
-          </span>
+          <span className="shrink-0 tracking-wider text-[#58606e]">recorded · v{captures.version}</span>
         </div>
 
-        <div className={overflows ? 'term-wrap is-clipped' : 'term-wrap'}>
-        <pre className="term-body" tabIndex={0} ref={body}>
-          {lines.map((line, li) => {
-            if (!done && line.pieces.length && line.pieces[0].start >= revealed) return null;
-            return (
-              <span key={li} className={line.structural ? 'tline tline-fixed' : 'tline'}>
-                {line.pieces.map(({ tok, start, end }, i) => {
-                  if (!done && start >= revealed) return null;
-                  const text = !done && end > revealed ? tok.t.slice(0, revealed - start) : tok.t;
-                  const style: React.CSSProperties = {};
-                  const c = colorFor(tok);
-                  if (c) style.color = c;
-                  if (tok.bold) style.fontWeight = 600;
-                  if (tok.italic) style.fontStyle = 'italic';
-                  if (tok.dim) style.opacity = 0.72;
-                  return <span key={i} style={style}>{text}</span>;
-                })}
-                {'\n'}
-              </span>
-            );
-          })}
-          {playing ? <span className="term-caret" aria-hidden="true" /> : null}
-        </pre>
+        <div className={cn('relative max-w-full overflow-hidden', overflows && 'after:pointer-events-none after:absolute after:inset-y-0 after:right-0 after:w-14 after:bg-gradient-to-r after:from-transparent after:to-[#090e14]/95')}>
+          <pre
+            ref={body}
+            tabIndex={0}
+            className="m-0 min-h-[19em] overflow-x-auto px-6 py-7 font-mono text-[0.95rem] leading-[1.75] sm:text-base lg:text-[1.05rem]"
+          >
+            {lines.map((line, li) => {
+              if (!done && line.pieces.length && line.pieces[0].start >= revealed) return null;
+              return (
+                <span key={li} className={line.structural ? 'tline tline-fixed' : 'tline'}>
+                  {line.pieces.map(({ tok, start, end }, i) => {
+                    if (!done && start >= revealed) return null;
+                    const text = !done && end > revealed ? tok.t.slice(0, revealed - start) : tok.t;
+                    const style: React.CSSProperties = {};
+                    const c = colorFor(tok);
+                    if (c) style.color = c;
+                    if (tok.bold) style.fontWeight = 600;
+                    if (tok.italic) style.fontStyle = 'italic';
+                    if (tok.dim) style.opacity = 0.72;
+                    return <span key={i} style={style}>{text}</span>;
+                  })}
+                  {'\n'}
+                </span>
+              );
+            })}
+            {playing ? (
+              <span className="inline-block h-[1.05em] w-[0.55em] animate-pulse bg-[#7ee7b0] align-text-bottom" aria-hidden="true" />
+            ) : null}
+          </pre>
         </div>
 
-        <div className="term-foot">
+        <div className="flex flex-wrap items-center gap-4 border-t border-[#1e2a36] px-6 py-4 font-mono text-sm">
           {scenario.isVerdict ? (
-            <span className={`verdict verdict-${verdictTone}`}>
-              <span className="verdict-num">{scenario.exitCode}</span>
-              <span className="verdict-word">
-                exit — {VERDICT_WORD[scenario.exitCode] ?? 'unknown'}
+            <span className="inline-flex items-baseline gap-3">
+              <span
+                className={cn(
+                  'rounded-md px-3 py-0.5 text-xl font-semibold tabular-nums text-[#090e14]',
+                  verdictTone === 'ok' && 'bg-[#7ee7b0]',
+                  verdictTone === 'bad' && 'bg-[#f2736b]',
+                  verdictTone === 'warn' && 'bg-[#e3b44f]',
+                )}
+              >
+                {scenario.exitCode}
               </span>
+              <span className="text-[#7a8594]">exit — {VERDICT_WORD[scenario.exitCode] ?? 'unknown'}</span>
             </span>
           ) : (
-            <span className="verdict-word">no verdict — this command reports nothing</span>
+            <span className="text-[#7a8594]">no verdict — this command reports nothing</span>
           )}
-          <span className="term-time">{scenario.duration.toFixed(2)}s</span>
+          <span className="ml-auto tabular-nums text-[#58606e]">{scenario.duration.toFixed(2)}s</span>
           {motionOK ? (
-            <button type="button" className="term-btn" onClick={playing ? stop : play}>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={playing ? stop : play}
+              className="border-[#1e2a36] bg-transparent font-mono text-xs tracking-widest text-[#7a8594] uppercase hover:border-[#7ee7b0] hover:bg-transparent hover:text-[#7ee7b0]"
+            >
               {playing ? 'Skip' : 'Replay'}
-            </button>
+            </Button>
           ) : null}
         </div>
       </div>
 
-      <p className="deck-blurb">{scenario.blurb}</p>
-    </div>
+      <p className="text-base text-ink-faint">{scenario.blurb}</p>
+    </Tabs>
   );
 }

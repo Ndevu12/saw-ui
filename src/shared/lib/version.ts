@@ -1,4 +1,4 @@
-import captures from '@/data/captures.json';
+import captures from '@/entities/capture/model/captures.json';
 
 /**
  * The published version, resolved at BUILD time — never typed by hand.
