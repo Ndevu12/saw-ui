@@ -23,7 +23,7 @@ export function Demo() {
               Watch it in action.
             </h2>
             <p className="max-w-[40ch] text-xl leading-[1.5] text-ink-dim">
-              saw running against a sample project — pick a session and watch it play.
+              Real commands, real output, captured from the published release. It plays on its own.
             </p>
           </div>
 
