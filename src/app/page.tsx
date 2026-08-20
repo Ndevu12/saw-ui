@@ -3,6 +3,7 @@ import { Hero } from '@/widgets/hero/ui/hero';
 import { Wordmark } from '@/shared/ui/wordmark';
 import { InstallLine } from '@/features/copy-command/ui/install-line';
 import { publishedVersion } from '@/shared/lib/version';
+import { ExtLink } from '@/shared/ui/ext-link';
 
 const REPO = 'https://github.com/Ndevu12/stayAwakeBot';
 const DOCS = 'https://saw-docs.ndevuspace.com';
@@ -121,15 +122,15 @@ export default async function Home() {
           </div>
           <div className="flex flex-wrap gap-x-8 gap-y-4 text-base">
             {[
-              ['Documentation', DOCS],
-              ['Trust model', `${REPO}/blob/main/docs/explanation/trust-model.md`],
+              ['Documentation', `${DOCS}/latest/`],
+              ['Trust model', `${DOCS}/latest/explanation/trust-model/`],
               ['Security', `${REPO}/blob/main/SECURITY.md`],
               ['PyPI', 'https://pypi.org/project/stayawakebot/'],
               ['GitHub', REPO],
             ].map(([label, href]) => (
-              <a key={label} href={href} className="text-ink-dim transition-colors hover:text-ink-strong">
+              <ExtLink key={label} href={href} className="text-ink-dim transition-colors hover:text-ink-strong">
                 {label}
-              </a>
+              </ExtLink>
             ))}
           </div>
         </div>
