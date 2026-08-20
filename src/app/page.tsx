@@ -123,7 +123,12 @@ export default async function Home() {
 
       <footer className={`${SHELL} border-t border-rule py-20`}>
         <div className="flex flex-wrap items-start justify-between gap-10">
-          <Wordmark height={30} />
+          <div className="flex flex-col gap-3">
+            <Wordmark height={30} />
+            <p className="font-mono text-sm tracking-[0.2em] text-ink-faint uppercase">
+              the sentinel saw the worm
+            </p>
+          </div>
           <div className="flex flex-wrap gap-x-8 gap-y-4 text-lg">
             {[
               ['Documentation', DOCS],
