@@ -4,31 +4,26 @@ import { shell } from '@/shared/config/site';
 /**
  * The demonstration section.
  *
- * Its job is one psychological move: a demonstration is read as evidence, where a
- * description is read as a claim. So the framing states plainly that these are the
- * real tool's real output — recorded from the published release, chosen by the
- * reader — because "not a mock-up" is the whole reason this converts. The terminal
- * gets a stage (a bordered, inset panel on a slightly raised ground) instead of
- * floating on the page.
+ * The LAYOUT — a sticky left column beside the terminal on its own inset stage — is
+ * kept as is; it works. The only thing that was wrong here was the COPY: an earlier
+ * version headed it "Real sessions. Recorded, not mocked." and spent two paragraphs
+ * insisting the output was genuine, arguing with a doubt no one raised. Present, do
+ * not defend. The heading states the action; one line says what you are looking at;
+ * the terminal proves it without a caption telling you to believe it.
  */
 export function Demo() {
   return (
     <section id="watch" className="border-t border-rule-soft">
       <div className={`${shell} py-24 lg:py-36`}>
         <div className="grid gap-y-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.6fr)] lg:gap-x-20">
-          {/* Left: why you are looking at this. */}
+          {/* Left: pinned while the session plays. */}
           <div className="flex flex-col gap-6 lg:sticky lg:top-16 lg:self-start">
             <p className="font-mono text-sm tracking-[0.24em] text-mint uppercase">See it run</p>
-            <h2 className="font-display text-[clamp(2.25rem,4vw,3.4rem)] leading-[1.04] font-bold tracking-tight text-balance text-ink-strong">
-              Real sessions. Recorded, not mocked.
+            <h2 className="font-display text-[clamp(2.5rem,4.5vw,3.75rem)] leading-[1.02] font-bold tracking-tight text-balance text-ink-strong">
+              Watch it in action.
             </h2>
-            <p className="max-w-[42ch] text-xl leading-[1.5] text-ink-dim">
-              Every frame is the published release running against a sample project — the
-              same bytes your own terminal would print. Nothing here is a screenshot or a
-              staged demo.
-            </p>
-            <p className="max-w-[42ch] text-lg leading-[1.5] text-ink-faint">
-              Pick a session and watch it play.
+            <p className="max-w-[40ch] text-xl leading-[1.5] text-ink-dim">
+              saw running against a sample project — pick a session and watch it play.
             </p>
           </div>
 

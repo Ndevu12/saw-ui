@@ -190,12 +190,34 @@ export function ReplayDeck() {
     }, seconds * 1000 + 750);
   }, [motionOK, scenario.duration, stop, total]);
 
-  // Autoplay the first scenario once motion is known to be welcome, and replay whenever
-  // the reader picks a different session.
+  // Play when the deck scrolls INTO VIEW, not on mount. The deck lives below the
+  // fold, so a mount-time autoplay finishes while the reader is still on the hero and
+  // reads as a dead, static block by the time they arrive. IntersectionObserver ties
+  // the run to the moment it is actually seen. Because `play` is recreated when
+  // `active` changes, switching sessions re-observes and — if the deck is on screen —
+  // replays the new one immediately, which is the "click to navigate and watch it
+  // run" behaviour. Reduced motion reveals everything at once.
   useEffect(() => {
-    if (motionOK) play();
-    else setRevealed(Number.POSITIVE_INFINITY);
-    return stop;
+    if (!motionOK) {
+      setRevealed(Number.POSITIVE_INFINITY);
+      return;
+    }
+    const el = body.current;
+    if (!el) {
+      play();
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) play();
+      },
+      { threshold: 0.4 },
+    );
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      stop();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active, motionOK]);
 
