@@ -21,7 +21,7 @@ npm run capture
 
 ## Structure
 
-Organised by [Feature-Sliced Design](https://feature-sliced.design):
+Organised by responsibility:
 
 | Path | Contents |
 | --- | --- |
