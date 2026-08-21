@@ -62,6 +62,10 @@ export default async function Home() {
                 {label}
               </ExtLink>
             ))}
+            {/* Internal route — a plain anchor, not ExtLink, so it stays in this tab. */}
+            <a href="/support" className="text-ink-dim transition-colors hover:text-ink-strong">
+              Support
+            </a>
           </div>
         </div>
 
