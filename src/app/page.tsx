@@ -1,6 +1,7 @@
 import { SiteHeader } from '@/widgets/site-header/ui/site-header';
 import { Hero } from '@/widgets/hero/ui/hero';
 import { Threat } from '@/widgets/threat/ui/threat';
+import { Mitigation } from '@/widgets/mitigation/ui/mitigation';
 import { Wordmark } from '@/shared/ui/wordmark';
 import { InstallLine } from '@/features/copy-command/ui/install-line';
 import { publishedVersion } from '@/shared/lib/version';
@@ -29,27 +30,7 @@ export default async function Home() {
 
         <Threat />
 
-        <section className={`${SHELL} py-28 lg:py-40`}>
-          <div className="mb-16 flex flex-col gap-5">
-            <p className="font-mono text-xs tracking-[0.24em] text-mint uppercase sm:text-sm">Four verbs</p>
-            <h2 className="font-display text-3xl leading-tight md:text-4xl 2xl:text-5xl font-bold tracking-tight text-ink-strong">
-              Each one stands alone.
-            </h2>
-          </div>
-          <div className="grid gap-14 md:grid-cols-2 lg:gap-x-24">
-            {[
-              ['saw scan', 'Hunts your repositories, lockfiles and installed dependencies. Never writes a file.'],
-              ['saw fix', 'Recovers the clean version from your own git history, onto its own branch.'],
-              ['saw guard', 'Gates CI, and proves the gate is actually required — not merely present.'],
-              ['saw audit', 'Checks the machine itself: credentials, editors, what runs at start-up.'],
-            ].map(([cmd, copy]) => (
-              <div key={cmd} className="flex flex-col gap-3">
-                <span className="font-mono text-lg text-mint">{cmd}</span>
-                <p className="max-w-[42ch] text-base leading-relaxed text-ink-dim md:text-lg">{copy}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+        <Mitigation />
 
         <section className={`${SHELL} max-w-[1100px] py-28 lg:py-40`}>
           <div className="mb-14 flex flex-col gap-5">
