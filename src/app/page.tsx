@@ -3,6 +3,7 @@ import { Hero } from '@/widgets/hero/ui/hero';
 import { Threat } from '@/widgets/threat/ui/threat';
 import { Mitigation } from '@/widgets/mitigation/ui/mitigation';
 import { Verdict } from '@/widgets/verdict/ui/verdict';
+import { Promises } from '@/widgets/promises/ui/promises';
 import { InstallSection } from '@/widgets/install/ui/install-section';
 import { Wordmark } from '@/shared/ui/wordmark';
 import { InstallLine } from '@/features/copy-command/ui/install-line';
@@ -36,6 +37,8 @@ export default async function Home() {
 
         <Verdict />
 
+        <Promises />
+
         <InstallSection version={version} />
       </main>
 
@@ -68,6 +71,26 @@ export default async function Home() {
           </span>{' '}
           Open your network tab — a tool that keeps your code off the network should be sold
           from a page that does the same.
+        </p>
+
+        <p className="mt-10 max-w-[60ch] text-sm text-ink-faint">
+          Dual-licensed{' '}
+          <ExtLink href={`${REPO}/blob/main/LICENSE`} className="text-ink-dim hover:text-ink-strong">
+            AGPL-3.0-or-later
+          </ExtLink>
+          , or{' '}
+          <ExtLink href={`${REPO}/blob/main/COMMERCIAL-LICENSE.md`} className="text-ink-dim hover:text-ink-strong">
+            commercially
+          </ExtLink>{' '}
+          for proprietary use —{' '}
+          <a href="mailto:saw@ndevuspace.com" className="text-ink-dim hover:text-ink-strong">
+            contact us
+          </a>
+          .
+        </p>
+
+        <p className="mt-6 font-mono text-sm text-ink-faint">
+          © 2026 Jean Paul Elisa NIYOKWIZERWA
         </p>
       </footer>
     </>
