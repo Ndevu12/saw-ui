@@ -3,6 +3,7 @@ import { Hero } from '@/widgets/hero/ui/hero';
 import { Threat } from '@/widgets/threat/ui/threat';
 import { Mitigation } from '@/widgets/mitigation/ui/mitigation';
 import { Verdict } from '@/widgets/verdict/ui/verdict';
+import { InstallSection } from '@/widgets/install/ui/install-section';
 import { Wordmark } from '@/shared/ui/wordmark';
 import { InstallLine } from '@/features/copy-command/ui/install-line';
 import { publishedVersion } from '@/shared/lib/version';
@@ -35,24 +36,7 @@ export default async function Home() {
 
         <Verdict />
 
-        <section className={`${SHELL} max-w-[1100px] py-28 lg:py-40`}>
-          <div className="flex flex-col items-start gap-8">
-            <h2 className="font-display text-3xl leading-tight md:text-4xl 2xl:text-5xl font-bold tracking-tight text-ink-strong">
-              Start with one command.
-            </h2>
-            <InstallLine command="pip install stayawakebot" />
-            <div className="flex flex-wrap gap-3">
-              {['macOS', 'Linux', 'Python 3.11+', 'Docker', `v${version}`].map((r) => (
-                <span
-                  key={r}
-                  className="rounded-full border border-rule px-4 py-1.5 font-mono text-sm text-ink-dim"
-                >
-                  {r}
-                </span>
-              ))}
-            </div>
-          </div>
-        </section>
+        <InstallSection version={version} />
       </main>
 
       <footer className={`${SHELL} border-t border-rule py-20`}>
