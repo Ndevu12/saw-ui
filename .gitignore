@@ -41,3 +41,6 @@ next-env.d.ts
 
 # operator-supplied detection fixtures — never commit one (see tools/capture.py)
 /fixtures-local
+
+# generated at build by tools/write-version-json.mjs
+/public/version.json
