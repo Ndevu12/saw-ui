@@ -2,6 +2,7 @@ import { Check } from 'lucide-react';
 import { InstallLine } from '@/features/copy-command/ui/install-line';
 import { ReplayDeck } from '@/features/replay-session/ui/replay-deck';
 import { shell, site } from '@/shared/config/site';
+import { Saw } from '@/shared/ui/saw';
 
 /**
  * The first screen.
@@ -52,7 +53,7 @@ export function Hero() {
             className="reveal mt-6 font-display text-4xl leading-tight lg:text-5xl font-bold tracking-tight text-ink-strong"
             style={{ '--reveal-delay': '130ms' } as React.CSSProperties}
           >
-            Hunt supply-chain malware{' '}
+            <Saw accent /> hunts supply-chain malware{' '}
             <span className="block">where it lands.</span>
           </h1>
 
