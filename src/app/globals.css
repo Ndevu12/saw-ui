@@ -106,6 +106,14 @@
 }
 
 @layer utilities {
+  /* The threat lifecycle's traveling signal: each stage's marker glows in turn, so a
+     mint pulse appears to move through the cycle. Staggered per stage via inline delay. */
+  .signal-dot { animation: signal 2.7s ease-in-out infinite; }
+  @keyframes signal {
+    0%, 100% { border-color: var(--color-rule); box-shadow: 0 0 0 rgba(128, 225, 171, 0); }
+    50% { border-color: var(--color-mint); box-shadow: 0 0 18px rgba(128, 225, 171, 0.45); }
+  }
+
   /* Entrance reveal, in CSS rather than JS.
      ────────────────────────────────────────────────────────────────────────────
      Above-the-fold content must NEVER depend on hydration to become visible. A
