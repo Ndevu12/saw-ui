@@ -2,6 +2,7 @@ import { SiteHeader } from '@/widgets/site-header/ui/site-header';
 import { Hero } from '@/widgets/hero/ui/hero';
 import { Threat } from '@/widgets/threat/ui/threat';
 import { Mitigation } from '@/widgets/mitigation/ui/mitigation';
+import { Verdict } from '@/widgets/verdict/ui/verdict';
 import { Wordmark } from '@/shared/ui/wordmark';
 import { InstallLine } from '@/features/copy-command/ui/install-line';
 import { publishedVersion } from '@/shared/lib/version';
@@ -32,36 +33,7 @@ export default async function Home() {
 
         <Mitigation />
 
-        <section className={`${SHELL} max-w-[1100px] py-28 lg:py-40`}>
-          <div className="mb-14 flex flex-col gap-5">
-            <p className="font-mono text-xs tracking-[0.24em] text-mint uppercase sm:text-sm">The verdict</p>
-            <h2 className="font-display text-3xl leading-tight md:text-4xl 2xl:text-5xl font-bold tracking-tight text-ink-strong">
-              One number is the whole answer.
-            </h2>
-            <p className="max-w-[50ch] text-lg leading-relaxed text-ink-dim md:text-xl">
-              Every scan ends in a single exit code — so gating CI is one line, with nothing
-              to configure and no way to configure it away.
-            </p>
-          </div>
-          <dl className="flex flex-col">
-            {[
-              ['0', 'Clean, and fully scanned.', 'text-mint'],
-              ['1', 'Infected. The build fails, and no flag makes it pass.', 'text-coral'],
-              ['2', 'Could not be scanned — which is unknown, never clean.', 'text-amber'],
-              ['3', 'Rotating credentials from this machine is unsafe right now.', 'text-coral'],
-            ].map(([code, meaning, tone], i, all) => (
-              <div
-                key={code}
-                className={`grid grid-cols-[3.5rem_1fr] items-baseline gap-8 border-t border-rule-soft py-8 ${
-                  i === all.length - 1 ? 'border-b' : ''
-                }`}
-              >
-                <dt className={`font-mono text-3xl font-semibold tabular-nums md:text-4xl ${tone}`}>{code}</dt>
-                <dd className="text-base text-ink-dim md:text-lg">{meaning}</dd>
-              </div>
-            ))}
-          </dl>
-        </section>
+        <Verdict />
 
         <section className={`${SHELL} max-w-[1100px] py-28 lg:py-40`}>
           <div className="flex flex-col items-start gap-8">
