@@ -106,6 +106,25 @@
 }
 
 @layer utilities {
+  /* Scroll-reveal used by the mitigation phases. Progressive: content is hidden and
+     rises into view only where `animation-timeline: view()` is supported and motion is
+     welcome; otherwise `.rise` is a no-op and the content is visible from the start, so
+     it can never be stranded invisible. */
+  @keyframes rise-in {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: none; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .rise {
+        opacity: 0;
+        animation: rise-in linear both;
+        animation-timeline: view();
+        animation-range: entry 4% cover 26%;
+      }
+    }
+  }
+
   /* The threat lifecycle's traveling signal: each stage's marker glows in turn, so a
      mint pulse appears to move through the cycle. Staggered per stage via inline delay. */
   .signal-dot { animation: signal 2.7s ease-in-out infinite; }
