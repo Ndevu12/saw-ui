@@ -23,6 +23,12 @@
   --amber: #e3b44f;
   --coral: #f2736b;
   color-scheme: dark;
+
+  /* Sticky-header height (wordmark + py-8 + hairline). One metric, so the hero can
+     fill the screen BELOW the bar and in-page anchors clear it. Accurate at the wide
+     widths where the nav sits on one line; on a phone the nav wraps and the hero
+     content overflows anyway, so a small discrepancy costs nothing. */
+  --header-h: 6.5rem;
 }
 
 @media (prefers-color-scheme: light) {
@@ -115,6 +121,17 @@
     font-weight: 500;
     font-size: 0.92em;
     letter-spacing: -0.01em;
+  }
+
+  /* The hero fills exactly the viewport left under the sticky header — centred in the
+     visible area, not shifted low by the bar's height. */
+  .fill-under-header {
+    min-height: calc(100svh - var(--header-h));
+  }
+
+  /* An in-page anchor lands below the sticky bar instead of behind it. */
+  .header-offset {
+    scroll-margin-top: calc(var(--header-h) + 1.5rem);
   }
 
   /* Scroll-reveal used by the mitigation phases. Progressive: content is hidden and

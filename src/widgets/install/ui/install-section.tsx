@@ -27,7 +27,7 @@ const CHANNELS: { label: string; desc: string; cmd: string }[] = [
 
 export function InstallSection({ version }: { version: string }) {
   return (
-    <section className={`${shell} max-w-[1040px] py-24 lg:py-36`}>
+    <section id="install" className={`${shell} header-offset max-w-[1040px] py-24 lg:py-36`}>
       <div className="flex flex-col items-start gap-6">
         <p className="font-mono text-xs tracking-[0.24em] text-mint uppercase sm:text-sm">Install</p>
         <h2 className="font-display text-3xl leading-tight md:text-4xl 2xl:text-5xl font-bold tracking-tight text-ink-strong">

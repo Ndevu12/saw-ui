@@ -21,13 +21,14 @@ export default async function Home() {
   const version = await publishedVersion();
 
   return (
-    <>
-      <div className="flex min-h-svh flex-col">
-        <SiteHeader />
-        <Hero />
-      </div>
+    /* One page-spanning column so the sticky header sticks through every section, not
+       just the first screen — a sticky element only sticks within its own parent. */
+    <div className="flex min-h-svh flex-col">
+      <SiteHeader />
 
-      <main id="main">
+      <main id="main" className="header-offset">
+        <Hero />
+
         {/* ── The demonstration. Sections below the hero are converted but NOT yet
              individually designed — they are being taken one at a time. ────────── */}
 
@@ -45,7 +46,13 @@ export default async function Home() {
       <footer className={`${SHELL} border-t border-rule py-20`}>
         <div className="flex flex-wrap items-start justify-between gap-10">
           <div className="flex flex-col gap-3">
-            <Wordmark height={30} />
+            <a
+              href="/"
+              aria-label="saw — home"
+              className="w-fit rounded-sm transition-opacity hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-mint"
+            >
+              <Wordmark height={30} />
+            </a>
             <p className="font-mono text-sm tracking-[0.2em] text-ink-faint uppercase">
               the sentinel saw the worm
             </p>
@@ -97,6 +104,6 @@ export default async function Home() {
           © 2026 Jean Paul Elisa NIYOKWIZERWA
         </p>
       </footer>
-    </>
+    </div>
   );
 }

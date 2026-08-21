@@ -38,7 +38,7 @@ import { Saw } from '@/shared/ui/saw';
  */
 export function Hero() {
   return (
-    <section className={`${shell} flex flex-1 flex-col justify-center py-16 lg:py-20`}>
+    <section className={`${shell} fill-under-header flex flex-col justify-center py-16 lg:py-20`}>
       <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-12">
         {/* Left: the pitch — headline and the one action, kept tight. */}
         <div className="flex flex-col">
