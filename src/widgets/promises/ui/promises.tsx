@@ -2,9 +2,9 @@ import { Check } from 'lucide-react';
 import { shell } from '@/shared/config/site';
 
 /**
- * What it promises — the load-bearing contracts, stated carefully: what saw is
- * allowed to change and what it will not touch. These are obligations the code
- * enforces, not features. Outcome-level only, per the disclosure rules.
+ * What saw guarantees — the load-bearing contracts, stated carefully: what saw
+ * is allowed to change and what it will not touch. These are obligations the
+ * code enforces, not features. Outcome-level only, per the disclosure rules.
  */
 const CONTRACTS: [string, string][] = [
   [
@@ -12,7 +12,7 @@ const CONTRACTS: [string, string][] = [
     'saw scan never modifies a file, under any flag. Remediation lives in a separate command, so no one can trip into it.',
   ],
   [
-    "A target it can't scan is never clean",
+    "A target saw can't scan is never called clean",
     "Silence has two causes and only one is good news. Where saw can't be sure, it says so and exits non-zero — never the comfortable answer.",
   ],
   [
@@ -30,14 +30,14 @@ export function Promises() {
     <section className={`${shell} max-w-[1100px] py-24 lg:py-36`}>
       <div className="mb-14 flex max-w-[54ch] flex-col gap-5">
         <p className="font-mono text-xs tracking-[0.24em] text-mint uppercase sm:text-sm">
-          What it promises
+          What saw guarantees
         </p>
         <h2 className="font-display text-3xl leading-tight md:text-4xl 2xl:text-5xl font-bold tracking-tight text-balance text-ink-strong">
           Narrow enough to trust on anything.
         </h2>
         <p className="text-lg leading-relaxed text-ink-dim md:text-xl">
-          A security tool that damages a working repository gets uninstalled — so the boundaries
-          are deliberate, and they hold under every flag.
+          saw holds every one of these under every flag. A scanner that can damage a working
+          repository gets uninstalled — so these boundaries are deliberate, not aspirational.
         </p>
       </div>
 
