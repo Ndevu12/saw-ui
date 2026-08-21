@@ -1,5 +1,6 @@
 import { RotateCcw } from 'lucide-react';
 import { shell } from '@/shared/config/site';
+import { Saw } from '@/shared/ui/saw';
 
 /**
  * "What it hunts" — the supply-chain attack, taught as a lifecycle.
@@ -64,9 +65,8 @@ export function Threat() {
       </p>
 
       <p className="mt-14 max-w-[68ch] border-t border-rule-soft pt-8 text-xl leading-relaxed text-ink md:text-2xl">
-        <span className="text-ink-strong">saw</span> hunts it across every surface it can land
-        on — your repositories, lockfiles, installed packages, and your machine&apos;s own
-        start-up surface.
+        <Saw /> hunts it across every surface it can land on — your repositories, lockfiles,
+        installed packages, and your machine&apos;s own start-up surface.
       </p>
     </section>
   );
