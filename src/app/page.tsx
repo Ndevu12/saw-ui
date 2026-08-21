@@ -84,7 +84,7 @@ export default async function Home() {
           </ExtLink>{' '}
           for proprietary use —{' '}
           <a href="mailto:saw@ndevuspace.com" className="text-ink-dim hover:text-ink-strong">
-            saw@ndevuspace.com
+            contact us
           </a>
           .
         </p>
