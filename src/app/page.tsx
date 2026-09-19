@@ -5,10 +5,13 @@ import { Mitigation } from '@/widgets/mitigation/ui/mitigation';
 import { Promises } from '@/widgets/promises/ui/promises';
 import { InstallSection } from '@/widgets/install/ui/install-section';
 import { Wordmark } from '@/shared/ui/wordmark';
+import { publishedVersion } from '@/shared/lib/version';
 import { ExtLink } from '@/shared/ui/ext-link';
 import { shell, site } from '@/shared/config/site';
 
-export default function Home() {
+export default async function Home() {
+  const version = await publishedVersion();
+
   return (
     /* One page-spanning column so the sticky header sticks through every section, not
        just the first screen — a sticky element only sticks within its own parent. */
@@ -20,7 +23,7 @@ export default function Home() {
         <Threat />
         <Mitigation />
         <Promises />
-        <InstallSection />
+        <InstallSection version={version} />
       </main>
 
       <footer className={`${shell} border-t border-rule py-20`}>

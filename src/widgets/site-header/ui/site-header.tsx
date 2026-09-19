@@ -8,7 +8,7 @@ import { shell, site } from '@/shared/config/site';
  * translucent + blurred so content reads as it scrolls beneath, with a hairline to
  * seat it. The inner div keeps the content on the shared measure.
  *
- * The logo links home and "Get saw" jumps to the install section — both absolute
+ * The logo links home and "Install" jumps to the install section — both absolute
  * (`/`, `/#install`) so they also work from the shared /support page. Internal
  * routes are plain anchors, per the codebase convention.
  */
@@ -24,7 +24,7 @@ export function SiteHeader() {
           <Wordmark height={38} animate />
         </a>
         <nav className="flex flex-wrap items-center gap-x-9 gap-y-3 text-lg">
-          <a href="/#install" className="text-ink-dim transition-colors hover:text-ink-strong">Get saw</a>
+          <a href="/#install" className="text-ink-dim transition-colors hover:text-ink-strong">Install</a>
           <ExtLink href={site.docs} className="text-ink-dim transition-colors hover:text-ink-strong">Docs</ExtLink>
           <ExtLink href={`${site.repo}/issues`} className="text-ink-dim transition-colors hover:text-ink-strong">Report</ExtLink>
           <ExtLink href={site.repo} className="text-ink-dim transition-colors hover:text-ink-strong">GitHub</ExtLink>
