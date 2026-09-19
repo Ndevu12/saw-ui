@@ -1,27 +1,27 @@
 import { FlowBeat, FlowBend } from '@/shared/ui/flow-line';
 import { Section, SectionIntro } from '@/shared/ui/section';
+import { cn } from '@/shared/lib/utils';
 
 /**
  * The counterpart to the attack lifecycle: how saw meets the worm at every angle,
  * organised by the three phases the hero promises — Detect · Remediate · Prevent.
- * Each phase carries a meaning, not just a command, and the four verbs map onto it:
  * Detect covers the code (scan) and the machine (audit); Remediate cleans on a PR
- * (fix); Prevent gates the door (guard). Copy stays outcome-level — no detection
- * mechanism, per the disclosure rules.
+ * (fix); Prevent hardens this host (harden) and gates the merge (guard). Copy
+ * stays outcome-level — no detection mechanism, per the disclosure rules.
  */
 const PHASES: {
   n: string;
   name: string;
   meaning: string;
-  verbs: [string, string][];
+  verbs: { cmd: string; blurb: string; main?: boolean }[];
 }[] = [
   {
     n: '01',
     name: 'Detect',
     meaning: 'Find it wherever it landed — in the code, and on the machine.',
     verbs: [
-      ['saw scan', 'Repositories, lockfiles and installed packages. Read-only, always — its exit code is the verdict.'],
-      ['saw audit', 'The machine itself: cached credentials, editor settings, and what runs at start-up.'],
+      { cmd: 'saw scan', blurb: 'Repositories, lockfiles and installed packages. Read-only, always — its exit code is the verdict.' },
+      { cmd: 'saw audit', blurb: 'The machine itself: cached credentials, editor settings, and what runs at start-up.' },
     ],
   },
   {
@@ -29,7 +29,7 @@ const PHASES: {
     name: 'Remediate',
     meaning: 'Clean it on your terms, never behind your back.',
     verbs: [
-      ['saw fix', 'Recovers the real previous version from your git history onto a pull request. It never rewrites history, and nothing lands without your merge.'],
+      { cmd: 'saw fix', blurb: 'Recovers the real previous version from your git history onto a pull request. It never rewrites history, and nothing lands without your merge.' },
     ],
   },
   {
@@ -37,7 +37,15 @@ const PHASES: {
     name: 'Prevent',
     meaning: 'Shut the door it came through.',
     verbs: [
-      ['saw guard', 'Installs the CI gate and proves branch protection actually requires it — so an infected change cannot merge in the first place.'],
+      {
+        cmd: 'saw harden',
+        main: true,
+        blurb: 'This machine. Puts the host controls in place, and only reports a write as done after it is read back.',
+      },
+      {
+        cmd: 'saw guard',
+        blurb: 'Installs the CI gate and proves branch protection actually requires it — so an infected change cannot merge in the first place.',
+      },
     ],
   },
 ];
@@ -73,10 +81,17 @@ export function Mitigation() {
                   {phase.meaning}
                 </p>
                 <div className="mt-6 grid gap-6">
-                  {phase.verbs.map(([cmd, desc]) => (
-                    <div key={cmd} className="flex flex-col gap-2">
-                      <span className="font-mono text-base text-mint">{cmd}</span>
-                      <p className="max-w-[46ch] text-sm leading-relaxed text-ink-dim">{desc}</p>
+                  {phase.verbs.map((verb) => (
+                    <div key={verb.cmd} className="flex flex-col gap-2">
+                      <span
+                        className={cn(
+                          'font-mono text-mint',
+                          verb.main ? 'text-lg font-semibold md:text-xl' : 'text-base',
+                        )}
+                      >
+                        {verb.cmd}
+                      </span>
+                      <p className="max-w-[46ch] text-sm leading-relaxed text-ink-dim">{verb.blurb}</p>
                     </div>
                   ))}
                 </div>
