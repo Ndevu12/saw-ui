@@ -5,9 +5,10 @@ import { cn } from '@/shared/lib/utils';
 /**
  * The counterpart to the attack lifecycle: how saw meets the worm at every angle,
  * organised by the three phases the hero promises — Detect · Remediate · Prevent.
- * Detect covers the code (scan) and the machine (audit); Remediate cleans on a PR
- * (fix); Prevent hardens this host (harden) and gates the merge (guard). Copy
- * stays outcome-level — no detection mechanism, per the disclosure rules.
+ * Detect covers the code (scan), git events as they land (hook), and the
+ * machine (audit); Remediate cleans on a PR (fix); Prevent hardens this host
+ * (harden) and gates the merge (guard). Copy stays outcome-level — no
+ * detection mechanism, per the disclosure rules.
  */
 const PHASES: {
   n: string;
@@ -18,9 +19,13 @@ const PHASES: {
   {
     n: '01',
     name: 'Detect',
-    meaning: 'Find it wherever it landed — in the code, and on the machine.',
+    meaning: 'Find it wherever it landed — in the code, on the machine, and the moment git brings it in.',
     verbs: [
       { cmd: 'saw scan', blurb: 'Repositories, lockfiles and installed packages. Read-only, always — its exit code is the verdict.' },
+      {
+        cmd: 'saw hook',
+        blurb: 'A clone, a pull, a branch switch or a rebase — what just landed is scanned before you run it. It warns; it never changes the tree.',
+      },
       { cmd: 'saw audit', blurb: 'The machine itself: cached credentials, editor settings, and what runs at start-up.' },
     ],
   },
