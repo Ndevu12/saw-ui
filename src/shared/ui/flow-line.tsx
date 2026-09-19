@@ -6,8 +6,10 @@ import { cn } from '@/shared/lib/utils';
 const stroke =
   'fill-none stroke-mint/45 [stroke-linecap:round] [stroke-linejoin:round]';
 
-const PAGE = { left: 32, right: 68 } as const;
+const LANE = 40;
+const PAGE = { left: LANE, right: 100 - LANE } as const;
 const RAIL = 22;
+const PULL = 4;
 
 /**
  * A vertical beat: the action sits on the path. Copy lives on the same
@@ -42,12 +44,12 @@ export function FlowBeat({
         </div>
       </div>
       <div
-        className={cn(
-          'hidden lg:grid lg:grid-rows-[3.5rem_auto] lg:gap-x-10',
-          left
-            ? 'lg:grid-cols-[minmax(0,calc(32%-4.25rem))_3.5rem_minmax(0,1fr)]'
-            : 'lg:grid-cols-[minmax(0,1fr)_3.5rem_minmax(0,calc(32%-4.25rem))]',
-        )}
+        className="hidden lg:grid lg:grid-rows-[3.5rem_auto] lg:gap-x-10"
+        style={{
+          gridTemplateColumns: left
+            ? `minmax(0, calc(${LANE}% - 4.25rem)) 3.5rem minmax(0, 1fr)`
+            : `minmax(0, 1fr) 3.5rem minmax(0, calc(${LANE}% - 4.25rem))`,
+        }}
       >
         <div
           className={cn(
@@ -93,29 +95,31 @@ export function FlowBend({
   from: 'left' | 'right';
   to: 'left' | 'right';
 }) {
-  const bulge = to === 'right' ? 78 : 8;
+  const bulge = to === 'right' ? 58 : 18;
+  const fromX = PAGE[from];
+  const toX = PAGE[to];
   return (
     <div aria-hidden>
       <svg
-        viewBox="0 0 100 96"
+        viewBox="0 0 100 56"
         preserveAspectRatio="none"
-        className="h-24 w-32 lg:hidden"
+        className="h-14 w-20 lg:hidden"
       >
         <path
           className={stroke}
-          d={`M ${RAIL} 0 C ${RAIL} 28, ${bulge} 40, ${bulge} 48 C ${bulge} 56, ${RAIL} 68, ${RAIL} 96`}
+          d={`M ${RAIL} 0 C ${RAIL} 16, ${bulge} 22, ${bulge} 28 C ${bulge} 34, ${RAIL} 40, ${RAIL} 56`}
           strokeWidth="2"
           vectorEffect="non-scaling-stroke"
         />
       </svg>
       <svg
-        viewBox="0 0 100 128"
+        viewBox="0 0 100 64"
         preserveAspectRatio="none"
-        className="hidden h-32 w-full lg:block"
+        className="hidden h-16 w-full lg:block"
       >
         <path
           className={stroke}
-          d={`M ${PAGE[from]} 0 C ${PAGE[from] - (from === 'left' ? 8 : -8)} 48, ${PAGE[to] + (to === 'left' ? -8 : 8)} 52, ${PAGE[to]} 128`}
+          d={`M ${fromX} 0 C ${fromX - (from === 'left' ? PULL : -PULL)} 24, ${toX + (to === 'left' ? -PULL : PULL)} 40, ${toX} 64`}
           strokeWidth="2"
           vectorEffect="non-scaling-stroke"
         />
