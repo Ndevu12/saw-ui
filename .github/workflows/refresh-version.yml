@@ -5,14 +5,24 @@
 # re-reads PyPI so the chip updates. The visitor's browser still talks only to our own
 # origin — this all happens in CI, never in the page.
 #
-# Required repo secrets (Settings → Secrets and variables → Actions):
-#   VERCEL_TOKEN        a token that can deploy this project
-#   VERCEL_ORG_ID       from the Vercel project settings
-#   VERCEL_PROJECT_ID   same source
-# Repo variables (Settings → Secrets and variables → Actions → Variables):
-#   SITE_URL            origin the job reads /version.json from
-#   VERCEL_PROJECT      the Vercel project name; used only to link the checkout
-#   VERCEL_SCOPE        optional Vercel team or user scope for that link
+# GitHub: Settings → Secrets and variables → Actions.
+# Vercel values come from the dashboard, not from this file.
+#
+# Secrets:
+#   VERCEL_PROJECT_ID   Vercel → open this project → Settings → General →
+#                       Project ID (the prj_… field on that page)
+#   VERCEL_ORG_ID       Vercel → top-left Hobby/team switcher → Settings →
+#                       General → Team ID
+#                       (not on the project page; a project ID alone is not enough)
+#   VERCEL_TOKEN        Vercel → account menu (bottom-left avatar) →
+#                       Account Settings → Tokens → Create
+#                       (must belong to the same account as that Team ID)
+#
+# Variables:
+#   VERCEL_PROJECT      Vercel → Settings → General → Project Name
+#                       (the name only, last path segment, not the vercel.com/… URL)
+#   VERCEL_SCOPE        optional; the team/user slug in the dashboard URL
+#   SITE_URL            public origin the job reads /version.json from, with scheme
 name: Refresh displayed version
 
 on:
