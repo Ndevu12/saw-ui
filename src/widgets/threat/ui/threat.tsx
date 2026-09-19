@@ -1,6 +1,5 @@
 import { RotateCcw } from 'lucide-react';
 import { Section, SectionIntro } from '@/shared/ui/section';
-import { Timeline } from '@/shared/ui/timeline';
 import { Saw } from '@/shared/ui/saw';
 
 /**
@@ -36,24 +35,29 @@ export function Threat() {
         }
       />
 
-      <Timeline
-        layout="zigzag"
-        pulse
-        tone="surface"
-        steps={STAGES.map(([title, desc], i) => ({
-          marker: String(i + 1),
-          title,
-          body: <p className="max-w-[26ch] text-sm leading-relaxed text-ink-dim">{desc}</p>,
-        }))}
-        after={{
-          marker: <RotateCcw className="size-4" aria-hidden="true" />,
-          body: (
-            <p className="font-mono text-sm text-mint">
-              every package it poisons becomes the launchpad for the next
-            </p>
-          ),
-        }}
-      />
+      <ol className="grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+        {STAGES.map(([title, desc], i) => (
+          <li key={title} className="rise flex flex-col gap-4 border-t border-rule pt-8">
+            <span
+              aria-hidden
+              className="font-display text-6xl font-bold leading-none text-mint/20 md:text-7xl"
+            >
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <h3 className="font-display text-2xl font-bold tracking-tight text-ink-strong">
+              {title}
+            </h3>
+            <p className="max-w-[28ch] text-sm leading-relaxed text-ink-dim md:text-base">{desc}</p>
+          </li>
+        ))}
+      </ol>
+
+      <p className="mt-14 flex items-center gap-4 font-mono text-sm text-mint">
+        <span aria-hidden className="h-px flex-1 bg-mint/30" />
+        <RotateCcw className="size-4 shrink-0" aria-hidden="true" />
+        every package it poisons becomes the launchpad for the next
+        <span aria-hidden className="hidden h-px flex-1 bg-mint/30 sm:block" />
+      </p>
 
       <p className="mt-14 max-w-[68ch] border-t border-rule-soft pt-8 text-xl leading-relaxed text-ink md:text-2xl">
         <Saw /> hunts it across every surface it can land on — your repositories, lockfiles,

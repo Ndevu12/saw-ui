@@ -25,8 +25,8 @@ export function Section({
 }
 
 /**
- * Shared section opening: optional eyebrow, title, lead. Measure is 52ch so
- * every below-hero intro reads at the same width.
+ * Section opening: display title on the left, lead on the right from `lg` up,
+ * stacked below that. Optional children sit under the pair at full measure.
  */
 export function SectionIntro({
   eyebrow,
@@ -40,19 +40,23 @@ export function SectionIntro({
   children?: ReactNode;
 }) {
   return (
-    <header className="mb-16 lg:mb-20">
-      <div className="flex max-w-[52ch] flex-col gap-5">
-        {eyebrow ? (
-          <p className="font-mono text-xs tracking-[0.24em] text-mint uppercase sm:text-sm">
-            {eyebrow}
-          </p>
-        ) : null}
-        <h2 className="font-display text-3xl leading-tight md:text-4xl 2xl:text-5xl font-bold tracking-tight text-balance text-ink-strong">
-          {title}
-        </h2>
-        <p className="text-lg leading-relaxed text-ink-dim md:text-xl">{lead}</p>
+    <header className="mb-16 lg:mb-24">
+      <div className="grid items-end gap-8 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,0.85fr)] lg:gap-16">
+        <div className="flex flex-col gap-5">
+          {eyebrow ? (
+            <p className="font-mono text-xs tracking-[0.24em] text-mint uppercase sm:text-sm">
+              {eyebrow}
+            </p>
+          ) : null}
+          <h2 className="font-display text-4xl leading-[1.05] font-bold tracking-tight text-balance text-ink-strong md:text-5xl 2xl:text-6xl">
+            {title}
+          </h2>
+        </div>
+        <p className="max-w-[44ch] text-lg leading-relaxed text-ink-dim md:text-xl lg:border-l lg:border-mint/30 lg:pl-10">
+          {lead}
+        </p>
       </div>
-      {children ? <div className="mt-8">{children}</div> : null}
+      {children ? <div className="mt-10">{children}</div> : null}
     </header>
   );
 }
