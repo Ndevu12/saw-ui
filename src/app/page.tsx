@@ -59,15 +59,7 @@ export default async function Home() {
           </div>
         </div>
 
-        <p className="mt-16 max-w-[52ch] text-lg text-ink-faint">
-          <span className="text-ink-dim">
-            This page sets no cookies, runs no analytics, and loads nothing from anyone else.
-          </span>{' '}
-          Open your network tab — a tool that keeps your code off the network should be sold
-          from a page that does the same.
-        </p>
-
-        <p className="mt-10 max-w-[60ch] text-sm text-ink-faint">
+        <p className="mt-16 max-w-[60ch] text-sm text-ink-faint">
           Dual-licensed{' '}
           <ExtLink href={`${site.repo}/blob/main/LICENSE`} className="text-ink-dim hover:text-ink-strong">
             AGPL-3.0-or-later
