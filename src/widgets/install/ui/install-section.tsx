@@ -10,7 +10,7 @@ import { Section, SectionIntro } from '@/shared/ui/section';
 const CHANNELS: { label: string; desc: string; cmd: string }[] = [
   {
     label: 'Docker',
-    desc: 'No Python toolchain needed — scan a mounted repository from the published image.',
+    desc: 'Scan a mounted repository from the published image.',
     cmd: 'docker run --rm -v "$PWD:/repo:ro" ghcr.io/ndevu12/stayawakebot saw scan /repo',
   },
   {
@@ -26,7 +26,7 @@ export function InstallSection({ version }: { version: string }) {
       <SectionIntro
         eyebrow="Install"
         title="Start with one command."
-        lead="Offline and accurate with zero flags — install it, and the first scan needs nothing else."
+        lead="Install it, then run saw scan. The hunt starts on the tree you have."
       >
         <InstallLine command={site.install} />
         <div className="mt-6 flex flex-wrap gap-2.5">

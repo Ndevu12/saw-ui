@@ -8,20 +8,20 @@ import { Section, SectionIntro } from '@/shared/ui/section';
  */
 const CONTRACTS: [string, string][] = [
   [
-    'Read-only means read-only',
-    'saw scan never modifies a file, under any flag. Remediation lives in a separate command, so no one can trip into it.',
+    'scan reads. fix writes.',
+    'The hunt is one command. The clean is another, and it opens a pull request.',
   ],
   [
-    "A target saw can't scan is never called clean",
-    "Silence has two causes and only one is good news. Where saw can't be sure, it says so and exits non-zero — never the comfortable answer.",
+    'An unfinished hunt is not a clean host',
+    'Where saw cannot be sure, it says so. Silence is not a clean result.',
   ],
   [
-    "Your allowlist, never the target's",
-    "Suppressions come from one config you choose. A repository can't ship an allowlist that excuses its own payload.",
+    'You own the allowlist',
+    'Suppressions come from one config you choose. The repository under scan does not get a vote.',
   ],
   [
-    'Nothing lands without your merge',
-    'On an infected verdict the gate opens the fix as a pull request and stays red until you merge it. Remediation opens the fix; it never makes the check pass.',
+    'Nothing lands until you merge',
+    'On an infected verdict the gate opens the fix as a pull request and stays red until you merge it.',
   ],
 ];
 
@@ -30,8 +30,8 @@ export function Promises() {
     <Section band="surface">
       <SectionIntro
         eyebrow="What saw guarantees"
-        title="Narrow enough to trust on anything."
-        lead="saw holds every one of these under every flag. A scanner that can damage a working repository gets uninstalled — so these boundaries are deliberate, not aspirational."
+        title="The contracts the commands keep."
+        lead="saw holds every one of these under every flag."
       />
 
       <div className="grid gap-x-14 gap-y-12 md:grid-cols-2">
