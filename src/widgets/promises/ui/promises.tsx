@@ -2,26 +2,25 @@ import { Check } from 'lucide-react';
 import { Section, SectionIntro } from '@/shared/ui/section';
 
 /**
- * What saw guarantees — the load-bearing contracts, stated carefully: what saw
- * is allowed to change and what it will not touch. These are obligations the
- * code enforces, not features. Outcome-level only, per the disclosure rules.
+ * The work, named. Not a list of things saw refuses — the four facts the
+ * commands are. Outcome-level only, per the disclosure rules.
  */
-const CONTRACTS: [string, string][] = [
+const POINTS: [string, string][] = [
   [
     'scan reads. fix writes.',
     'The hunt is one command. The clean is another, and it opens a pull request.',
   ],
   [
-    'An incomplete hunt is named.',
-    'Where a target could not be fully scanned, the report says so.',
+    'The hunt is the tree and the host.',
+    'Repositories, lockfiles, installed packages, and the machine\'s start-up surface.',
   ],
   [
-    'The allowlist is the config you pass.',
-    'Suppressions come from that one file, on that run.',
+    'Git events are scanned as they land.',
+    'A clone, a pull, a branch switch or a rebase — what just landed is scanned before you run it.',
   ],
   [
-    'You merge the fix.',
-    'On an infected verdict the gate opens a pull request. The clean lands when you merge it.',
+    'The host is hardened. The merge is gated.',
+    'saw harden on this machine. saw guard on the pull request.',
   ],
 ];
 
@@ -29,13 +28,13 @@ export function Promises() {
   return (
     <Section band="surface">
       <SectionIntro
-        eyebrow="What saw guarantees"
-        title="The contracts the commands keep."
-        lead="saw holds every one of these under every flag."
+        eyebrow="What the commands do"
+        title="The hunt, the clean, the host, the gate."
+        lead="Four commands. One job."
       />
 
       <div className="grid gap-x-14 gap-y-12 md:grid-cols-2">
-        {CONTRACTS.map(([title, desc]) => (
+        {POINTS.map(([title, desc]) => (
           <div key={title} className="rise flex gap-4">
             <span className="mt-1 flex size-6 shrink-0 items-center justify-center rounded-full border border-mint/40 text-mint">
               <Check className="size-3.5" aria-hidden="true" />
