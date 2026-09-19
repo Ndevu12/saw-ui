@@ -12,16 +12,16 @@ const CONTRACTS: [string, string][] = [
     'The hunt is one command. The clean is another, and it opens a pull request.',
   ],
   [
-    'An unfinished hunt is not a clean host',
-    'Where saw cannot be sure, it says so. Silence is not a clean result.',
+    'An incomplete hunt is named.',
+    'Where a target could not be fully scanned, the report says so.',
   ],
   [
-    'You own the allowlist',
-    'Suppressions come from one config you choose. The repository under scan does not get a vote.',
+    'The allowlist is the config you pass.',
+    'Suppressions come from that one file, on that run.',
   ],
   [
-    'Nothing lands until you merge',
-    'On an infected verdict the gate opens the fix as a pull request and stays red until you merge it.',
+    'You merge the fix.',
+    'On an infected verdict the gate opens a pull request. The clean lands when you merge it.',
   ],
 ];
 
