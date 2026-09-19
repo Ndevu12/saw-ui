@@ -1,19 +1,8 @@
-# Keeps the version shown on the site current without a paid deploy hook and without a
-# rebuild on every check. On a schedule it compares the latest release on PyPI to the
-# version the site currently serves at /version.json; only when they differ (i.e. a
-# release happened since the last deploy) does it redeploy, and the redeploy's build
-# re-reads PyPI so the chip updates. The visitor's browser still talks only to our own
-# origin — this all happens in CI, never in the page.
-#
-# Required repo secrets (Settings → Secrets and variables → Actions):
-#   VERCEL_TOKEN        a token scoped to this project (Vercel → Account → Tokens)
-#   VERCEL_ORG_ID       from `vercel link` (.vercel/project.json) or the project settings
-#   VERCEL_PROJECT_ID   same source
 name: Refresh displayed version
 
 on:
   schedule:
-    - cron: '0 */6 * * *' # every 6 hours
+    - cron: '0 */6 * * *'
   workflow_dispatch: {}
 
 permissions:
@@ -24,7 +13,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  SITE_URL: https://saw.ndevuspace.com
+  SITE_URL: ${{ vars.SITE_URL }}
 
 jobs:
   refresh:
@@ -59,7 +48,16 @@ jobs:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VERCEL_PROJECT: ${{ vars.VERCEL_PROJECT }}
+          VERCEL_SCOPE: ${{ vars.VERCEL_SCOPE }}
         run: |
+          if [ -n "$VERCEL_PROJECT" ]; then
+            set -- --yes --project "$VERCEL_PROJECT" --token="$VERCEL_TOKEN"
+            if [ -n "$VERCEL_SCOPE" ]; then
+              set -- "$@" --scope "$VERCEL_SCOPE"
+            fi
+            npx --yes vercel@latest link "$@"
+          fi
           npx --yes vercel@latest pull --yes --environment=production --token="$VERCEL_TOKEN"
           npx --yes vercel@latest build --prod --token="$VERCEL_TOKEN"
           npx --yes vercel@latest deploy --prebuilt --prod --token="$VERCEL_TOKEN"
