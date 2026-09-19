@@ -1,0 +1,33 @@
+{
+  "default_branch": "main",
+  "branches": [
+    "copy/drop-footer-defense",
+    "copy/proper-points",
+    "copy/translator-voice",
+    "feat/below-hero-timelines",
+    "feat/remove-verdict-section",
+    "fix/refresh-version-vercel-link",
+    "main",
+    "origin"
+  ],
+  "parent": {
+    "copy/drop-footer-defense": "main",
+    "copy/proper-points": "main",
+    "copy/translator-voice": "main",
+    "feat/below-hero-timelines": "main",
+    "feat/remove-verdict-section": "main",
+    "fix/refresh-version-vercel-link": "main",
+    "main": null,
+    "origin": "main"
+  },
+  "order": [
+    "main",
+    "copy/drop-footer-defense",
+    "copy/proper-points",
+    "copy/translator-voice",
+    "feat/below-hero-timelines",
+    "feat/remove-verdict-section",
+    "fix/refresh-version-vercel-link",
+    "origin"
+  ]
+}
