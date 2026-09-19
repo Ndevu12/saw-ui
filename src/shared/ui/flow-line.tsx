@@ -10,8 +10,9 @@ const PAGE = { left: 32, right: 68 } as const;
 const RAIL = 22;
 
 /**
- * A vertical beat: the action sits on the path. The title shares a 3.5rem
- * row with the node so they line up; the rest of the copy hangs under it.
+ * A vertical beat: the action sits on the path. Copy lives on the same
+ * side the line curves to — left of a left node, right of a right node.
+ * The title shares a 3.5rem row with the node; the rest hangs under it.
  */
 export function FlowBeat({
   side,
@@ -30,6 +31,7 @@ export function FlowBeat({
   title: ReactNode;
   children: ReactNode;
 }) {
+  const left = side === 'left';
   return (
     <div>
       <div className="flex items-start gap-5 lg:hidden">
@@ -41,14 +43,21 @@ export function FlowBeat({
       </div>
       <div
         className={cn(
-          'hidden lg:grid lg:grid-cols-[minmax(0,1fr)_3.5rem_minmax(0,1fr)] lg:grid-rows-[3.5rem_auto] lg:gap-x-10',
-          side === 'left' ? '-translate-x-[18%]' : 'translate-x-[18%]',
+          'hidden lg:grid lg:grid-rows-[3.5rem_auto] lg:gap-x-10',
+          left
+            ? 'lg:grid-cols-[minmax(0,calc(32%-4.25rem))_3.5rem_minmax(0,1fr)]'
+            : 'lg:grid-cols-[minmax(0,1fr)_3.5rem_minmax(0,calc(32%-4.25rem))]',
         )}
       >
-        <div className={cn('flex items-center', side === 'right' && 'justify-end')}>
-          {side === 'right' ? title : null}
+        <div
+          className={cn(
+            'flex items-center',
+            left ? 'col-start-1 justify-end text-right' : 'col-start-3',
+          )}
+        >
+          {title}
         </div>
-        <div className="relative row-span-2 flex flex-col items-center">
+        <div className="relative col-start-2 row-span-2 flex flex-col items-center">
           <span
             aria-hidden
             className={cn(
@@ -61,11 +70,13 @@ export function FlowBeat({
           />
           <FlowNode n={n} tone={tone} />
         </div>
-        <div className="flex items-center">{side === 'left' ? title : null}</div>
-        <div className={cn(side === 'right' && 'flex justify-end')}>
-          {side === 'right' ? <div>{children}</div> : null}
+        <div
+          className={cn(
+            left ? 'col-start-1 flex justify-end text-right' : 'col-start-3',
+          )}
+        >
+          <div>{children}</div>
         </div>
-        <div>{side === 'left' ? children : null}</div>
       </div>
     </div>
   );

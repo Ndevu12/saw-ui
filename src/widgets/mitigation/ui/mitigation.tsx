@@ -1,6 +1,5 @@
 import { FlowBeat, FlowBend } from '@/shared/ui/flow-line';
 import { Section, SectionIntro } from '@/shared/ui/section';
-import { cn } from '@/shared/lib/utils';
 
 /**
  * The counterpart to the attack lifecycle: how saw meets the worm at every angle,
@@ -73,7 +72,7 @@ export function Mitigation() {
                 <p className="mt-3 max-w-[44ch] text-lg leading-relaxed text-ink-dim md:text-xl">
                   {phase.meaning}
                 </p>
-                <div className={cn('mt-6 grid gap-6', phase.verbs.length > 1 && 'sm:grid-cols-2')}>
+                <div className="mt-6 grid gap-6">
                   {phase.verbs.map(([cmd, desc]) => (
                     <div key={cmd} className="flex flex-col gap-2">
                       <span className="font-mono text-base text-mint">{cmd}</span>
