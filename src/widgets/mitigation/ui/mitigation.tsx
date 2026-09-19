@@ -1,3 +1,4 @@
+import { FlowNode, FlowZag } from '@/shared/ui/flow-line';
 import { Section, SectionIntro } from '@/shared/ui/section';
 import { cn } from '@/shared/lib/utils';
 
@@ -52,30 +53,27 @@ export function Mitigation() {
 
       <ol>
         {PHASES.map((phase, i) => (
-          <li
-            key={phase.name}
-            className={cn(
-              'rise grid gap-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-16',
-              i === 0 ? 'pb-14 lg:pb-16' : 'border-t border-rule py-14 lg:py-16',
-            )}
-          >
-            <div className="flex flex-col gap-3">
-              <span className="font-display text-7xl font-bold leading-none text-mint/20 md:text-8xl">
-                {phase.n}
-              </span>
-              <h3 className="font-display text-3xl font-bold tracking-tight text-ink-strong md:text-4xl">
-                {phase.name}
-              </h3>
-            </div>
-            <div className="flex flex-col justify-end gap-8">
-              <p className="max-w-[44ch] text-xl leading-relaxed text-ink-dim">{phase.meaning}</p>
-              <div className={cn('grid gap-8', phase.verbs.length > 1 && 'sm:grid-cols-2')}>
-                {phase.verbs.map(([cmd, desc]) => (
-                  <div key={cmd} className="flex flex-col gap-2">
-                    <span className="font-mono text-base text-mint">{cmd}</span>
-                    <p className="max-w-[46ch] text-sm leading-relaxed text-ink-dim">{desc}</p>
-                  </div>
-                ))}
+          <li key={phase.name}>
+            {i > 0 ? <FlowZag /> : null}
+            <div className="grid gap-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-16">
+              <div className="flex flex-col gap-4">
+                <div className="flex h-14 items-center">
+                  <FlowNode n={phase.n} tone="ground" />
+                </div>
+                <h3 className="font-display text-3xl font-bold tracking-tight text-ink-strong md:text-4xl">
+                  {phase.name}
+                </h3>
+              </div>
+              <div className="flex flex-col justify-end gap-8">
+                <p className="max-w-[44ch] text-xl leading-relaxed text-ink-dim">{phase.meaning}</p>
+                <div className={cn('grid gap-8', phase.verbs.length > 1 && 'sm:grid-cols-2')}>
+                  {phase.verbs.map(([cmd, desc]) => (
+                    <div key={cmd} className="flex flex-col gap-2">
+                      <span className="font-mono text-base text-mint">{cmd}</span>
+                      <p className="max-w-[46ch] text-sm leading-relaxed text-ink-dim">{desc}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </li>
