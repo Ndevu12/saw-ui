@@ -27,7 +27,7 @@ Organised by responsibility:
 | --- | --- |
 | `src/app` | Route, layout, global styles and theme tokens |
 | `src/widgets` | Page sections — header, hero, footer |
-| `src/features` | The replay terminal and the copy-command control |
+| `src/features` | The replay terminal |
 | `src/entities` | The recorded terminal sessions (`captures.json`) |
 | `src/shared` | UI primitives, config and helpers |
 | `tools/capture.py` | Records the terminal sessions |

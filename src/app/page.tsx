@@ -5,13 +5,10 @@ import { Mitigation } from '@/widgets/mitigation/ui/mitigation';
 import { Promises } from '@/widgets/promises/ui/promises';
 import { InstallSection } from '@/widgets/install/ui/install-section';
 import { Wordmark } from '@/shared/ui/wordmark';
-import { publishedVersion } from '@/shared/lib/version';
 import { ExtLink } from '@/shared/ui/ext-link';
 import { shell, site } from '@/shared/config/site';
 
-export default async function Home() {
-  const version = await publishedVersion();
-
+export default function Home() {
   return (
     /* One page-spanning column so the sticky header sticks through every section, not
        just the first screen — a sticky element only sticks within its own parent. */
@@ -23,7 +20,7 @@ export default async function Home() {
         <Threat />
         <Mitigation />
         <Promises />
-        <InstallSection version={version} />
+        <InstallSection />
       </main>
 
       <footer className={`${shell} border-t border-rule py-20`}>
@@ -37,7 +34,7 @@ export default async function Home() {
               <Wordmark height={30} />
             </a>
             <p className="font-mono text-sm tracking-[0.2em] text-ink-faint uppercase">
-              the sentinel saw the worm
+              Find it. Fix it. Keep it out of the official code.
             </p>
           </div>
           <div className="flex flex-wrap gap-x-8 gap-y-4 text-base">

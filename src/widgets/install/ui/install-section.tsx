@@ -1,36 +1,47 @@
-import { InstallLine } from '@/features/copy-command/ui/install-line';
 import { site } from '@/shared/config/site';
+import { ExtLink } from '@/shared/ui/ext-link';
 import { Section, SectionIntro } from '@/shared/ui/section';
 
 /**
- * Get it, however you run things. The primary path is one pip command; the rest are
- * the real distribution channels — the published Docker image and the pinned CI
- * action. saw is a Python 3.11+ package, so it runs on macOS, Linux and Windows alike.
+ * How a decision-maker gets saw. The steps themselves live on the docs
+ * site. This page only points the way.
  */
-const CHANNELS: { label: string; desc: string; cmd: string }[] = [
-  {
-    label: 'Docker',
-    desc: 'Scan a mounted repository from the published image.',
-    cmd: 'docker run --rm -v "$PWD:/repo:ro" ghcr.io/ndevu12/stayawakebot saw scan /repo',
-  },
-  {
-    label: 'In CI',
-    desc: 'Gate every merge with the SHA-pinned Strix action — one command writes and pins the workflow.',
-    cmd: 'saw guard setup --pr',
-  },
+const PATHS: { label: string; href: string }[] = [
+  { label: 'Documentation', href: `${site.docs}/latest/` },
+  { label: 'PyPI', href: site.pypi },
+  { label: 'GitHub', href: site.repo },
 ];
 
-export function InstallSection({ version }: { version: string }) {
+export function InstallSection() {
   return (
     <Section id="install">
       <SectionIntro
-        eyebrow="Install"
-        title="Start with one command."
-        lead="Install it, then run saw scan. The hunt starts on the tree you have."
+        title="Get saw."
+        lead="The documentation has the steps for your computer, for a container, and for the automatic check on new code."
       >
-        <InstallLine command={site.install} />
+        <div className="flex flex-wrap gap-3">
+          {PATHS.map((path, i) =>
+            i === 0 ? (
+              <ExtLink
+                key={path.label}
+                href={path.href}
+                className="inline-flex items-center rounded-xl bg-mint px-8 py-3.5 text-base font-semibold text-ground transition-opacity hover:opacity-90"
+              >
+                {path.label}
+              </ExtLink>
+            ) : (
+              <ExtLink
+                key={path.label}
+                href={path.href}
+                className="inline-flex items-center rounded-xl border border-rule px-8 py-3.5 text-base font-semibold text-ink-strong transition-colors hover:border-mint hover:text-mint"
+              >
+                {path.label}
+              </ExtLink>
+            ),
+          )}
+        </div>
         <div className="mt-6 flex flex-wrap gap-2.5">
-          {['Python 3.11+', 'macOS', 'Linux', 'Windows', `v${version}`].map((r) => (
+          {['macOS', 'Linux', 'Windows'].map((r) => (
             <span
               key={r}
               className="rounded-full border border-rule px-4 py-1.5 font-mono text-sm text-ink-dim"
@@ -40,25 +51,6 @@ export function InstallSection({ version }: { version: string }) {
           ))}
         </div>
       </SectionIntro>
-
-      <div className="border-t border-rule pt-14">
-        <p className="mb-10 font-mono text-xs tracking-[0.24em] text-ink-faint uppercase sm:text-sm">
-          Other ways to run it
-        </p>
-        <div className="grid gap-x-12 gap-y-12 lg:grid-cols-2">
-          {CHANNELS.map((ch) => (
-            <div key={ch.label} className="rise flex min-w-0 flex-col gap-4">
-              <div className="flex flex-col gap-1.5">
-                <span className="font-mono text-base text-mint">{ch.label}</span>
-                <p className="max-w-[48ch] text-sm leading-relaxed text-ink-dim md:text-base">
-                  {ch.desc}
-                </p>
-              </div>
-              <InstallLine command={ch.cmd} />
-            </div>
-          ))}
-        </div>
-      </div>
     </Section>
   );
 }
