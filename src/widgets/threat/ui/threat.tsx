@@ -53,10 +53,12 @@ export function Threat() {
                 tone="surface"
                 first={i === 0}
                 last={i === STAGES.length - 1}
+                title={
+                  <h3 className="font-display text-2xl font-bold tracking-tight text-ink-strong">
+                    {title}
+                  </h3>
+                }
               >
-                <h3 className="font-display text-2xl font-bold tracking-tight text-ink-strong">
-                  {title}
-                </h3>
                 <p className="mt-2 max-w-[28ch] text-sm leading-relaxed text-ink-dim md:text-base">
                   {desc}
                 </p>

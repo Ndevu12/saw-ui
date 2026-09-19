@@ -64,10 +64,12 @@ export function Mitigation() {
                 tone="ground"
                 first={i === 0}
                 last={i === PHASES.length - 1}
+                title={
+                  <h3 className="font-display text-3xl font-bold tracking-tight text-ink-strong md:text-4xl">
+                    {phase.name}
+                  </h3>
+                }
               >
-                <h3 className="font-display text-3xl font-bold tracking-tight text-ink-strong md:text-4xl">
-                  {phase.name}
-                </h3>
                 <p className="mt-3 max-w-[44ch] text-lg leading-relaxed text-ink-dim md:text-xl">
                   {phase.meaning}
                 </p>

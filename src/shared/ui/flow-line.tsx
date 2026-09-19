@@ -8,9 +8,8 @@ const PAGE = { left: 32, right: 68 } as const;
 const RAIL = 22;
 
 /**
- * A vertical beat: the action sits on the path. On a wide screen the node
- * follows the warp (left or right); on a small screen the node stays on a
- * left rail and only the stroke swings.
+ * A vertical beat: the action sits on the path. The title shares a 3.5rem
+ * row with the node so they line up; the rest of the copy hangs under it.
  */
 export function FlowBeat({
   side,
@@ -18,6 +17,7 @@ export function FlowBeat({
   tone,
   first = false,
   last = false,
+  title,
   children,
 }: {
   side: 'left' | 'right';
@@ -25,35 +25,45 @@ export function FlowBeat({
   tone: 'ground' | 'surface';
   first?: boolean;
   last?: boolean;
+  title: ReactNode;
   children: ReactNode;
 }) {
   return (
     <div>
       <div className="flex items-start gap-5 lg:hidden">
         <FlowNode n={n} tone={tone} />
-        <div className="min-w-0 pt-1.5">{children}</div>
+        <div className="min-w-0">
+          <div className="flex min-h-14 items-center">{title}</div>
+          <div className="mt-1">{children}</div>
+        </div>
       </div>
       <div
         className={cn(
-          'hidden lg:grid lg:grid-cols-[minmax(0,1fr)_3.5rem_minmax(0,1fr)] lg:items-stretch lg:gap-x-10',
+          'hidden lg:grid lg:grid-cols-[minmax(0,1fr)_3.5rem_minmax(0,1fr)] lg:grid-rows-[3.5rem_auto] lg:gap-x-10',
           side === 'left' ? '-translate-x-[18%]' : 'translate-x-[18%]',
         )}
       >
-        <div className="flex items-center">{side === 'right' ? children : null}</div>
-        <div className="relative flex items-center justify-center">
+        <div className={cn('flex items-center', side === 'right' && 'justify-end')}>
+          {side === 'right' ? title : null}
+        </div>
+        <div className="relative row-span-2 flex flex-col items-center">
           <span
             aria-hidden
             className={cn(
               'absolute left-1/2 w-0.5 -translate-x-px bg-mint/45',
               first && last && 'hidden',
-              first && !last && 'top-1/2 bottom-0',
-              !first && last && 'top-0 bottom-1/2',
+              first && !last && 'top-7 bottom-0',
+              !first && last && 'top-0 h-7',
               !first && !last && 'inset-y-0',
             )}
           />
           <FlowNode n={n} tone={tone} />
         </div>
-        <div className="flex items-center">{side === 'left' ? children : null}</div>
+        <div className="flex items-center">{side === 'left' ? title : null}</div>
+        <div className={cn(side === 'right' && 'flex justify-end')}>
+          {side === 'right' ? children : null}
+        </div>
+        <div>{side === 'left' ? children : null}</div>
       </div>
     </div>
   );
