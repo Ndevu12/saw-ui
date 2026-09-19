@@ -3,19 +3,18 @@ import { site } from '@/shared/config/site';
 import { Section, SectionIntro } from '@/shared/ui/section';
 
 /**
- * Get it, however you run things. The primary path is one pip command; the rest are
- * the real distribution channels — the published Docker image and the pinned CI
- * action. saw is a Python 3.11+ package, so it runs on macOS, Linux and Windows alike.
+ * One pip line is the download. Docker and CI sit under it, where they
+ * were — the other ways to run it, not a second row of buttons.
  */
 const CHANNELS: { label: string; desc: string; cmd: string }[] = [
   {
     label: 'Docker',
-    desc: 'Scan a mounted repository from the published image.',
+    desc: 'Scan a project folder from the published image.',
     cmd: 'docker run --rm -v "$PWD:/repo:ro" ghcr.io/ndevu12/stayawakebot saw scan /repo',
   },
   {
     label: 'In CI',
-    desc: 'Gate every merge with the SHA-pinned Strix action — one command writes and pins the workflow.',
+    desc: 'Add the automatic check so new code is reviewed before it becomes official.',
     cmd: 'saw guard setup --pr',
   },
 ];
@@ -24,13 +23,12 @@ export function InstallSection({ version }: { version: string }) {
   return (
     <Section id="install">
       <SectionIntro
-        eyebrow="Install"
-        title="Start with one command."
-        lead="Install it, then run saw scan. The hunt starts on the tree you have."
+        title="Get saw."
+        lead="One line installs it."
       >
         <InstallLine command={site.install} />
         <div className="mt-6 flex flex-wrap gap-2.5">
-          {['Python 3.11+', 'macOS', 'Linux', 'Windows', `v${version}`].map((r) => (
+          {['macOS', 'Linux', 'Windows', `v${version}`].map((r) => (
             <span
               key={r}
               className="rounded-full border border-rule px-4 py-1.5 font-mono text-sm text-ink-dim"

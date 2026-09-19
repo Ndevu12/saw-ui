@@ -7,8 +7,8 @@ import { site, shell } from '@/shared/config/site';
 export const metadata: Metadata = {
   title: 'Support saw',
   description:
-    'saw is open source. Sponsorship funds the hunt — new detections, sharper audits, and ' +
-    'releases that ship signed and self-scanned.',
+    'saw is open source. Sponsorship funds what ships next — finding more of this malware, ' +
+    'stronger checks on this computer, and releases that are checked before they ship.',
 };
 
 /* mailto, not a hosted form: a form needs a backend or a third party, and either breaks
@@ -26,14 +26,14 @@ export default function Support() {
             className="reveal font-mono text-xs tracking-[0.24em] text-mint uppercase sm:text-sm"
             style={{ '--reveal-delay': '40ms' } as React.CSSProperties}
           >
-            Support the hunt
+            Support saw
           </p>
 
           <h1
             className="reveal mt-6 max-w-[18ch] font-display text-4xl leading-tight font-bold tracking-tight text-balance text-ink-strong md:text-6xl"
             style={{ '--reveal-delay': '130ms' } as React.CSSProperties}
           >
-            Keep the sentinel hunting.
+            Fund what ships next.
           </h1>
 
           <p
@@ -47,7 +47,7 @@ export default function Support() {
             className="reveal mt-8 flex flex-col items-start gap-2.5 font-mono text-sm text-mint"
             style={{ '--reveal-delay': '300ms' } as React.CSSProperties}
           >
-            {['new detections', 'sharper host audits', 'releases signed and self-scanned'].map(
+            {['finds more of this malware', 'stronger checks on this computer', 'releases that are checked before they ship'].map(
               (line) => (
                 <li key={line} className="flex items-center gap-2.5">
                   <Check className="size-3.5 shrink-0" aria-hidden="true" />
@@ -83,7 +83,7 @@ export default function Support() {
           <div className="flex flex-col gap-3">
             <Wordmark height={30} />
             <p className="font-mono text-sm tracking-[0.2em] text-ink-faint uppercase">
-              the sentinel saw the worm
+              Find it. Fix it. Keep it out of the official code.
             </p>
           </div>
           <a href="/" className="text-base text-ink-dim transition-colors hover:text-ink-strong">

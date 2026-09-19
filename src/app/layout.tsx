@@ -19,22 +19,24 @@ const SITE = 'https://saw.ndevuspace.com';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),
-  title: 'saw — supply-chain worm hunter',
+  title: 'saw — find and remove hidden harmful software',
   description:
-    'saw hunts supply-chain worms in repositories, lockfiles, installed packages and on the ' +
-    'host, remediates on a pull request, hardens the machine, and gates CI.',
+    'saw finds harmful code hidden in software you installed — in your project, in the packages ' +
+    'it uses, and on this computer. It prepares a repair you review, locks down the computer, ' +
+    'and checks new code before it becomes official.',
   applicationName: 'saw',
   authors: [{ name: 'Jean Paul Elisa NIYOKWIZERWA' }],
   openGraph: {
     type: 'website',
     url: SITE,
     siteName: 'saw',
-    title: 'saw — supply-chain worm hunter',
+    title: 'saw — find and remove hidden harmful software',
     description:
-      'saw hunts supply-chain worms in repositories, lockfiles, installed packages and on the ' +
-      'host, remediates on a pull request, hardens the machine, and gates CI.',
+      'saw finds harmful code hidden in software you installed — in your project, in the packages ' +
+      'it uses, and on this computer. It prepares a repair you review, locks down the computer, ' +
+      'and checks new code before it becomes official.',
   },
-  twitter: { card: 'summary_large_image', title: 'saw — supply-chain worm hunter' },
+  twitter: { card: 'summary_large_image', title: 'saw — find and remove hidden harmful software' },
   robots: { index: true, follow: true },
 };
 
