@@ -9,8 +9,10 @@
 #   VERCEL_TOKEN        a token that can deploy this project
 #   VERCEL_ORG_ID       from the Vercel project settings
 #   VERCEL_PROJECT_ID   same source
-# Repo variable (Settings → Secrets and variables → Actions → Variables):
+# Repo variables (Settings → Secrets and variables → Actions → Variables):
+#   SITE_URL            origin the job reads /version.json from
 #   VERCEL_PROJECT      the Vercel project name; used only to link the checkout
+#   VERCEL_SCOPE        optional Vercel team or user scope for that link
 name: Refresh displayed version
 
 on:
@@ -26,7 +28,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  SITE_URL: https://saw.ndevuspace.com
+  SITE_URL: ${{ vars.SITE_URL }}
 
 jobs:
   refresh:
@@ -62,9 +64,14 @@ jobs:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
           VERCEL_PROJECT: ${{ vars.VERCEL_PROJECT }}
+          VERCEL_SCOPE: ${{ vars.VERCEL_SCOPE }}
         run: |
           if [ -n "$VERCEL_PROJECT" ]; then
-            npx --yes vercel@latest link --yes --project "$VERCEL_PROJECT" --token="$VERCEL_TOKEN"
+            set -- --yes --project "$VERCEL_PROJECT" --token="$VERCEL_TOKEN"
+            if [ -n "$VERCEL_SCOPE" ]; then
+              set -- "$@" --scope "$VERCEL_SCOPE"
+            fi
+            npx --yes vercel@latest link "$@"
           fi
           npx --yes vercel@latest pull --yes --environment=production --token="$VERCEL_TOKEN"
           npx --yes vercel@latest build --prod --token="$VERCEL_TOKEN"
