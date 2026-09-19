@@ -1,8 +1,10 @@
 import type { ReactNode } from 'react';
 import { cn } from '@/shared/lib/utils';
 
+/* A dashed stroke on this path (pathLength + a stretched viewBox) breaks
+   the curve into fragments. Paint it as one stroke. */
 const stroke =
-  'flow-draw fill-none stroke-mint/45 [stroke-linecap:round] [stroke-linejoin:round]';
+  'fill-none stroke-mint/45 [stroke-linecap:round] [stroke-linejoin:round]';
 
 const PAGE = { left: 32, right: 68 } as const;
 const RAIL = 22;
@@ -61,7 +63,7 @@ export function FlowBeat({
         </div>
         <div className="flex items-center">{side === 'left' ? title : null}</div>
         <div className={cn(side === 'right' && 'flex justify-end')}>
-          {side === 'right' ? children : null}
+          {side === 'right' ? <div>{children}</div> : null}
         </div>
         <div>{side === 'left' ? children : null}</div>
       </div>
@@ -89,7 +91,6 @@ export function FlowBend({
         className="h-24 w-32 lg:hidden"
       >
         <path
-          pathLength="1"
           className={stroke}
           d={`M ${RAIL} 0 C ${RAIL} 28, ${bulge} 40, ${bulge} 48 C ${bulge} 56, ${RAIL} 68, ${RAIL} 96`}
           strokeWidth="2"
@@ -102,7 +103,6 @@ export function FlowBend({
         className="hidden h-32 w-full lg:block"
       >
         <path
-          pathLength="1"
           className={stroke}
           d={`M ${PAGE[from]} 0 C ${PAGE[from] - (from === 'left' ? 8 : -8)} 48, ${PAGE[to] + (to === 'left' ? -8 : 8)} 52, ${PAGE[to]} 128`}
           strokeWidth="2"

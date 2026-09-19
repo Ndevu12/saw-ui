@@ -150,19 +150,7 @@
         animation-timeline: view();
         animation-range: entry 4% cover 26%;
       }
-      /* The flow stroke draws as it enters. pathLength=1, so dasharray 1 is the
-         whole line. Without this support the path is already visible. */
-      .flow-draw {
-        stroke-dasharray: 1;
-        stroke-dashoffset: 1;
-        animation: flow-draw-in linear forwards;
-        animation-timeline: view();
-        animation-range: entry 0% cover 40%;
-      }
     }
-  }
-  @keyframes flow-draw-in {
-    to { stroke-dashoffset: 0; }
   }
 
   /* Entrance reveal, in CSS rather than JS.
