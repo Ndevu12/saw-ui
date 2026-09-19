@@ -5,10 +5,12 @@
 # re-reads PyPI so the chip updates. The visitor's browser still talks only to our own
 # origin — this all happens in CI, never in the page.
 #
-# Required repo secrets (Settings → Secrets and variables → Actions):
-#   VERCEL_TOKEN        a token scoped to this project (Vercel → Account → Tokens)
-#   VERCEL_ORG_ID       from `vercel link` (.vercel/project.json) or the project settings
-#   VERCEL_PROJECT_ID   same source
+# Required repo secret (Settings → Secrets and variables → Actions):
+#   VERCEL_TOKEN   a token that can deploy the `saw` project on the `ndevu` scope
+#
+# Do not pass VERCEL_ORG_ID / VERCEL_PROJECT_ID. Those secrets do not resolve
+# (every redeploy since the first one, 2026-08-25, failed "Project not found").
+# Link by the project name Vercel already uses for this site.
 name: Refresh displayed version
 
 on:
@@ -57,9 +59,8 @@ jobs:
         if: steps.decide.outputs.go == 'true'
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
         run: |
+          npx --yes vercel@latest link --yes --project saw --scope ndevu --token="$VERCEL_TOKEN"
           npx --yes vercel@latest pull --yes --environment=production --token="$VERCEL_TOKEN"
           npx --yes vercel@latest build --prod --token="$VERCEL_TOKEN"
           npx --yes vercel@latest deploy --prebuilt --prod --token="$VERCEL_TOKEN"
