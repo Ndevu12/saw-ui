@@ -54,7 +54,8 @@ export function Mitigation() {
   return (
     <Section>
       <SectionIntro
-        title="The attack has stages. So does the answer."
+        title="The attack has stages."
+        turn="So does the answer."
         lead="Every place the worm touches, saw meets it — in your code, on your machine, and at the gate before an infected change can merge."
       />
 
