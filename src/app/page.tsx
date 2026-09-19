@@ -37,7 +37,7 @@ export default async function Home() {
               <Wordmark height={30} />
             </a>
             <p className="font-mono text-sm tracking-[0.2em] text-ink-faint uppercase">
-              the sentinel saw the worm
+              Find it. Fix it. Keep it out of the official code.
             </p>
           </div>
           <div className="flex flex-wrap gap-x-8 gap-y-4 text-base">

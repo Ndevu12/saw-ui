@@ -3,53 +3,59 @@ import { Section, SectionIntro } from '@/shared/ui/section';
 import { cn } from '@/shared/lib/utils';
 
 /**
- * The counterpart to the attack lifecycle: how saw meets the worm at every angle,
- * organised by the three phases the hero promises — Detect · Remediate · Prevent.
- * Detect covers the code (scan), git events as they land (hook), and the
- * machine (audit); Remediate cleans on a PR (fix); Prevent hardens this host
- * (harden) and gates the merge (guard). Copy stays outcome-level — no
- * detection mechanism, per the disclosure rules.
+ * How saw meets the attack, as jobs a decision-maker can name. Command
+ * names live on the docs site. Outcome-level only — no detection mechanism.
  */
 const PHASES: {
   n: string;
   name: string;
   meaning: string;
-  verbs: { cmd: string; blurb: string; main?: boolean }[];
+  jobs: { title: string; blurb: string; main?: boolean }[];
 }[] = [
   {
     n: '01',
-    name: 'Detect',
-    meaning: 'Find it wherever it landed — in the code, on the machine, and the moment git brings it in.',
-    verbs: [
-      { cmd: 'saw scan', blurb: 'Repositories, lockfiles and installed packages. The last line of the report is the verdict.' },
+    name: 'Find',
+    meaning: 'Find it in the project, on this computer, and when new work arrives.',
+    jobs: [
       {
-        cmd: 'saw hook',
-        blurb: 'A clone, a pull, a branch switch or a rebase — what just landed is scanned before you run it.',
+        title: 'Check the project',
+        blurb:
+          'Your project, the packages it uses, and the packages already on this computer. Then you see what it found.',
       },
-      { cmd: 'saw audit', blurb: 'The machine itself: cached credentials, editor settings, and what runs at start-up.' },
+      {
+        title: 'Check what just arrived',
+        blurb: 'When you download or update the project, what just arrived is checked before you run it.',
+      },
+      {
+        title: 'Check this computer',
+        blurb: 'Saved passwords, editor settings, and programs that start when the computer starts.',
+      },
     ],
   },
   {
     n: '02',
-    name: 'Remediate',
-    meaning: 'Clean it on a pull request you merge.',
-    verbs: [
-      { cmd: 'saw fix', blurb: 'Recovers the previous version from your git history onto a pull request. You merge it.' },
+    name: 'Fix',
+    meaning: 'Prepare a repair you review and accept.',
+    jobs: [
+      {
+        title: 'Prepare the repair',
+        blurb: 'A change from the last safe version you already had. You review it and accept it.',
+      },
     ],
   },
   {
     n: '03',
     name: 'Prevent',
-    meaning: 'Shut the door it came through.',
-    verbs: [
+    meaning: 'Lock down this computer, and check new code before it becomes official.',
+    jobs: [
       {
-        cmd: 'saw harden',
+        title: 'Lock down this computer',
         main: true,
-        blurb: 'This machine. Puts the host controls in place, and only reports a write as done after it is read back.',
+        blurb: 'The controls go on this computer.',
       },
       {
-        cmd: 'saw guard',
-        blurb: 'Installs the CI gate and proves branch protection requires it. An infected change stays off main until you merge the fix.',
+        title: 'Check new code',
+        blurb: 'New work must pass the check before it becomes official.',
       },
     ],
   },
@@ -60,8 +66,8 @@ export function Mitigation() {
     <Section>
       <SectionIntro
         title="The attack has stages."
-        turn="So does the answer."
-        lead="Every place the worm touches, saw meets it — in your code, on your machine, and at the gate before an infected change can merge."
+        turn="The response does too."
+        lead="saw checks your project, this computer, and new code before it is accepted — so infected work does not become official until you approve the repair."
       />
 
       <ol>
@@ -87,17 +93,19 @@ export function Mitigation() {
                   {phase.meaning}
                 </p>
                 <div className="mt-6 grid gap-6">
-                  {phase.verbs.map((verb) => (
-                    <div key={verb.cmd} className="flex flex-col gap-2">
+                  {phase.jobs.map((job) => (
+                    <div key={job.title} className="flex flex-col gap-2">
                       <span
                         className={cn(
-                          'font-mono text-mint',
-                          verb.main ? 'text-lg font-semibold md:text-xl' : 'text-base',
+                          'text-ink-strong',
+                          job.main
+                            ? 'text-lg font-semibold md:text-xl'
+                            : 'text-base font-semibold',
                         )}
                       >
-                        {verb.cmd}
+                        {job.title}
                       </span>
-                      <p className="max-w-[46ch] text-sm leading-relaxed text-ink-dim">{verb.blurb}</p>
+                      <p className="max-w-[46ch] text-sm leading-relaxed text-ink-dim">{job.blurb}</p>
                     </div>
                   ))}
                 </div>
