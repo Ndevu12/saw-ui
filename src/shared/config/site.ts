@@ -3,6 +3,7 @@ export const site = {
   docs: 'https://saw-docs.ndevuspace.com',
   pypi: 'https://pypi.org/project/stayawakebot/',
   email: 'saw@ndevuspace.com',
+  install: 'pip install stayawakebot',
 } as const;
 
 /** One shared measure. The page uses the width it has rather than pinching content

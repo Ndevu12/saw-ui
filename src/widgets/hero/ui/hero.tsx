@@ -1,12 +1,13 @@
 import { Check } from 'lucide-react';
+import { InstallLine } from '@/features/copy-command/ui/install-line';
 import { ReplayDeck } from '@/features/replay-session/ui/replay-deck';
-import { shell } from '@/shared/config/site';
+import { shell, site } from '@/shared/config/site';
 import { Saw } from '@/shared/ui/saw';
 
 /**
  * The first screen. This site translates the product for a decision-maker.
- * Commands and engineer detail live on the docs site. The terminal is the
- * play — a recording of the tool — not a tutorial.
+ * The one action is the install line. The terminal is the play — mount
+ * it, do not edit the deck.
  *
  * Never narrow the tool: it looks in the project, in the packages that
  * project uses, in packages already on this computer, and on the computer
@@ -40,12 +41,7 @@ export function Hero() {
             className="reveal mt-9 flex flex-col gap-4"
             style={{ '--reveal-delay': '220ms' } as React.CSSProperties}
           >
-            <a
-              href="/#install"
-              className="inline-flex w-fit items-center rounded-xl bg-mint px-8 py-3.5 text-base font-semibold text-ground transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-mint"
-            >
-              Get saw
-            </a>
+            <InstallLine command={site.install} />
             <ul className="flex flex-col gap-2 font-mono text-xs text-mint sm:text-sm">
               {[
                 'Your project, the packages it uses, and this computer',
