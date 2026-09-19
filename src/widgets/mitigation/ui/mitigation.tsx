@@ -1,4 +1,5 @@
-import { shell } from '@/shared/config/site';
+import { Section, SectionIntro } from '@/shared/ui/section';
+import { Timeline } from '@/shared/ui/timeline';
 
 /**
  * The counterpart to the attack lifecycle: how saw meets the worm at every angle,
@@ -43,42 +44,31 @@ const PHASES: {
 
 export function Mitigation() {
   return (
-    <section className={`${shell} py-24 lg:py-36`}>
-      <div className="mb-16 flex max-w-[54ch] flex-col gap-5 lg:mb-20">
-        <p className="font-mono text-xs tracking-[0.24em] text-mint uppercase sm:text-sm">
-          Detect · Remediate · Prevent
-        </p>
-        <h2 className="font-display text-3xl leading-tight md:text-4xl 2xl:text-5xl font-bold tracking-tight text-balance text-ink-strong">
-          The attack has stages. So does the answer.
-        </h2>
-        <p className="text-lg leading-relaxed text-ink-dim md:text-xl">
-          Every place the worm touches, saw meets it — in your code, on your machine, and at the
-          gate before an infected change can merge.
-        </p>
-      </div>
+    <Section>
+      <SectionIntro
+        title="The attack has stages. So does the answer."
+        lead="Every place the worm touches, saw meets it — in your code, on your machine, and at the gate before an infected change can merge."
+      />
 
-      <div className="grid gap-y-14 lg:grid-cols-3 lg:gap-x-16">
-        {PHASES.map((phase) => (
-          <div key={phase.name} className="rise flex flex-col gap-8 border-t border-rule pt-8">
-            <div className="flex flex-col gap-2">
-              <span className="font-mono text-sm text-mint">{phase.n}</span>
-              <h3 className="font-display text-2xl font-bold tracking-tight text-ink-strong">
-                {phase.name}
-              </h3>
-              <p className="max-w-[34ch] text-base leading-relaxed text-ink-dim">{phase.meaning}</p>
-            </div>
-
-            <div className="flex flex-col gap-6">
-              {phase.verbs.map(([cmd, desc]) => (
-                <div key={cmd} className="flex flex-col gap-2">
-                  <span className="font-mono text-base text-mint">{cmd}</span>
-                  <p className="max-w-[38ch] text-sm leading-relaxed text-ink-dim">{desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
+      <Timeline
+        steps={PHASES.map((phase) => ({
+          marker: phase.n,
+          title: phase.name,
+          body: (
+            <>
+              <p className="max-w-[42ch] text-base leading-relaxed text-ink-dim">{phase.meaning}</p>
+              <div className="mt-6 flex flex-col gap-6">
+                {phase.verbs.map(([cmd, desc]) => (
+                  <div key={cmd} className="flex flex-col gap-2">
+                    <span className="font-mono text-base text-mint">{cmd}</span>
+                    <p className="max-w-[46ch] text-sm leading-relaxed text-ink-dim">{desc}</p>
+                  </div>
+                ))}
+              </div>
+            </>
+          ),
+        }))}
+      />
+    </Section>
   );
 }

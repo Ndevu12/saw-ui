@@ -1,5 +1,6 @@
 import { InstallLine } from '@/features/copy-command/ui/install-line';
-import { shell, site } from '@/shared/config/site';
+import { site } from '@/shared/config/site';
+import { Section, SectionIntro } from '@/shared/ui/section';
 
 /**
  * Get it, however you run things. The primary path is one pip command; the rest are
@@ -27,17 +28,14 @@ const CHANNELS: { label: string; desc: string; cmd: string }[] = [
 
 export function InstallSection({ version }: { version: string }) {
   return (
-    <section id="install" className={`${shell} header-offset max-w-[1040px] py-24 lg:py-36`}>
-      <div className="flex flex-col items-start gap-6">
-        <p className="font-mono text-xs tracking-[0.24em] text-mint uppercase sm:text-sm">Install</p>
-        <h2 className="font-display text-3xl leading-tight md:text-4xl 2xl:text-5xl font-bold tracking-tight text-ink-strong">
-          Start with one command.
-        </h2>
-        <p className="max-w-[48ch] text-lg leading-relaxed text-ink-dim md:text-xl">
-          Offline and accurate with zero flags — install it, and the first scan needs nothing else.
-        </p>
+    <Section id="install">
+      <SectionIntro
+        eyebrow="Install"
+        title="Start with one command."
+        lead="Offline and accurate with zero flags — install it, and the first scan needs nothing else."
+      >
         <InstallLine command={site.install} />
-        <div className="flex flex-wrap gap-2.5">
+        <div className="mt-6 flex flex-wrap gap-2.5">
           {['Python 3.11+', 'macOS', 'Linux', 'Windows', `v${version}`].map((r) => (
             <span
               key={r}
@@ -47,26 +45,24 @@ export function InstallSection({ version }: { version: string }) {
             </span>
           ))}
         </div>
-      </div>
+      </SectionIntro>
 
       <div className="mt-16 border-t border-rule pt-14">
         <p className="mb-10 font-mono text-xs tracking-[0.24em] text-ink-faint uppercase sm:text-sm">
           Other ways to run it
         </p>
-        <div className="flex flex-col gap-12">
+        <div className="grid gap-x-10 gap-y-12 lg:grid-cols-3">
           {CHANNELS.map((ch) => (
-            <div key={ch.label} className="rise flex flex-col gap-4">
+            <div key={ch.label} className="rise flex min-w-0 flex-col gap-4">
               <div className="flex flex-col gap-1.5">
                 <span className="font-mono text-base text-mint">{ch.label}</span>
-                <p className="max-w-[56ch] text-sm leading-relaxed text-ink-dim md:text-base">
-                  {ch.desc}
-                </p>
+                <p className="text-sm leading-relaxed text-ink-dim md:text-base">{ch.desc}</p>
               </div>
               <InstallLine command={ch.cmd} />
             </div>
           ))}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

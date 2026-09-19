@@ -134,7 +134,7 @@
     scroll-margin-top: calc(var(--header-h) + 1.5rem);
   }
 
-  /* Scroll-reveal used by the mitigation phases. Progressive: content is hidden and
+  /* Scroll-reveal for below-hero items. Progressive: content is hidden and
      rises into view only where `animation-timeline: view()` is supported and motion is
      welcome; otherwise `.rise` is a no-op and the content is visible from the start, so
      it can never be stranded invisible. */
