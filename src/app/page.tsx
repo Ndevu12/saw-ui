@@ -2,7 +2,6 @@ import { SiteHeader } from '@/widgets/site-header/ui/site-header';
 import { Hero } from '@/widgets/hero/ui/hero';
 import { Threat } from '@/widgets/threat/ui/threat';
 import { Mitigation } from '@/widgets/mitigation/ui/mitigation';
-import { Verdict } from '@/widgets/verdict/ui/verdict';
 import { Promises } from '@/widgets/promises/ui/promises';
 import { InstallSection } from '@/widgets/install/ui/install-section';
 import { Wordmark } from '@/shared/ui/wordmark';
@@ -35,8 +34,6 @@ export default async function Home() {
         <Threat />
 
         <Mitigation />
-
-        <Verdict />
 
         <Promises />
 
