@@ -5,16 +5,9 @@ import { Mitigation } from '@/widgets/mitigation/ui/mitigation';
 import { Promises } from '@/widgets/promises/ui/promises';
 import { InstallSection } from '@/widgets/install/ui/install-section';
 import { Wordmark } from '@/shared/ui/wordmark';
-import { InstallLine } from '@/features/copy-command/ui/install-line';
 import { publishedVersion } from '@/shared/lib/version';
 import { ExtLink } from '@/shared/ui/ext-link';
-
-const REPO = 'https://github.com/Ndevu12/stayAwakeBot';
-const DOCS = 'https://saw-docs.ndevuspace.com';
-
-/* One shared measure. The page uses the WIDTH it has rather than pinching content
-   into a narrow column with the viewport left empty on either side. */
-const SHELL = 'mx-auto w-full max-w-[1560px] px-6 sm:px-10 lg:px-16';
+import { shell, site } from '@/shared/config/site';
 
 export default async function Home() {
   const version = await publishedVersion();
@@ -27,20 +20,13 @@ export default async function Home() {
 
       <main id="main" className="header-offset">
         <Hero />
-
-        {/* ── The demonstration. Sections below the hero are converted but NOT yet
-             individually designed — they are being taken one at a time. ────────── */}
-
         <Threat />
-
         <Mitigation />
-
         <Promises />
-
         <InstallSection version={version} />
       </main>
 
-      <footer className={`${SHELL} border-t border-rule py-20`}>
+      <footer className={`${shell} border-t border-rule py-20`}>
         <div className="flex flex-wrap items-start justify-between gap-10">
           <div className="flex flex-col gap-3">
             <a
@@ -56,11 +42,11 @@ export default async function Home() {
           </div>
           <div className="flex flex-wrap gap-x-8 gap-y-4 text-base">
             {[
-              ['Documentation', `${DOCS}/latest/`],
-              ['Trust model', `${DOCS}/latest/explanation/trust-model/`],
-              ['Security', `${REPO}/blob/main/SECURITY.md`],
-              ['PyPI', 'https://pypi.org/project/stayawakebot/'],
-              ['GitHub', REPO],
+              ['Documentation', `${site.docs}/latest/`],
+              ['Trust model', `${site.docs}/latest/explanation/trust-model/`],
+              ['Security', `${site.repo}/blob/main/SECURITY.md`],
+              ['PyPI', site.pypi],
+              ['GitHub', site.repo],
             ].map(([label, href]) => (
               <ExtLink key={label} href={href} className="text-ink-dim transition-colors hover:text-ink-strong">
                 {label}
@@ -83,15 +69,15 @@ export default async function Home() {
 
         <p className="mt-10 max-w-[60ch] text-sm text-ink-faint">
           Dual-licensed{' '}
-          <ExtLink href={`${REPO}/blob/main/LICENSE`} className="text-ink-dim hover:text-ink-strong">
+          <ExtLink href={`${site.repo}/blob/main/LICENSE`} className="text-ink-dim hover:text-ink-strong">
             AGPL-3.0-or-later
           </ExtLink>
           , or{' '}
-          <ExtLink href={`${REPO}/blob/main/COMMERCIAL-LICENSE.md`} className="text-ink-dim hover:text-ink-strong">
+          <ExtLink href={`${site.repo}/blob/main/COMMERCIAL-LICENSE.md`} className="text-ink-dim hover:text-ink-strong">
             commercially
           </ExtLink>{' '}
           for proprietary use —{' '}
-          <a href="mailto:saw@ndevuspace.com" className="text-ink-dim hover:text-ink-strong">
+          <a href={`mailto:${site.email}`} className="text-ink-dim hover:text-ink-strong">
             contact us
           </a>
           .

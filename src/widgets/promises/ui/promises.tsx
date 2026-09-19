@@ -1,5 +1,5 @@
 import { Check } from 'lucide-react';
-import { shell } from '@/shared/config/site';
+import { Section, SectionIntro } from '@/shared/ui/section';
 
 /**
  * What saw guarantees — the load-bearing contracts, stated carefully: what saw
@@ -27,19 +27,12 @@ const CONTRACTS: [string, string][] = [
 
 export function Promises() {
   return (
-    <section className={`${shell} max-w-[1100px] py-24 lg:py-36`}>
-      <div className="mb-14 flex max-w-[54ch] flex-col gap-5">
-        <p className="font-mono text-xs tracking-[0.24em] text-mint uppercase sm:text-sm">
-          What saw guarantees
-        </p>
-        <h2 className="font-display text-3xl leading-tight md:text-4xl 2xl:text-5xl font-bold tracking-tight text-balance text-ink-strong">
-          Narrow enough to trust on anything.
-        </h2>
-        <p className="text-lg leading-relaxed text-ink-dim md:text-xl">
-          saw holds every one of these under every flag. A scanner that can damage a working
-          repository gets uninstalled — so these boundaries are deliberate, not aspirational.
-        </p>
-      </div>
+    <Section band="surface">
+      <SectionIntro
+        eyebrow="What saw guarantees"
+        title="Narrow enough to trust on anything."
+        lead="saw holds every one of these under every flag. A scanner that can damage a working repository gets uninstalled — so these boundaries are deliberate, not aspirational."
+      />
 
       <div className="grid gap-x-14 gap-y-12 md:grid-cols-2">
         {CONTRACTS.map(([title, desc]) => (
@@ -56,6 +49,6 @@ export function Promises() {
           </div>
         ))}
       </div>
-    </section>
+    </Section>
   );
 }

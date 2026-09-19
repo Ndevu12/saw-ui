@@ -1,5 +1,6 @@
 import { RotateCcw } from 'lucide-react';
-import { shell } from '@/shared/config/site';
+import { FlowBeat, FlowBend } from '@/shared/ui/flow-line';
+import { Section, SectionIntro } from '@/shared/ui/section';
 import { Saw } from '@/shared/ui/saw';
 
 /**
@@ -21,53 +22,64 @@ const STAGES: [string, string][] = [
   ['Spreads', 'republishes itself into the next package — then it begins again'],
 ];
 
+function pad(n: number) {
+  return String(n).padStart(2, '0');
+}
+
 export function Threat() {
   return (
-    <section className={`${shell} py-24 lg:py-36`}>
-      <div className="flex max-w-[52ch] flex-col gap-6">
-        <h2 className="font-display text-3xl leading-tight md:text-4xl 2xl:text-5xl font-bold tracking-tight text-balance text-ink-strong">
-          A modern supply-chain attack runs as you. Then it spreads as you.
-        </h2>
-        <p className="text-lg leading-relaxed text-ink-dim md:text-xl">
-          A supply-chain worm doesn&apos;t break in. It arrives inside code you asked for, runs
-          with your own hands, and turns your machine and your credentials against whoever
-          installs the package it poisons next.
-        </p>
-      </div>
+    <Section band="surface">
+      <SectionIntro
+        title="A modern supply-chain attack runs as you."
+        turn="Then it spreads as you."
+        lead={
+          <>
+            A supply-chain worm doesn&apos;t break in. It arrives inside code you asked for, runs
+            with your own hands, and turns your machine and your credentials against whoever
+            installs the package it poisons next.
+          </>
+        }
+      />
 
-      {/* The lifecycle. A mint signal travels through the stages in sequence and loops,
-          because the last stage is the first stage for the next victim. */}
-      <ol className="relative mt-16 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:mt-20 lg:grid-cols-6">
-        {/* the connector line behind the row on wide screens */}
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute top-[22px] right-6 left-6 hidden h-px bg-rule-soft lg:block"
-        />
-        {STAGES.map(([title, desc], i) => (
-          <li key={title} className="relative flex flex-col gap-3">
-            <span
-              className="signal-dot flex size-11 items-center justify-center rounded-full border border-rule bg-surface font-mono text-sm text-mint"
-              style={{ animationDelay: `${i * 0.45}s` }}
-            >
-              {i + 1}
-            </span>
-            <h3 className="font-display text-lg font-semibold tracking-tight text-ink-strong">
-              {title}
-            </h3>
-            <p className="max-w-[26ch] text-sm leading-relaxed text-ink-dim">{desc}</p>
-          </li>
-        ))}
+      <ol>
+        {STAGES.map(([title, desc], i) => {
+          const side = i % 2 === 0 ? 'left' : 'right';
+          const prev = i % 2 === 0 ? 'right' : 'left';
+          return (
+            <li key={title}>
+              {i > 0 ? <FlowBend from={prev} to={side} /> : null}
+              <FlowBeat
+                side={side}
+                n={pad(i + 1)}
+                tone="surface"
+                first={i === 0}
+                last={i === STAGES.length - 1}
+                title={
+                  <h3 className="font-display text-2xl font-bold tracking-tight text-ink-strong">
+                    {title}
+                  </h3>
+                }
+              >
+                <p className="mt-2 max-w-[28ch] text-sm leading-relaxed text-ink-dim md:text-base">
+                  {desc}
+                </p>
+              </FlowBeat>
+            </li>
+          );
+        })}
       </ol>
 
-      <p className="mt-12 flex items-center gap-3 font-mono text-sm text-mint">
+      <p className="mt-14 flex items-center gap-4 font-mono text-sm text-mint">
+        <span aria-hidden className="h-px flex-1 bg-mint/30" />
         <RotateCcw className="size-4 shrink-0" aria-hidden="true" />
         every package it poisons becomes the launchpad for the next
+        <span aria-hidden className="hidden h-px flex-1 bg-mint/30 sm:block" />
       </p>
 
       <p className="mt-14 max-w-[68ch] border-t border-rule-soft pt-8 text-xl leading-relaxed text-ink md:text-2xl">
         <Saw /> hunts it across every surface it can land on — your repositories, lockfiles,
         installed packages, and your machine&apos;s own start-up surface.
       </p>
-    </section>
+    </Section>
   );
 }

@@ -134,7 +134,7 @@
     scroll-margin-top: calc(var(--header-h) + 1.5rem);
   }
 
-  /* Scroll-reveal used by the mitigation phases. Progressive: content is hidden and
+  /* Scroll-reveal for below-hero items. Progressive: content is hidden and
      rises into view only where `animation-timeline: view()` is supported and motion is
      welcome; otherwise `.rise` is a no-op and the content is visible from the start, so
      it can never be stranded invisible. */
@@ -151,14 +151,6 @@
         animation-range: entry 4% cover 26%;
       }
     }
-  }
-
-  /* The threat lifecycle's traveling signal: each stage's marker glows in turn, so a
-     mint pulse appears to move through the cycle. Staggered per stage via inline delay. */
-  .signal-dot { animation: signal 2.7s ease-in-out infinite; }
-  @keyframes signal {
-    0%, 100% { border-color: var(--color-rule); box-shadow: 0 0 0 rgba(128, 225, 171, 0); }
-    50% { border-color: var(--color-mint); box-shadow: 0 0 18px rgba(128, 225, 171, 0.45); }
   }
 
   /* Entrance reveal, in CSS rather than JS.
