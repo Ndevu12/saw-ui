@@ -21,9 +21,8 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE),
   title: 'saw — supply-chain worm hunter',
   description:
-    'saw hunts self-propagating supply-chain malware in your repositories, lockfiles and ' +
-    'installed dependencies, remediates through a pull request, and gates CI. Offline by ' +
-    'default. The exit code is the verdict.',
+    'saw hunts supply-chain worms in repositories, lockfiles, installed packages and on the ' +
+    'host, remediates on a pull request, hardens the machine, and gates CI.',
   applicationName: 'saw',
   authors: [{ name: 'Jean Paul Elisa NIYOKWIZERWA' }],
   openGraph: {
@@ -32,8 +31,8 @@ export const metadata: Metadata = {
     siteName: 'saw',
     title: 'saw — supply-chain worm hunter',
     description:
-      'Offline-first supply-chain worm scanner and sentinel. Detect, remediate on a branch, ' +
-      'and gate CI. The exit code is the verdict.',
+      'saw hunts supply-chain worms in repositories, lockfiles, installed packages and on the ' +
+      'host, remediates on a pull request, hardens the machine, and gates CI.',
   },
   twitter: { card: 'summary_large_image', title: 'saw — supply-chain worm hunter' },
   robots: { index: true, follow: true },

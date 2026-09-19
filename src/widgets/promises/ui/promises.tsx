@@ -2,26 +2,25 @@ import { Check } from 'lucide-react';
 import { Section, SectionIntro } from '@/shared/ui/section';
 
 /**
- * What saw guarantees — the load-bearing contracts, stated carefully: what saw
- * is allowed to change and what it will not touch. These are obligations the
- * code enforces, not features. Outcome-level only, per the disclosure rules.
+ * The work, named. Not a list of things saw refuses — the four facts the
+ * commands are. Outcome-level only, per the disclosure rules.
  */
-const CONTRACTS: [string, string][] = [
+const POINTS: [string, string][] = [
   [
-    'Read-only means read-only',
-    'saw scan never modifies a file, under any flag. Remediation lives in a separate command, so no one can trip into it.',
+    'scan reads. fix writes.',
+    'The hunt is one command. The clean is another, and it opens a pull request.',
   ],
   [
-    "A target saw can't scan is never called clean",
-    "Silence has two causes and only one is good news. Where saw can't be sure, it says so and exits non-zero — never the comfortable answer.",
+    'The hunt is the tree and the host.',
+    'Repositories, lockfiles, installed packages, and the machine\'s start-up surface.',
   ],
   [
-    "Your allowlist, never the target's",
-    "Suppressions come from one config you choose. A repository can't ship an allowlist that excuses its own payload.",
+    'Git events are scanned as they land.',
+    'A clone, a pull, a branch switch or a rebase — what just landed is scanned before you run it.',
   ],
   [
-    'Nothing lands without your merge',
-    'On an infected verdict the gate opens the fix as a pull request and stays red until you merge it. Remediation opens the fix; it never makes the check pass.',
+    'The host is hardened. The merge is gated.',
+    'saw harden on this machine. saw guard on the pull request.',
   ],
 ];
 
@@ -29,13 +28,13 @@ export function Promises() {
   return (
     <Section band="surface">
       <SectionIntro
-        eyebrow="What saw guarantees"
-        title="Narrow enough to trust on anything."
-        lead="saw holds every one of these under every flag. A scanner that can damage a working repository gets uninstalled — so these boundaries are deliberate, not aspirational."
+        eyebrow="What the commands do"
+        title="The hunt, the clean, the host, the gate."
+        lead="Four commands. One job."
       />
 
       <div className="grid gap-x-14 gap-y-12 md:grid-cols-2">
-        {CONTRACTS.map(([title, desc]) => (
+        {POINTS.map(([title, desc]) => (
           <div key={title} className="rise flex gap-4">
             <span className="mt-1 flex size-6 shrink-0 items-center justify-center rounded-full border border-mint/40 text-mint">
               <Check className="size-3.5" aria-hidden="true" />

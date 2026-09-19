@@ -8,8 +8,7 @@ import { cn } from '@/shared/lib/utils';
 /**
  * The primary call to action is a command, not a form.
  *
- * The smallest possible first act, and a provably harmless one — which is why the copy
- * beside it says a scan never writes a file. There is no email capture anywhere on this
+ * The smallest possible first act. There is no email capture anywhere on this
  * site, and the page ends on this same line.
  */
 export function InstallLine({ command, className }: { command: string; className?: string }) {

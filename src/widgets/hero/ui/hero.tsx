@@ -17,10 +17,9 @@ import { Saw } from '@/shared/ui/saw';
  *
  * 2. NEVER CLAIM PAST THE CONTRACT. "It runs entirely offline" shipped briefly and
  *    was false: the same sentence says it opens pull requests and gates CI, which
- *    need the network. The docs' actual promise is scoped — a default `saw scan`
- *    needs no network, no configuration and no credential; only `-x` leaves the
- *    sandbox. The offline claim belongs to the HUNT, and the copy must carry that
- *    scope. Overclaiming is the one thing this audience never forgives.
+ *    need the network. Do not advertise the hunt as "needs no network" either —
+ *    that is a defense, not a point. Name the work. Overclaiming is the one thing
+ *    this audience never forgives.
  *
  * 3. Clear is not the same as generic. An earlier headline ("It ran before you read
  *    it.") was clever but referred to nothing the reader knew yet; the correction to
@@ -64,9 +63,9 @@ export function Hero() {
             <InstallLine command={site.install} />
             <ul className="flex flex-col gap-2 font-mono text-xs text-mint sm:text-sm">
               {[
-                'zero code runs at install',
-                'a scan needs no network, no account',
-                'a scan never changes a file',
+                'the repo, the lockfile, the install, and the host',
+                'the fix opens as a pull request',
+                'the host is hardened; the merge is gated',
               ].map((line) => (
                 <li key={line} className="flex items-center gap-2.5">
                   <Check className="size-3.5 shrink-0" aria-hidden="true" />

@@ -21,10 +21,10 @@ const PHASES: {
     name: 'Detect',
     meaning: 'Find it wherever it landed — in the code, on the machine, and the moment git brings it in.',
     verbs: [
-      { cmd: 'saw scan', blurb: 'Repositories, lockfiles and installed packages. Read-only, always — its exit code is the verdict.' },
+      { cmd: 'saw scan', blurb: 'Repositories, lockfiles and installed packages. The last line of the report is the verdict.' },
       {
         cmd: 'saw hook',
-        blurb: 'A clone, a pull, a branch switch or a rebase — what just landed is scanned before you run it. It warns; it never changes the tree.',
+        blurb: 'A clone, a pull, a branch switch or a rebase — what just landed is scanned before you run it.',
       },
       { cmd: 'saw audit', blurb: 'The machine itself: cached credentials, editor settings, and what runs at start-up.' },
     ],
@@ -32,9 +32,9 @@ const PHASES: {
   {
     n: '02',
     name: 'Remediate',
-    meaning: 'Clean it on your terms, never behind your back.',
+    meaning: 'Clean it on a pull request you merge.',
     verbs: [
-      { cmd: 'saw fix', blurb: 'Recovers the real previous version from your git history onto a pull request. It never rewrites history, and nothing lands without your merge.' },
+      { cmd: 'saw fix', blurb: 'Recovers the previous version from your git history onto a pull request. You merge it.' },
     ],
   },
   {
@@ -49,7 +49,7 @@ const PHASES: {
       },
       {
         cmd: 'saw guard',
-        blurb: 'Installs the CI gate and proves branch protection actually requires it — so an infected change cannot merge in the first place.',
+        blurb: 'Installs the CI gate and proves branch protection requires it. An infected change stays off main until you merge the fix.',
       },
     ],
   },

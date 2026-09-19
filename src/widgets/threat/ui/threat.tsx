@@ -30,13 +30,12 @@ export function Threat() {
   return (
     <Section band="surface">
       <SectionIntro
-        title="A modern supply-chain attack runs as you."
+        title="A supply-chain attack runs as you."
         turn="Then it spreads as you."
         lead={
           <>
-            A supply-chain worm doesn&apos;t break in. It arrives inside code you asked for, runs
-            with your own hands, and turns your machine and your credentials against whoever
-            installs the package it poisons next.
+            It arrives inside code you asked for, runs with your own hands, and turns your machine
+            and your credentials against whoever installs the package it poisons next.
           </>
         }
       />
