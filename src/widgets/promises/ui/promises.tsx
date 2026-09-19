@@ -2,25 +2,25 @@ import { Check } from 'lucide-react';
 import { Section, SectionIntro } from '@/shared/ui/section';
 
 /**
- * The work, named. Not a list of things saw refuses — the four facts the
- * commands are. Outcome-level only, per the disclosure rules.
+ * The work, named as jobs. Not a list of things saw refuses. Outcome-level
+ * only. Commands live on the docs site.
  */
 const POINTS: [string, string][] = [
   [
-    'scan reads. fix writes.',
-    'The hunt is one command. The clean is another, and it opens a pull request.',
+    'Finding it is one step. Repairing it is another.',
+    'One step reports what it found. The next prepares a change you review before it is accepted.',
   ],
   [
-    'The hunt is the tree and the host.',
-    'Repositories, lockfiles, installed packages, and the machine\'s start-up surface.',
+    'The check covers the project and this computer.',
+    'Your project, the packages it uses, the packages already on the computer, and what starts when the computer starts.',
   ],
   [
-    'Git events are scanned as they land.',
-    'A clone, a pull, a branch switch or a rebase — what just landed is scanned before you run it.',
+    'New copies of the project are checked as they arrive.',
+    'When you download or update the project, what just arrived is checked before you run it.',
   ],
   [
-    'The host is hardened. The merge is gated.',
-    'saw harden on this machine. saw guard on the pull request.',
+    'This computer is locked down. New code is checked before it becomes official.',
+    'The computer first. Then the check on new code.',
   ],
 ];
 
@@ -28,9 +28,9 @@ export function Promises() {
   return (
     <Section band="surface">
       <SectionIntro
-        eyebrow="What the commands do"
-        title="The hunt, the clean, the host, the gate."
-        lead="Four commands. One job."
+        eyebrow="What it does"
+        title="Find it. Repair it. Lock the computer. Check new code."
+        lead="Four jobs. That is the product."
       />
 
       <div className="grid gap-x-14 gap-y-12 md:grid-cols-2">
