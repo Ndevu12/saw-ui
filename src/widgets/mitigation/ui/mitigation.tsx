@@ -1,4 +1,4 @@
-import { FlowNode, FlowZag } from '@/shared/ui/flow-line';
+import { FlowBeat, FlowBend } from '@/shared/ui/flow-line';
 import { Section, SectionIntro } from '@/shared/ui/section';
 import { cn } from '@/shared/lib/utils';
 
@@ -52,21 +52,26 @@ export function Mitigation() {
       />
 
       <ol>
-        {PHASES.map((phase, i) => (
-          <li key={phase.name}>
-            {i > 0 ? <FlowZag /> : null}
-            <div className="grid gap-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-16">
-              <div className="flex flex-col gap-4">
-                <div className="flex h-14 items-center">
-                  <FlowNode n={phase.n} tone="ground" />
-                </div>
+        {PHASES.map((phase, i) => {
+          const side = i % 2 === 0 ? 'left' : 'right';
+          const prev = i % 2 === 0 ? 'right' : 'left';
+          return (
+            <li key={phase.name}>
+              {i > 0 ? <FlowBend from={prev} to={side} /> : null}
+              <FlowBeat
+                side={side}
+                n={phase.n}
+                tone="ground"
+                first={i === 0}
+                last={i === PHASES.length - 1}
+              >
                 <h3 className="font-display text-3xl font-bold tracking-tight text-ink-strong md:text-4xl">
                   {phase.name}
                 </h3>
-              </div>
-              <div className="flex flex-col justify-end gap-8">
-                <p className="max-w-[44ch] text-xl leading-relaxed text-ink-dim">{phase.meaning}</p>
-                <div className={cn('grid gap-8', phase.verbs.length > 1 && 'sm:grid-cols-2')}>
+                <p className="mt-3 max-w-[44ch] text-lg leading-relaxed text-ink-dim md:text-xl">
+                  {phase.meaning}
+                </p>
+                <div className={cn('mt-6 grid gap-6', phase.verbs.length > 1 && 'sm:grid-cols-2')}>
                   {phase.verbs.map(([cmd, desc]) => (
                     <div key={cmd} className="flex flex-col gap-2">
                       <span className="font-mono text-base text-mint">{cmd}</span>
@@ -74,10 +79,10 @@ export function Mitigation() {
                     </div>
                   ))}
                 </div>
-              </div>
-            </div>
-          </li>
-        ))}
+              </FlowBeat>
+            </li>
+          );
+        })}
       </ol>
     </Section>
   );

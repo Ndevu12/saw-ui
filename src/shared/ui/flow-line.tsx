@@ -1,84 +1,104 @@
+import type { ReactNode } from 'react';
 import { cn } from '@/shared/lib/utils';
 
 const stroke =
   'flow-draw fill-none stroke-mint/45 [stroke-linecap:round] [stroke-linejoin:round]';
 
+const PAGE = { left: 32, right: 68 } as const;
+const RAIL = 22;
+
 /**
- * Horizontal run through a row of nodes. Centres sit at 1/2N, 3/2N, … of the row.
+ * A vertical beat: the action sits on the path. On a wide screen the node
+ * follows the warp (left or right); on a small screen the node stays on a
+ * left rail and only the stroke swings.
  */
-export function FlowRun({ cols }: { cols: 2 | 3 }) {
-  const d = cols === 3 ? 'M 16.667 28 H 83.333' : 'M 25 28 H 75';
+export function FlowBeat({
+  side,
+  n,
+  tone,
+  first = false,
+  last = false,
+  children,
+}: {
+  side: 'left' | 'right';
+  n: string;
+  tone: 'ground' | 'surface';
+  first?: boolean;
+  last?: boolean;
+  children: ReactNode;
+}) {
   return (
-    <svg
-      aria-hidden
-      viewBox="0 0 100 56"
-      preserveAspectRatio="none"
-      className="pointer-events-none absolute inset-x-0 top-0 h-14 w-full"
-    >
-      <path pathLength="1" className={stroke} d={d} strokeWidth="2" vectorEffect="non-scaling-stroke" />
-    </svg>
+    <div>
+      <div className="flex items-start gap-5 lg:hidden">
+        <FlowNode n={n} tone={tone} />
+        <div className="min-w-0 pt-1.5">{children}</div>
+      </div>
+      <div
+        className={cn(
+          'hidden lg:grid lg:grid-cols-[minmax(0,1fr)_3.5rem_minmax(0,1fr)] lg:items-stretch lg:gap-x-10',
+          side === 'left' ? '-translate-x-[18%]' : 'translate-x-[18%]',
+        )}
+      >
+        <div className="flex items-center">{side === 'right' ? children : null}</div>
+        <div className="relative flex items-center justify-center">
+          <span
+            aria-hidden
+            className={cn(
+              'absolute left-1/2 w-0.5 -translate-x-px bg-mint/45',
+              first && last && 'hidden',
+              first && !last && 'top-1/2 bottom-0',
+              !first && last && 'top-0 bottom-1/2',
+              !first && !last && 'inset-y-0',
+            )}
+          />
+          <FlowNode n={n} tone={tone} />
+        </div>
+        <div className="flex items-center">{side === 'left' ? children : null}</div>
+      </div>
+    </div>
   );
 }
 
 /**
- * The fold between two runs: down, across, down. That Z is the flow.
+ * The stroke between two beats. It is never a straight drop — it curves
+ * toward the side the next action lives on.
  */
-export function FlowFold({ cols }: { cols: 2 | 3 }) {
-  const from = cols === 3 ? 83.333 : 75;
-  const to = cols === 3 ? 16.667 : 25;
+export function FlowBend({
+  from,
+  to,
+}: {
+  from: 'left' | 'right';
+  to: 'left' | 'right';
+}) {
+  const bulge = to === 'right' ? 78 : 8;
   return (
-    <svg
-      aria-hidden
-      viewBox="0 0 100 64"
-      preserveAspectRatio="none"
-      className="h-16 w-full"
-    >
-      <path
-        pathLength="1"
-        className={stroke}
-        d={`M ${from} 0 V 32 H ${to} V 64`}
-        strokeWidth="2"
-        vectorEffect="non-scaling-stroke"
-      />
-    </svg>
-  );
-}
-
-/**
- * One-column jog: the line steps sideways then returns, so a stack still reads as a path.
- */
-export function FlowJog({ toward }: { toward: 'left' | 'right' }) {
-  const x = toward === 'left' ? 22 : 78;
-  return (
-    <svg
-      aria-hidden
-      viewBox="0 0 100 64"
-      preserveAspectRatio="none"
-      className="h-16 w-full max-w-[11rem]"
-    >
-      <path
-        pathLength="1"
-        className={stroke}
-        d={`M 50 0 V 16 H ${x} V 48 H 50 V 64`}
-        strokeWidth="2"
-        vectorEffect="non-scaling-stroke"
-      />
-    </svg>
-  );
-}
-
-/**
- * Full-measure zag between two left-sitting nodes. `left-7` is the centre of
- * the 3.5rem node, so the stroke actually meets it.
- */
-export function FlowZag() {
-  return (
-    <div aria-hidden className="relative h-24 w-full">
-      <span className="absolute top-0 left-7 h-1/3 w-0.5 bg-mint/45" />
-      <span className="absolute top-1/3 right-7 left-7 h-0.5 bg-mint/45" />
-      <span className="absolute top-1/3 right-7 h-1/3 w-0.5 bg-mint/45" />
-      <span className="absolute top-2/3 right-7 left-7 h-0.5 bg-mint/45" />
-      <span className="absolute top-2/3 bottom-0 left-7 w-0.5 bg-mint/45" />
+    <div aria-hidden>
+      <svg
+        viewBox="0 0 100 96"
+        preserveAspectRatio="none"
+        className="h-24 w-32 lg:hidden"
+      >
+        <path
+          pathLength="1"
+          className={stroke}
+          d={`M ${RAIL} 0 C ${RAIL} 28, ${bulge} 40, ${bulge} 48 C ${bulge} 56, ${RAIL} 68, ${RAIL} 96`}
+          strokeWidth="2"
+          vectorEffect="non-scaling-stroke"
+        />
+      </svg>
+      <svg
+        viewBox="0 0 100 128"
+        preserveAspectRatio="none"
+        className="hidden h-32 w-full lg:block"
+      >
+        <path
+          pathLength="1"
+          className={stroke}
+          d={`M ${PAGE[from]} 0 C ${PAGE[from] - (from === 'left' ? 8 : -8)} 48, ${PAGE[to] + (to === 'left' ? -8 : 8)} 52, ${PAGE[to]} 128`}
+          strokeWidth="2"
+          vectorEffect="non-scaling-stroke"
+        />
+      </svg>
     </div>
   );
 }
@@ -93,7 +113,7 @@ export function FlowNode({
   return (
     <span
       className={cn(
-        'relative z-10 flex size-14 items-center justify-center rounded-full border border-mint/40 font-display text-base font-bold text-mint',
+        'relative z-10 flex size-14 shrink-0 items-center justify-center rounded-full border border-mint/40 font-display text-base font-bold text-mint',
         tone === 'surface' ? 'bg-surface' : 'bg-ground',
       )}
     >
